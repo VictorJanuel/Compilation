@@ -1,5 +1,5 @@
 %{
-
+#include "table.h"
 %}
 
 %start ope_unaire
@@ -7,7 +7,7 @@
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     {return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     {yylval=insererLexeme(yytext); return(PROG);}
 
 begin           {return (DEBUT);}
 end             {return (FIN);}
@@ -67,7 +67,7 @@ else            {return (SINON);}
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9]*    {BEGIN 0; return (IDF);}
+[a-zA-Z][a-zA-Z0-9]*    {BEGIN 0; yylval=insererLexeme(yytext); return (IDF);}
 0|[1-9][0-9]*           {BEGIN 0; return (CSTE_ENTIERE);}
 
 \n              {BEGIN 0; ;}
