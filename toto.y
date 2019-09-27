@@ -1,5 +1,5 @@
 %{
-
+LOL
 %}
 
 %token PROG POINT_VIRGULE ACCOLADE_OUVRANTE
