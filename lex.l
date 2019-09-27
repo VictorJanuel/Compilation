@@ -37,22 +37,25 @@ if              {return (SI);}
 then            {return (ALORS);}
 else            {return (SINON);}
 
-\!=             {BEGIN ope_unaire; return (OPDIFF);}
-\>=             {BEGIN ope_unaire; return (OPSUPE);}
-\<=             {BEGIN ope_unaire; return (OPINFE);}
-==              {BEGIN ope_unaire; return (OPEG);}
-\>              {BEGIN ope_unaire; return (OPSUP);}
-\<              {BEGIN ope_unaire; return (OPINF);}
+\&\&            {return (ET);}
+\|\|            {return (OU);}
 
-\%              {BEGIN ope_unaire; return (MOD);}
-\/              {BEGIN ope_unaire; return (DIV);}
-\*              {BEGIN ope_unaire; return (MULT);}
-\!              {BEGIN ope_unaire; return (NOT);}
-\-              {BEGIN ope_unaire; return(MOINS);}
-<ope_unaire>\-  {BEGIN 0; return(NEG);}
-\+              {BEGIN ope_unaire; return(PLUS);}
-<ope_unaire>\+  {BEGIN 0; return(POS);}
-=               {BEGIN ope_unaire; return (OPAFF);}
+\!=             {return (OPDIFF);}
+\>=             {return (OPSUPE);}
+\<=             {return (OPINFE);}
+==              {return (OPEG);}
+\>              {return (OPSUP);}
+\<              {return (OPINF);}
+
+\%              {return (MOD);}
+\/              {return (DIV);}
+\*              {return (MULT);}
+\!              {return (NOT);}
+\-              {return(MOINS);}
+<ope_unaire>\-  {return(NEG);}
+\+              {return(PLUS);}
+<ope_unaire>\+  {return(POS);}
+=               {return (OPAFF);}
 
 \.              {return (POINT);}
 \,              {return (VIRGULE);}
@@ -60,17 +63,17 @@ else            {return (SINON);}
 \:              {return (DEUX_POINTS);}
 
 \)              {return (PARENTHESE_FERMANTE);}
-\(              {BEGIN ope_unaire; return (PARENTHESE_OUVRANTE);}
+\(              {return (PARENTHESE_OUVRANTE);}
 \]              {return (CROCHET_FERMANT);}
 \[              {return (CROCHET_OUVRANT);}
 
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9]*    {BEGIN 0; yylval=insererLexeme(yytext); return (IDF);}
-0|[1-9][0-9]*           {BEGIN 0; return (CSTE_ENTIERE);}
+[a-zA-Z][a-zA-Z0-9]*    {yylval=insererLexeme(yytext); return (IDF);}
+0|[1-9][0-9]*           {return (CSTE_ENTIERE);}
 
-\n              {BEGIN 0; ;}
+\n              { ;}
 
 %%
 

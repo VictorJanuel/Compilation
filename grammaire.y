@@ -11,7 +11,7 @@
 %token SI ALORS SINON TANT_QUE FAIRE OPAFF
 %token OPEG OPINF OPSUP OPINFE OPSUPE OPDIFF 
 %token NEG POS NOT PLUS MOINS MULT DIV MOD
-%token TRUE FALSE
+%token ET OU TRUE FALSE
 
 %%
 
@@ -53,7 +53,7 @@ liste_dimensions            : une_dimension
                             | liste_dimensions VIRGULE une_dimension
                             ;
 
-une_dimension               : expression POINT POINT expression
+une_dimension               : ea1 POINT POINT ea1
                             ;
 
 liste_champs                : un_champ
@@ -120,22 +120,22 @@ liste_args                  : un_arg
 un_arg                      : expression
                             ;
 
-condition                   : SI expression ALORS liste_instructions SINON liste_instructions
+condition                   : SI ev1 ALORS liste_instructions SINON liste_instructions
                             ;
 
-tant_que                    : TANT_QUE expression FAIRE liste_instructions
+tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
                             ;
 
 affectation                 : variable OPAFF expression
                             ;
 
 variable                    : IDF suite_var
-                            | tableau suite_var
                             | IDF
                             ;
 
 suite_var                   :  
                             | POINT variable
+                            | CROCHET_OUVRANT ea1 CROCHET_FERMANT suite_var
                             ;
 
 expression                  :ea1
@@ -152,12 +152,12 @@ ea2                         : ea2 MULT ea3
                             | ea3
                             ;
           
-ea3                         : NEG ea4
-                            | POS ea4
+ea3                         : MOINS ea4
+                            | PLUS ea4
                             | ea4
                             ;
 
-ea4                         : PARENTHESE_OUVRANTE expression PARENTHESE_FERMANTE
+ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE
                             | variable
                             | CSTE_ENTIERE
                             ;
@@ -174,18 +174,18 @@ eb3                         : NOT eb4
                             | eb4
                             ;
 
-eb4                         : PARENTHESE_OUVRANTE expression PARENTHESE_FERMANTE
+eb4                         : PARENTHESE_OUVRANTE eb1 PARENTHESE_FERMANTE
                             | TRUE
                             | FALSE
                             | comparaison
                             | IDF
                             ;
 
-comparaison                 : expression OPEG expression
-                            | expression OPINF expression
-                            | expression OPSUP expression
-                            | expression OPINFE expression
-                            | expression OPSUPE expression
-                            | expression OPDIFF expression
+comparaison                 : ea1 OPEG ea1
+                            | ea1 OPINF ea1
+                            | ea1 OPSUP ea1
+                            | ea1 OPINFE ea1
+                            | ea1 OPSUPE ea1
+                            | ea1 OPDIFF ea1
                             ;
 %%
