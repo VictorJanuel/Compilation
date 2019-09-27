@@ -3,7 +3,6 @@
 %}
 
 %start ope_unaire
-%start
 
 %%
 
@@ -52,9 +51,7 @@ else            {return (SINON);}
 \*              {return (MULT);}
 \!              {return (NOT);}
 \-              {return(MOINS);}
-<ope_unaire>\-  {return(NEG);}
 \+              {return(PLUS);}
-<ope_unaire>\+  {return(POS);}
 =               {return (OPAFF);}
 
 \.              {return (POINT);}

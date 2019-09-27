@@ -102,7 +102,7 @@ instruction                 : affectation
                             | RETOURNE resultat_retourne
                             ;
 
-resultat_retourne           :
+resultat_retourne           : 
                             | expression
                             ;
 
@@ -129,13 +129,21 @@ tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
 affectation                 : variable OPAFF expression
                             ;
 
-variable                    : IDF suite_var
-                            | IDF
+variable                    : v1
+                            | v2 
                             ;
 
-suite_var                   :  
-                            | POINT variable
-                            | CROCHET_OUVRANT ea1 CROCHET_FERMANT suite_var
+v1                          : IDF
+                            ;
+
+v2                          : vstruct
+                            | vtab
+                            ;
+
+vstruct                     : POINT variable
+                            ;
+
+vtab                        : CROCHET_OUVRANT ea1 CROCHET_FERMANT v2
                             ;
 
 expression                  : ea1
@@ -178,7 +186,6 @@ eb4                         : PARENTHESE_OUVRANTE eb1 PARENTHESE_FERMANTE
                             | TRUE
                             | FALSE
                             | comparaison
-                            | IDF
                             ;
 
 comparaison                 : ea1 OPEG ea1
