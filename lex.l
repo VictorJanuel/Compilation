@@ -3,7 +3,6 @@
 %}
 
 %start ope_unaire
-%start
 
 %%
 
@@ -37,6 +36,9 @@ if              {return (SI);}
 then            {return (ALORS);}
 else            {return (SINON);}
 
+\&\&              {BEGIN ope_unaire; return (ET);}
+\|\|              {BEGIN ope_unaire; return (OU);}
+
 \!=             {BEGIN ope_unaire; return (OPDIFF);}
 \>=             {BEGIN ope_unaire; return (OPSUPE);}
 \<=             {BEGIN ope_unaire; return (OPINFE);}
@@ -49,9 +51,7 @@ else            {return (SINON);}
 \*              {BEGIN ope_unaire; return (MULT);}
 \!              {BEGIN ope_unaire; return (NOT);}
 \-              {BEGIN ope_unaire; return(MOINS);}
-<ope_unaire>\-  {BEGIN 0; return(NEG);}
 \+              {BEGIN ope_unaire; return(PLUS);}
-<ope_unaire>\+  {BEGIN 0; return(POS);}
 =               {BEGIN ope_unaire; return (OPAFF);}
 
 \.              {return (POINT);}

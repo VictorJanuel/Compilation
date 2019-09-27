@@ -11,7 +11,7 @@
 %token SI ALORS SINON TANT_QUE FAIRE OPAFF
 %token OPEG OPINF OPSUP OPINFE OPSUPE OPDIFF 
 %token NEG POS NOT PLUS MOINS MULT DIV MOD
-%token TRUE FALSE
+%token ET OU TRUE FALSE
 
 %%
 
@@ -130,12 +130,12 @@ affectation                 : variable OPAFF expression
                             ;
 
 variable                    : IDF suite_var
-                            | tableau suite_var
                             | IDF
                             ;
 
 suite_var                   :  
                             | POINT variable
+                            | CROCHET_OUVRANT expression CROCHET_FERMANT suite_var
                             ;
 
 expression                  :ea1
