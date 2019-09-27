@@ -110,7 +110,7 @@ appel                       : IDF liste_arguments
                             ;
 
 liste_arguments             :
-                            |  PARENTHESE_OUVRANTE liste_args PARENTHESE_FERMANTE
+                            | PARENTHESE_OUVRANTE liste_args PARENTHESE_FERMANTE
                             ;
 
 liste_args                  : un_arg
@@ -120,7 +120,7 @@ liste_args                  : un_arg
 un_arg                      : expression
                             ;
 
-condition                   : SI ev1 ALORS liste_instructions SINON liste_instructions
+condition                   : SI eb1 ALORS liste_instructions SINON liste_instructions
                             ;
 
 tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
@@ -138,8 +138,8 @@ suite_var                   :
                             | CROCHET_OUVRANT ea1 CROCHET_FERMANT suite_var
                             ;
 
-expression                  :ea1
-                            |eb1
+expression                  : ea1
+                            | eb1
                             ;
 
 ea1                         : ea1 PLUS ea2
