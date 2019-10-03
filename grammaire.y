@@ -1,5 +1,5 @@
 %{
-
+extern int yylex();
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN

@@ -64,7 +64,7 @@
 /* Copy the first part of user declarations.  */
 #line 1 "grammaire.y" /* yacc.c:339  */
 
-
+extern int yylex();
 
 #line 70 "y.tab.c" /* yacc.c:339  */
 
