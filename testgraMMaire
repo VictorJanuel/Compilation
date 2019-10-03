@@ -1,0 +1,45 @@
+main Test123
+var maVar : int;
+type maStruct3578bc3 :
+	struct
+		champ_2_ble : int;
+		champ_2_mais : float;
+		champ2canne : char 
+	end struct;
+begin
+	maVar = toto;
+	etcr;
+	f(3.456,0);
+	if (mamansi == -45.17) || (destrucs > moinsdetrucs) && true then
+	begin		
+		destrucs = destrucs + 1;
+	end
+	else
+	begin	
+		moinsdetrucs = moinsdetrucs - 1;
+	end;
+        void;
+        toto[toto[toto[45]]][a[toto[toto[45]]]] = 45;
+        v1->t[toto[a->a][b]]->dude = 4;
+        h = rentredestrucs - toutca;
+
+        while a > c || b < d do
+        begin
+                i1;
+                i2;
+                i3;
+                i4;
+                if(a-b >= a-c) then
+                begin
+                        a[0] = t;
+                        a[1] = o;
+                        a[2] = t;
+                        a[3] = o;
+                        b = 56;
+                end
+                else
+                begin
+                       void;
+                end;   
+        end;
+end

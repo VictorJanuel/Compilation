@@ -1,17 +1,26 @@
 %{
-
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "y.tab.h"
+    extern int numligne;
+    extern char * yytext;
+    
+    extern int yylex();
+    extern int yyerror();
+    extern int yylval;
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN
 %token TYPE IDF DEUX_POINTS STRUCT FSTRUCT
 %token TABLEAU DE CROCHET_OUVRANT CROCHET_FERMANT 
-%token VIRGULE POINT VARIABLE PROCEDURE FONCTION
-%token ENTIER REEL BOOLEEN CHAINE CARACTERE CSTE_ENTIERE
+%token VIRGULE POINT FLECHE VARIABLE PROCEDURE FONCTION
+%token ENTIER REEL BOOLEEN CHAINE CARACTERE CSTE_ENTIERE CSTE_REELLE
 %token PARENTHESE_FERMANTE PARENTHESE_OUVRANTE VIDE RETOURNE
 %token SI ALORS SINON TANT_QUE FAIRE OPAFF
 %token OPEG OPINF OPSUP OPINFE OPSUPE OPDIFF 
 %token NEG POS NOT PLUS MOINS MULT DIV MOD
 %token ET OU TRUE FALSE
+%token ERROR_LEXICO
 
 %%
 
@@ -26,7 +35,7 @@ liste_declarations          : declaration POINT_VIRGULE
                             | liste_declarations declaration POINT_VIRGULE
                             ;
 
-liste_instructions          : DEBUT suite_liste_inst FIN
+liste_instructions          : DEBUT suite_liste_inst FIN {printf("olol g fini\n");}
                             ;
 
 suite_liste_inst            : instruction POINT_VIRGULE
@@ -129,22 +138,16 @@ tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
 affectation                 : variable OPAFF expression
                             ;
 
-variable                    : v1
-                            | v2 
+variable                    : IDF
+                            | IDF vtab
+                            | IDF FLECHE variable
+                            | IDF vtab FLECHE variable
                             ;
 
-v1                          : IDF
+vtab                        : vtab CROCHET_OUVRANT ea1 CROCHET_FERMANT
+                            | CROCHET_OUVRANT ea1 CROCHET_FERMANT
                             ;
 
-v2                          : vstruct
-                            | vtab
-                            ;
-
-vstruct                     : POINT variable
-                            ;
-
-vtab                        : CROCHET_OUVRANT ea1 CROCHET_FERMANT v2
-                            ;
 
 expression                  : ea1
                             | eb1
@@ -168,6 +171,7 @@ ea3                         : MOINS ea4
 ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE
                             | variable
                             | CSTE_ENTIERE
+                            | CSTE_REELLE
                             ;
 
 eb1                         : eb1 OU eb2
@@ -196,3 +200,8 @@ comparaison                 : ea1 OPEG ea1
                             | ea1 OPDIFF ea1
                             ;
 %%
+
+int yyerror(){
+    printf("erreur ligne %d\n", numligne);
+}
+

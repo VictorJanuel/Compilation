@@ -1,5 +1,11 @@
 %{
+#include <stdlib.h>
+#include <stdio.h>
+#include "y.tab.h"
 #include "table.h"
+
+int numligne=1;
+int yylex();
 %}
 
 %start ope_unaire
@@ -8,7 +14,7 @@
 
 ^main[ ][a-zA-Z][a-zA-Z0-9]*     {yylval=insererLexeme(yytext); return(PROG);}
 
-begin           {return (DEBUT);}
+begin           {printf("begin\n"); return (DEBUT);}
 end             {return (FIN);}
 
 type            {return (TYPE);}
@@ -18,7 +24,7 @@ end[ ]struct    {return (FSTRUCT);}
 array           {return (TABLEAU);}
 of              {return (DE);}
 
-var             {return (VARIABLE);}
+var             {printf("je suis passé");return (VARIABLE);}
 procedure       {return (PROCEDURE);}
 function        {return (FONCTION);}
 return          {return (RETOURNE);}
@@ -39,6 +45,7 @@ else            {return (SINON);}
 \&\&            {return (ET);}
 \|\|            {return (OU);}
 
+
 \!=             {return (OPDIFF);}
 \>=             {return (OPSUPE);}
 \<=             {return (OPINFE);}
@@ -52,25 +59,29 @@ else            {return (SINON);}
 \!              {return (NOT);}
 \-              {return(MOINS);}
 \+              {return(PLUS);}
-=               {return (OPAFF);}
+=               {printf("EGALE\n");return (OPAFF);}
 
-\.              {return (POINT);}
+\.              {printf("KIM DOTCOM");return (POINT);}
+\-\>            {printf("Robin des Bois\n"); return(FLECHE);}
 \,              {return (VIRGULE);}
-\;              {return (POINT_VIRGULE);}
+\;              {printf("J4AI FINI MAMAN!\n");return (POINT_VIRGULE);}
 \:              {return (DEUX_POINTS);}
 
 \)              {return (PARENTHESE_FERMANTE);}
 \(              {return (PARENTHESE_OUVRANTE);}
-\]              {return (CROCHET_FERMANT);}
-\[              {return (CROCHET_OUVRANT);}
+\]              {printf("C F\n");return (CROCHET_FERMANT);}
+\[              {printf("C O\n");return (CROCHET_OUVRANT);}
 
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9]*    {yylval=insererLexeme(yytext); return (IDF);}
-0|[1-9][0-9]*           {return (CSTE_ENTIERE);}
+[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); yylval=insererLexeme(yytext); return (IDF);}
+0|[1-9][0-9]*            {printf("AINTE");return (CSTE_ENTIERE);}
+0|[1-9][0-9]*\.[0-9]*           {return (CSTE_REELLE);}
+\n              {numligne++;}
+[ ]*            {printf("lul\n");}
+\t*             {;}
 
-\n              { ;}
-
+.               {return (ERROR_LEXICO);}
 %%
 

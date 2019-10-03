@@ -10,6 +10,8 @@ struct Decla{
     int description;
     int suivant;
     int execution;
-}
+};
 typedef struct Decla tableDeclaration[MAX_TABLE];
 
+int insererLexeme(char* text);
+#endif

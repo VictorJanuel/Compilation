@@ -60,43 +60,46 @@ extern int yydebug;
     CROCHET_FERMANT = 270,
     VIRGULE = 271,
     POINT = 272,
-    VARIABLE = 273,
-    PROCEDURE = 274,
-    FONCTION = 275,
-    ENTIER = 276,
-    REEL = 277,
-    BOOLEEN = 278,
-    CHAINE = 279,
-    CARACTERE = 280,
-    CSTE_ENTIERE = 281,
-    PARENTHESE_FERMANTE = 282,
-    PARENTHESE_OUVRANTE = 283,
-    VIDE = 284,
-    RETOURNE = 285,
-    SI = 286,
-    ALORS = 287,
-    SINON = 288,
-    TANT_QUE = 289,
-    FAIRE = 290,
-    OPAFF = 291,
-    OPEG = 292,
-    OPINF = 293,
-    OPSUP = 294,
-    OPINFE = 295,
-    OPSUPE = 296,
-    OPDIFF = 297,
-    NEG = 298,
-    POS = 299,
-    NOT = 300,
-    PLUS = 301,
-    MOINS = 302,
-    MULT = 303,
-    DIV = 304,
-    MOD = 305,
-    ET = 306,
-    OU = 307,
-    TRUE = 308,
-    FALSE = 309
+    FLECHE = 273,
+    VARIABLE = 274,
+    PROCEDURE = 275,
+    FONCTION = 276,
+    ENTIER = 277,
+    REEL = 278,
+    BOOLEEN = 279,
+    CHAINE = 280,
+    CARACTERE = 281,
+    CSTE_ENTIERE = 282,
+    CSTE_REELLE = 283,
+    PARENTHESE_FERMANTE = 284,
+    PARENTHESE_OUVRANTE = 285,
+    VIDE = 286,
+    RETOURNE = 287,
+    SI = 288,
+    ALORS = 289,
+    SINON = 290,
+    TANT_QUE = 291,
+    FAIRE = 292,
+    OPAFF = 293,
+    OPEG = 294,
+    OPINF = 295,
+    OPSUP = 296,
+    OPINFE = 297,
+    OPSUPE = 298,
+    OPDIFF = 299,
+    NEG = 300,
+    POS = 301,
+    NOT = 302,
+    PLUS = 303,
+    MOINS = 304,
+    MULT = 305,
+    DIV = 306,
+    MOD = 307,
+    ET = 308,
+    OU = 309,
+    TRUE = 310,
+    FALSE = 311,
+    ERROR_LEXICO = 312
   };
 #endif
 /* Tokens.  */
@@ -115,43 +118,46 @@ extern int yydebug;
 #define CROCHET_FERMANT 270
 #define VIRGULE 271
 #define POINT 272
-#define VARIABLE 273
-#define PROCEDURE 274
-#define FONCTION 275
-#define ENTIER 276
-#define REEL 277
-#define BOOLEEN 278
-#define CHAINE 279
-#define CARACTERE 280
-#define CSTE_ENTIERE 281
-#define PARENTHESE_FERMANTE 282
-#define PARENTHESE_OUVRANTE 283
-#define VIDE 284
-#define RETOURNE 285
-#define SI 286
-#define ALORS 287
-#define SINON 288
-#define TANT_QUE 289
-#define FAIRE 290
-#define OPAFF 291
-#define OPEG 292
-#define OPINF 293
-#define OPSUP 294
-#define OPINFE 295
-#define OPSUPE 296
-#define OPDIFF 297
-#define NEG 298
-#define POS 299
-#define NOT 300
-#define PLUS 301
-#define MOINS 302
-#define MULT 303
-#define DIV 304
-#define MOD 305
-#define ET 306
-#define OU 307
-#define TRUE 308
-#define FALSE 309
+#define FLECHE 273
+#define VARIABLE 274
+#define PROCEDURE 275
+#define FONCTION 276
+#define ENTIER 277
+#define REEL 278
+#define BOOLEEN 279
+#define CHAINE 280
+#define CARACTERE 281
+#define CSTE_ENTIERE 282
+#define CSTE_REELLE 283
+#define PARENTHESE_FERMANTE 284
+#define PARENTHESE_OUVRANTE 285
+#define VIDE 286
+#define RETOURNE 287
+#define SI 288
+#define ALORS 289
+#define SINON 290
+#define TANT_QUE 291
+#define FAIRE 292
+#define OPAFF 293
+#define OPEG 294
+#define OPINF 295
+#define OPSUP 296
+#define OPINFE 297
+#define OPSUPE 298
+#define OPDIFF 299
+#define NEG 300
+#define POS 301
+#define NOT 302
+#define PLUS 303
+#define MOINS 304
+#define MULT 305
+#define DIV 306
+#define MOD 307
+#define ET 308
+#define OU 309
+#define TRUE 310
+#define FALSE 311
+#define ERROR_LEXICO 312
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

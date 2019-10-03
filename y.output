@@ -3,6 +3,7 @@ Terminaux inutilisés dans la grammaire
    NEG
    POS
    MOD
+   ERROR_LEXICO
 
 
 Grammaire
@@ -93,36 +94,33 @@ Grammaire
 
    54 affectation: variable OPAFF expression
 
-   55 variable: v1
-   56         | v2
+   55 variable: IDF
+   56         | IDF vtab
+   57         | IDF FLECHE variable
+   58         | IDF vtab FLECHE variable
 
-   57 v1: IDF
+   59 vtab: vtab CROCHET_OUVRANT ea1 CROCHET_FERMANT
+   60     | CROCHET_OUVRANT ea1 CROCHET_FERMANT
 
-   58 v2: vstruct
-   59   | vtab
+   61 expression: ea1
+   62           | eb1
 
-   60 vstruct: POINT variable
+   63 ea1: ea1 PLUS ea2
+   64    | ea1 MOINS ea2
+   65    | ea2
 
-   61 vtab: CROCHET_OUVRANT ea1 CROCHET_FERMANT v2
+   66 ea2: ea2 MULT ea3
+   67    | ea2 DIV ea3
+   68    | ea3
 
-   62 expression: ea1
-   63           | eb1
+   69 ea3: MOINS ea4
+   70    | PLUS ea4
+   71    | ea4
 
-   64 ea1: ea1 PLUS ea2
-   65    | ea1 MOINS ea2
-   66    | ea2
-
-   67 ea2: ea2 MULT ea3
-   68    | ea2 DIV ea3
-   69    | ea3
-
-   70 ea3: MOINS ea4
-   71    | PLUS ea4
-   72    | ea4
-
-   73 ea4: PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE
-   74    | variable
-   75    | CSTE_ENTIERE
+   72 ea4: PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE
+   73    | variable
+   74    | CSTE_ENTIERE
+   75    | CSTE_REELLE
 
    76 eb1: eb1 OU eb2
    77    | eb2
@@ -155,142 +153,139 @@ POINT_VIRGULE (259) 4 5 7 8 21 36
 DEBUT (260) 6
 FIN (261) 6
 TYPE (262) 13
-IDF (263) 13 22 24 30 31 32 37 46 57
+IDF (263) 13 22 24 30 31 32 37 46 55 56 57 58
 DEUX_POINTS (264) 13 22 30 37
 STRUCT (265) 14
 FSTRUCT (266) 14
 TABLEAU (267) 15
 DE (268) 15
-CROCHET_OUVRANT (269) 16 29 61
-CROCHET_FERMANT (270) 16 29 61
+CROCHET_OUVRANT (269) 16 29 59 60
+CROCHET_FERMANT (270) 16 29 59 60
 VIRGULE (271) 18 50
-POINT (272) 19 60
-VARIABLE (273) 30
-PROCEDURE (274) 31
-FONCTION (275) 32
-ENTIER (276) 25
-REEL (277) 26
-BOOLEEN (278) 27
-CHAINE (279) 29
-CARACTERE (280) 28
-CSTE_ENTIERE (281) 29 75
-PARENTHESE_FERMANTE (282) 34 48 73 82
-PARENTHESE_OUVRANTE (283) 34 48 73 82
-VIDE (284) 42
-RETOURNE (285) 32 43
-SI (286) 52
-ALORS (287) 52
-SINON (288) 52
-TANT_QUE (289) 53
-FAIRE (290) 53
-OPAFF (291) 54
-OPEG (292) 86
-OPINF (293) 87
-OPSUP (294) 88
-OPINFE (295) 89
-OPSUPE (296) 90
-OPDIFF (297) 91
-NEG (298)
-POS (299)
-NOT (300) 80
-PLUS (301) 64 71
-MOINS (302) 65 70
-MULT (303) 67
-DIV (304) 68
-MOD (305)
-ET (306) 78
-OU (307) 76
-TRUE (308) 83
-FALSE (309) 84
+POINT (272) 19
+FLECHE (273) 57 58
+VARIABLE (274) 30
+PROCEDURE (275) 31
+FONCTION (276) 32
+ENTIER (277) 25
+REEL (278) 26
+BOOLEEN (279) 27
+CHAINE (280) 29
+CARACTERE (281) 28
+CSTE_ENTIERE (282) 29 74
+CSTE_REELLE (283) 75
+PARENTHESE_FERMANTE (284) 34 48 72 82
+PARENTHESE_OUVRANTE (285) 34 48 72 82
+VIDE (286) 42
+RETOURNE (287) 32 43
+SI (288) 52
+ALORS (289) 52
+SINON (290) 52
+TANT_QUE (291) 53
+FAIRE (292) 53
+OPAFF (293) 54
+OPEG (294) 86
+OPINF (295) 87
+OPSUP (296) 88
+OPINFE (297) 89
+OPSUPE (298) 90
+OPDIFF (299) 91
+NEG (300)
+POS (301)
+NOT (302) 80
+PLUS (303) 63 70
+MOINS (304) 64 69
+MULT (305) 66
+DIV (306) 67
+MOD (307)
+ET (308) 78
+OU (309) 76
+TRUE (310) 83
+FALSE (311) 84
+ERROR_LEXICO (312)
 
 
 Non-terminaux, suivis des règles où ils apparaissent
 
-$accept (55)
+$accept (58)
     à gauche: 0
-programme (56)
+programme (59)
     à gauche: 1, à droite: 0
-corps (57)
+corps (60)
     à gauche: 2 3, à droite: 1 31 32
-liste_declarations (58)
+liste_declarations (61)
     à gauche: 4 5, à droite: 2 5
-liste_instructions (59)
+liste_instructions (62)
     à gauche: 6, à droite: 2 3 52 53
-suite_liste_inst (60)
+suite_liste_inst (63)
     à gauche: 7 8, à droite: 6 8
-declaration (61)
+declaration (64)
     à gauche: 9 10 11 12, à droite: 4 5
-declaration_type (62)
+declaration_type (65)
     à gauche: 13, à droite: 9
-suite_declaration_type (63)
+suite_declaration_type (66)
     à gauche: 14 15, à droite: 13
-dimension (64)
+dimension (67)
     à gauche: 16, à droite: 15
-liste_dimensions (65)
+liste_dimensions (68)
     à gauche: 17 18, à droite: 16 18
-une_dimension (66)
+une_dimension (69)
     à gauche: 19, à droite: 17 18
-liste_champs (67)
+liste_champs (70)
     à gauche: 20 21, à droite: 14 21
-un_champ (68)
+un_champ (71)
     à gauche: 22, à droite: 20 21
-nom_type (69)
+nom_type (72)
     à gauche: 23 24, à droite: 15 22 30
-type_simple (70)
+type_simple (73)
     à gauche: 25 26 27 28 29, à droite: 23 32 37
-declaration_variable (71)
+declaration_variable (74)
     à gauche: 30, à droite: 10
-declaration_procedure (72)
+declaration_procedure (75)
     à gauche: 31, à droite: 11
-declaration_fonction (73)
+declaration_fonction (76)
     à gauche: 32, à droite: 12
-liste_parametres (74)
+liste_parametres (77)
     à gauche: 33 34, à droite: 31 32
-liste_param (75)
+liste_param (78)
     à gauche: 35 36, à droite: 34 36
-un_param (76)
+un_param (79)
     à gauche: 37, à droite: 35 36
-instruction (77)
+instruction (80)
     à gauche: 38 39 40 41 42 43, à droite: 7 8
-resultat_retourne (78)
+resultat_retourne (81)
     à gauche: 44 45, à droite: 43
-appel (79)
+appel (82)
     à gauche: 46, à droite: 41
-liste_arguments (80)
+liste_arguments (83)
     à gauche: 47 48, à droite: 46
-liste_args (81)
+liste_args (84)
     à gauche: 49 50, à droite: 48 50
-un_arg (82)
+un_arg (85)
     à gauche: 51, à droite: 49 50
-condition (83)
+condition (86)
     à gauche: 52, à droite: 39
-tant_que (84)
+tant_que (87)
     à gauche: 53, à droite: 40
-affectation (85)
+affectation (88)
     à gauche: 54, à droite: 38
-variable (86)
-    à gauche: 55 56, à droite: 54 60 74
-v1 (87)
-    à gauche: 57, à droite: 55
-v2 (88)
-    à gauche: 58 59, à droite: 56 61
-vstruct (89)
-    à gauche: 60, à droite: 58
+variable (89)
+    à gauche: 55 56 57 58, à droite: 54 57 58 73
 vtab (90)
-    à gauche: 61, à droite: 59
+    à gauche: 59 60, à droite: 56 58 59
 expression (91)
-    à gauche: 62 63, à droite: 45 51 54
+    à gauche: 61 62, à droite: 45 51 54
 ea1 (92)
-    à gauche: 64 65 66, à droite: 19 61 62 64 65 73 86 87 88 89 90
-    91
+    à gauche: 63 64 65, à droite: 19 59 60 61 63 64 72 86 87 88 89
+    90 91
 ea2 (93)
-    à gauche: 67 68 69, à droite: 64 65 66 67 68
+    à gauche: 66 67 68, à droite: 63 64 65 66 67
 ea3 (94)
-    à gauche: 70 71 72, à droite: 67 68 69
+    à gauche: 69 70 71, à droite: 66 67 68
 ea4 (95)
-    à gauche: 73 74 75, à droite: 70 71 72
+    à gauche: 72 73 74 75, à droite: 69 70 71
 eb1 (96)
-    à gauche: 76 77, à droite: 52 53 63 76 82
+    à gauche: 76 77, à droite: 52 53 62 76 82
 eb2 (97)
     à gauche: 78 79, à droite: 76 77 78
 eb3 (98)
@@ -341,53 +336,47 @@ comparaison (100)
 
     6 liste_instructions: DEBUT . suite_liste_inst FIN
 
-    IDF              décalage et aller à l'état 17
-    CROCHET_OUVRANT  décalage et aller à l'état 18
-    POINT            décalage et aller à l'état 19
-    VIDE             décalage et aller à l'état 20
-    RETOURNE         décalage et aller à l'état 21
-    SI               décalage et aller à l'état 22
-    TANT_QUE         décalage et aller à l'état 23
+    IDF       décalage et aller à l'état 17
+    VIDE      décalage et aller à l'état 18
+    RETOURNE  décalage et aller à l'état 19
+    SI        décalage et aller à l'état 20
+    TANT_QUE  décalage et aller à l'état 21
 
-    suite_liste_inst  aller à l'état 24
-    instruction       aller à l'état 25
-    appel             aller à l'état 26
-    condition         aller à l'état 27
-    tant_que          aller à l'état 28
-    affectation       aller à l'état 29
-    variable          aller à l'état 30
-    v1                aller à l'état 31
-    v2                aller à l'état 32
-    vstruct           aller à l'état 33
-    vtab              aller à l'état 34
+    suite_liste_inst  aller à l'état 22
+    instruction       aller à l'état 23
+    appel             aller à l'état 24
+    condition         aller à l'état 25
+    tant_que          aller à l'état 26
+    affectation       aller à l'état 27
+    variable          aller à l'état 28
 
 
 État 4
 
    13 declaration_type: TYPE . IDF DEUX_POINTS suite_declaration_type
 
-    IDF  décalage et aller à l'état 35
+    IDF  décalage et aller à l'état 29
 
 
 État 5
 
    30 declaration_variable: VARIABLE . IDF DEUX_POINTS nom_type
 
-    IDF  décalage et aller à l'état 36
+    IDF  décalage et aller à l'état 30
 
 
 État 6
 
    31 declaration_procedure: PROCEDURE . IDF liste_parametres corps
 
-    IDF  décalage et aller à l'état 37
+    IDF  décalage et aller à l'état 31
 
 
 État 7
 
    32 declaration_fonction: FONCTION . IDF liste_parametres RETOURNE type_simple corps
 
-    IDF  décalage et aller à l'état 38
+    IDF  décalage et aller à l'état 32
 
 
 État 8
@@ -408,8 +397,8 @@ comparaison (100)
     PROCEDURE  décalage et aller à l'état 6
     FONCTION   décalage et aller à l'état 7
 
-    liste_instructions     aller à l'état 39
-    declaration            aller à l'état 40
+    liste_instructions     aller à l'état 33
+    declaration            aller à l'état 34
     declaration_type       aller à l'état 12
     declaration_variable   aller à l'état 13
     declaration_procedure  aller à l'état 14
@@ -427,7 +416,7 @@ comparaison (100)
 
     4 liste_declarations: declaration . POINT_VIRGULE
 
-    POINT_VIRGULE  décalage et aller à l'état 41
+    POINT_VIRGULE  décalage et aller à l'état 35
 
 
 État 12
@@ -468,568 +457,449 @@ comparaison (100)
 État 17
 
    46 appel: IDF . liste_arguments
-   57 v1: IDF .
+   55 variable: IDF .
+   56         | IDF . vtab
+   57         | IDF . FLECHE variable
+   58         | IDF . vtab FLECHE variable
 
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 42
+    CROCHET_OUVRANT      décalage et aller à l'état 36
+    FLECHE               décalage et aller à l'état 37
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 38
 
-    OPAFF     réduction par utilisation de la règle 57 (v1)
+    OPAFF     réduction par utilisation de la règle 55 (variable)
     $défaut  réduction par utilisation de la règle 47 (liste_arguments)
 
-    liste_arguments  aller à l'état 43
+    liste_arguments  aller à l'état 39
+    vtab             aller à l'état 40
 
 
 État 18
-
-   61 vtab: CROCHET_OUVRANT . ea1 CROCHET_FERMANT v2
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 50
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
-
-
-État 19
-
-   60 vstruct: POINT . variable
-
-    IDF              décalage et aller à l'état 44
-    CROCHET_OUVRANT  décalage et aller à l'état 18
-    POINT            décalage et aller à l'état 19
-
-    variable  aller à l'état 54
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-
-
-État 20
 
    42 instruction: VIDE .
 
     $défaut  réduction par utilisation de la règle 42 (instruction)
 
 
-État 21
+État 19
 
    43 instruction: RETOURNE . resultat_retourne
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
     $défaut  réduction par utilisation de la règle 44 (resultat_retourne)
 
-    resultat_retourne  aller à l'état 59
-    variable           aller à l'état 49
-    v1                 aller à l'état 31
-    v2                 aller à l'état 32
-    vstruct            aller à l'état 33
-    vtab               aller à l'état 34
-    expression         aller à l'état 60
-    ea1                aller à l'état 61
-    ea2                aller à l'état 51
-    ea3                aller à l'état 52
-    ea4                aller à l'état 53
-    eb1                aller à l'état 62
-    eb2                aller à l'état 63
-    eb3                aller à l'état 64
-    eb4                aller à l'état 65
-    comparaison        aller à l'état 66
+    resultat_retourne  aller à l'état 50
+    variable           aller à l'état 51
+    expression         aller à l'état 52
+    ea1                aller à l'état 53
+    ea2                aller à l'état 54
+    ea3                aller à l'état 55
+    ea4                aller à l'état 56
+    eb1                aller à l'état 57
+    eb2                aller à l'état 58
+    eb3                aller à l'état 59
+    eb4                aller à l'état 60
+    comparaison        aller à l'état 61
+
+
+État 20
+
+   52 condition: SI . eb1 ALORS liste_instructions SINON liste_instructions
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
+
+    variable     aller à l'état 51
+    ea1          aller à l'état 62
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb1          aller à l'état 63
+    eb2          aller à l'état 58
+    eb3          aller à l'état 59
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
+
+
+État 21
+
+   53 tant_que: TANT_QUE . eb1 FAIRE liste_instructions
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
+
+    variable     aller à l'état 51
+    ea1          aller à l'état 62
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb1          aller à l'état 64
+    eb2          aller à l'état 58
+    eb3          aller à l'état 59
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
 
 
 État 22
 
-   52 condition: SI . eb1 ALORS liste_instructions SINON liste_instructions
+    6 liste_instructions: DEBUT suite_liste_inst . FIN
+    8 suite_liste_inst: suite_liste_inst . instruction POINT_VIRGULE
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
+    FIN       décalage et aller à l'état 65
+    IDF       décalage et aller à l'état 17
+    VIDE      décalage et aller à l'état 18
+    RETOURNE  décalage et aller à l'état 19
+    SI        décalage et aller à l'état 20
+    TANT_QUE  décalage et aller à l'état 21
 
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    ea1          aller à l'état 67
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb1          aller à l'état 68
-    eb2          aller à l'état 63
-    eb3          aller à l'état 64
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
+    instruction  aller à l'état 66
+    appel        aller à l'état 24
+    condition    aller à l'état 25
+    tant_que     aller à l'état 26
+    affectation  aller à l'état 27
+    variable     aller à l'état 28
 
 
 État 23
 
-   53 tant_que: TANT_QUE . eb1 FAIRE liste_instructions
+    7 suite_liste_inst: instruction . POINT_VIRGULE
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
-
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    ea1          aller à l'état 67
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb1          aller à l'état 69
-    eb2          aller à l'état 63
-    eb3          aller à l'état 64
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
+    POINT_VIRGULE  décalage et aller à l'état 67
 
 
 État 24
-
-    6 liste_instructions: DEBUT suite_liste_inst . FIN
-    8 suite_liste_inst: suite_liste_inst . instruction POINT_VIRGULE
-
-    FIN              décalage et aller à l'état 70
-    IDF              décalage et aller à l'état 17
-    CROCHET_OUVRANT  décalage et aller à l'état 18
-    POINT            décalage et aller à l'état 19
-    VIDE             décalage et aller à l'état 20
-    RETOURNE         décalage et aller à l'état 21
-    SI               décalage et aller à l'état 22
-    TANT_QUE         décalage et aller à l'état 23
-
-    instruction  aller à l'état 71
-    appel        aller à l'état 26
-    condition    aller à l'état 27
-    tant_que     aller à l'état 28
-    affectation  aller à l'état 29
-    variable     aller à l'état 30
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-
-
-État 25
-
-    7 suite_liste_inst: instruction . POINT_VIRGULE
-
-    POINT_VIRGULE  décalage et aller à l'état 72
-
-
-État 26
 
    41 instruction: appel .
 
     $défaut  réduction par utilisation de la règle 41 (instruction)
 
 
-État 27
+État 25
 
    39 instruction: condition .
 
     $défaut  réduction par utilisation de la règle 39 (instruction)
 
 
-État 28
+État 26
 
    40 instruction: tant_que .
 
     $défaut  réduction par utilisation de la règle 40 (instruction)
 
 
-État 29
+État 27
 
    38 instruction: affectation .
 
     $défaut  réduction par utilisation de la règle 38 (instruction)
 
 
-État 30
+État 28
 
    54 affectation: variable . OPAFF expression
 
-    OPAFF  décalage et aller à l'état 73
+    OPAFF  décalage et aller à l'état 68
+
+
+État 29
+
+   13 declaration_type: TYPE IDF . DEUX_POINTS suite_declaration_type
+
+    DEUX_POINTS  décalage et aller à l'état 69
+
+
+État 30
+
+   30 declaration_variable: VARIABLE IDF . DEUX_POINTS nom_type
+
+    DEUX_POINTS  décalage et aller à l'état 70
 
 
 État 31
 
-   55 variable: v1 .
+   31 declaration_procedure: PROCEDURE IDF . liste_parametres corps
 
-    $défaut  réduction par utilisation de la règle 55 (variable)
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 71
+
+    $défaut  réduction par utilisation de la règle 33 (liste_parametres)
+
+    liste_parametres  aller à l'état 72
 
 
 État 32
 
-   56 variable: v2 .
+   32 declaration_fonction: FONCTION IDF . liste_parametres RETOURNE type_simple corps
 
-    $défaut  réduction par utilisation de la règle 56 (variable)
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 71
+
+    $défaut  réduction par utilisation de la règle 33 (liste_parametres)
+
+    liste_parametres  aller à l'état 73
 
 
 État 33
-
-   58 v2: vstruct .
-
-    $défaut  réduction par utilisation de la règle 58 (v2)
-
-
-État 34
-
-   59 v2: vtab .
-
-    $défaut  réduction par utilisation de la règle 59 (v2)
-
-
-État 35
-
-   13 declaration_type: TYPE IDF . DEUX_POINTS suite_declaration_type
-
-    DEUX_POINTS  décalage et aller à l'état 74
-
-
-État 36
-
-   30 declaration_variable: VARIABLE IDF . DEUX_POINTS nom_type
-
-    DEUX_POINTS  décalage et aller à l'état 75
-
-
-État 37
-
-   31 declaration_procedure: PROCEDURE IDF . liste_parametres corps
-
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 76
-
-    $défaut  réduction par utilisation de la règle 33 (liste_parametres)
-
-    liste_parametres  aller à l'état 77
-
-
-État 38
-
-   32 declaration_fonction: FONCTION IDF . liste_parametres RETOURNE type_simple corps
-
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 76
-
-    $défaut  réduction par utilisation de la règle 33 (liste_parametres)
-
-    liste_parametres  aller à l'état 78
-
-
-État 39
 
     2 corps: liste_declarations liste_instructions .
 
     $défaut  réduction par utilisation de la règle 2 (corps)
 
 
-État 40
+État 34
 
     5 liste_declarations: liste_declarations declaration . POINT_VIRGULE
 
-    POINT_VIRGULE  décalage et aller à l'état 79
+    POINT_VIRGULE  décalage et aller à l'état 74
 
 
-État 41
+État 35
 
     4 liste_declarations: declaration POINT_VIRGULE .
 
     $défaut  réduction par utilisation de la règle 4 (liste_declarations)
 
 
-État 42
+État 36
+
+   60 vtab: CROCHET_OUVRANT . ea1 CROCHET_FERMANT
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea1       aller à l'état 76
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 37
+
+   57 variable: IDF FLECHE . variable
+
+    IDF  décalage et aller à l'état 41
+
+    variable  aller à l'état 77
+
+
+État 38
 
    48 liste_arguments: PARENTHESE_OUVRANTE . liste_args PARENTHESE_FERMANTE
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
-    liste_args   aller à l'état 80
-    un_arg       aller à l'état 81
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    expression   aller à l'état 82
-    ea1          aller à l'état 61
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb1          aller à l'état 62
-    eb2          aller à l'état 63
-    eb3          aller à l'état 64
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
+    liste_args   aller à l'état 78
+    un_arg       aller à l'état 79
+    variable     aller à l'état 51
+    expression   aller à l'état 80
+    ea1          aller à l'état 53
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb1          aller à l'état 57
+    eb2          aller à l'état 58
+    eb3          aller à l'état 59
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
 
 
-État 43
+État 39
 
    46 appel: IDF liste_arguments .
 
     $défaut  réduction par utilisation de la règle 46 (appel)
 
 
-État 44
+État 40
 
-   57 v1: IDF .
+   56 variable: IDF vtab .
+   58         | IDF vtab . FLECHE variable
+   59 vtab: vtab . CROCHET_OUVRANT ea1 CROCHET_FERMANT
 
-    $défaut  réduction par utilisation de la règle 57 (v1)
+    CROCHET_OUVRANT  décalage et aller à l'état 81
+    FLECHE           décalage et aller à l'état 82
 
-
-État 45
-
-   75 ea4: CSTE_ENTIERE .
-
-    $défaut  réduction par utilisation de la règle 75 (ea4)
+    $défaut  réduction par utilisation de la règle 56 (variable)
 
 
-État 46
+État 41
 
-   73 ea4: PARENTHESE_OUVRANTE . ea1 PARENTHESE_FERMANTE
+   55 variable: IDF .
+   56         | IDF . vtab
+   57         | IDF . FLECHE variable
+   58         | IDF . vtab FLECHE variable
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    CROCHET_OUVRANT  décalage et aller à l'état 36
+    FLECHE           décalage et aller à l'état 37
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 83
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    $défaut  réduction par utilisation de la règle 55 (variable)
+
+    vtab  aller à l'état 40
 
 
-État 47
+État 42
 
-   71 ea3: PLUS . ea4
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea4       aller à l'état 84
-
-
-État 48
-
-   70 ea3: MOINS . ea4
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea4       aller à l'état 85
-
-
-État 49
-
-   74 ea4: variable .
+   74 ea4: CSTE_ENTIERE .
 
     $défaut  réduction par utilisation de la règle 74 (ea4)
 
 
-État 50
+État 43
 
-   61 vtab: CROCHET_OUVRANT ea1 . CROCHET_FERMANT v2
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   75 ea4: CSTE_REELLE .
 
-    CROCHET_FERMANT  décalage et aller à l'état 86
-    PLUS             décalage et aller à l'état 87
-    MOINS            décalage et aller à l'état 88
+    $défaut  réduction par utilisation de la règle 75 (ea4)
 
 
-État 51
+État 44
 
-   66 ea1: ea2 .
-   67 ea2: ea2 . MULT ea3
-   68    | ea2 . DIV ea3
-
-    MULT  décalage et aller à l'état 89
-    DIV   décalage et aller à l'état 90
-
-    $défaut  réduction par utilisation de la règle 66 (ea1)
-
-
-État 52
-
-   69 ea2: ea3 .
-
-    $défaut  réduction par utilisation de la règle 69 (ea2)
-
-
-État 53
-
-   72 ea3: ea4 .
-
-    $défaut  réduction par utilisation de la règle 72 (ea3)
-
-
-État 54
-
-   60 vstruct: POINT variable .
-
-    $défaut  réduction par utilisation de la règle 60 (vstruct)
-
-
-État 55
-
-   73 ea4: PARENTHESE_OUVRANTE . ea1 PARENTHESE_FERMANTE
+   72 ea4: PARENTHESE_OUVRANTE . ea1 PARENTHESE_FERMANTE
    82 eb4: PARENTHESE_OUVRANTE . eb1 PARENTHESE_FERMANTE
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    ea1          aller à l'état 91
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb1          aller à l'état 92
-    eb2          aller à l'état 63
-    eb3          aller à l'état 64
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
+    variable     aller à l'état 51
+    ea1          aller à l'état 83
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb1          aller à l'état 84
+    eb2          aller à l'état 58
+    eb3          aller à l'état 59
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
 
 
-État 56
+État 45
 
    80 eb3: NOT . eb4
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    ea1          aller à l'état 67
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb4          aller à l'état 93
-    comparaison  aller à l'état 66
+    variable     aller à l'état 51
+    ea1          aller à l'état 62
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb4          aller à l'état 85
+    comparaison  aller à l'état 61
 
 
-État 57
+État 46
+
+   70 ea3: PLUS . ea4
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+
+    variable  aller à l'état 51
+    ea4       aller à l'état 86
+
+
+État 47
+
+   69 ea3: MOINS . ea4
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+
+    variable  aller à l'état 51
+    ea4       aller à l'état 87
+
+
+État 48
 
    83 eb4: TRUE .
 
     $défaut  réduction par utilisation de la règle 83 (eb4)
 
 
-État 58
+État 49
 
    84 eb4: FALSE .
 
     $défaut  réduction par utilisation de la règle 84 (eb4)
 
 
-État 59
+État 50
 
    43 instruction: RETOURNE resultat_retourne .
 
     $défaut  réduction par utilisation de la règle 43 (instruction)
 
 
-État 60
+État 51
+
+   73 ea4: variable .
+
+    $défaut  réduction par utilisation de la règle 73 (ea4)
+
+
+État 52
 
    45 resultat_retourne: expression .
 
     $défaut  réduction par utilisation de la règle 45 (resultat_retourne)
 
 
-État 61
+État 53
 
-   62 expression: ea1 .
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   61 expression: ea1 .
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    86 comparaison: ea1 . OPEG ea1
    87            | ea1 . OPINF ea1
    88            | ea1 . OPSUP ea1
@@ -1037,63 +907,89 @@ comparaison (100)
    90            | ea1 . OPSUPE ea1
    91            | ea1 . OPDIFF ea1
 
-    OPEG    décalage et aller à l'état 94
-    OPINF   décalage et aller à l'état 95
-    OPSUP   décalage et aller à l'état 96
-    OPINFE  décalage et aller à l'état 97
-    OPSUPE  décalage et aller à l'état 98
-    OPDIFF  décalage et aller à l'état 99
-    PLUS    décalage et aller à l'état 87
-    MOINS   décalage et aller à l'état 88
+    OPEG    décalage et aller à l'état 88
+    OPINF   décalage et aller à l'état 89
+    OPSUP   décalage et aller à l'état 90
+    OPINFE  décalage et aller à l'état 91
+    OPSUPE  décalage et aller à l'état 92
+    OPDIFF  décalage et aller à l'état 93
+    PLUS    décalage et aller à l'état 94
+    MOINS   décalage et aller à l'état 95
+
+    $défaut  réduction par utilisation de la règle 61 (expression)
+
+
+État 54
+
+   65 ea1: ea2 .
+   66 ea2: ea2 . MULT ea3
+   67    | ea2 . DIV ea3
+
+    MULT  décalage et aller à l'état 96
+    DIV   décalage et aller à l'état 97
+
+    $défaut  réduction par utilisation de la règle 65 (ea1)
+
+
+État 55
+
+   68 ea2: ea3 .
+
+    $défaut  réduction par utilisation de la règle 68 (ea2)
+
+
+État 56
+
+   71 ea3: ea4 .
+
+    $défaut  réduction par utilisation de la règle 71 (ea3)
+
+
+État 57
+
+   62 expression: eb1 .
+   76 eb1: eb1 . OU eb2
+
+    OU  décalage et aller à l'état 98
 
     $défaut  réduction par utilisation de la règle 62 (expression)
 
 
-État 62
-
-   63 expression: eb1 .
-   76 eb1: eb1 . OU eb2
-
-    OU  décalage et aller à l'état 100
-
-    $défaut  réduction par utilisation de la règle 63 (expression)
-
-
-État 63
+État 58
 
    77 eb1: eb2 .
    78 eb2: eb2 . ET eb3
 
-    ET  décalage et aller à l'état 101
+    ET  décalage et aller à l'état 99
 
     $défaut  réduction par utilisation de la règle 77 (eb1)
 
 
-État 64
+État 59
 
    79 eb2: eb3 .
 
     $défaut  réduction par utilisation de la règle 79 (eb2)
 
 
-État 65
+État 60
 
    81 eb3: eb4 .
 
     $défaut  réduction par utilisation de la règle 81 (eb3)
 
 
-État 66
+État 61
 
    85 eb4: comparaison .
 
     $défaut  réduction par utilisation de la règle 85 (eb4)
 
 
-État 67
+État 62
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    86 comparaison: ea1 . OPEG ea1
    87            | ea1 . OPINF ea1
    88            | ea1 . OPSUP ea1
@@ -1101,123 +997,118 @@ comparaison (100)
    90            | ea1 . OPSUPE ea1
    91            | ea1 . OPDIFF ea1
 
-    OPEG    décalage et aller à l'état 94
-    OPINF   décalage et aller à l'état 95
-    OPSUP   décalage et aller à l'état 96
-    OPINFE  décalage et aller à l'état 97
-    OPSUPE  décalage et aller à l'état 98
-    OPDIFF  décalage et aller à l'état 99
-    PLUS    décalage et aller à l'état 87
-    MOINS   décalage et aller à l'état 88
+    OPEG    décalage et aller à l'état 88
+    OPINF   décalage et aller à l'état 89
+    OPSUP   décalage et aller à l'état 90
+    OPINFE  décalage et aller à l'état 91
+    OPSUPE  décalage et aller à l'état 92
+    OPDIFF  décalage et aller à l'état 93
+    PLUS    décalage et aller à l'état 94
+    MOINS   décalage et aller à l'état 95
 
 
-État 68
+État 63
 
    52 condition: SI eb1 . ALORS liste_instructions SINON liste_instructions
    76 eb1: eb1 . OU eb2
 
-    ALORS  décalage et aller à l'état 102
-    OU     décalage et aller à l'état 100
+    ALORS  décalage et aller à l'état 100
+    OU     décalage et aller à l'état 98
 
 
-État 69
+État 64
 
    53 tant_que: TANT_QUE eb1 . FAIRE liste_instructions
    76 eb1: eb1 . OU eb2
 
-    FAIRE  décalage et aller à l'état 103
-    OU     décalage et aller à l'état 100
+    FAIRE  décalage et aller à l'état 101
+    OU     décalage et aller à l'état 98
 
 
-État 70
+État 65
 
     6 liste_instructions: DEBUT suite_liste_inst FIN .
 
     $défaut  réduction par utilisation de la règle 6 (liste_instructions)
 
 
-État 71
+État 66
 
     8 suite_liste_inst: suite_liste_inst instruction . POINT_VIRGULE
 
-    POINT_VIRGULE  décalage et aller à l'état 104
+    POINT_VIRGULE  décalage et aller à l'état 102
 
 
-État 72
+État 67
 
     7 suite_liste_inst: instruction POINT_VIRGULE .
 
     $défaut  réduction par utilisation de la règle 7 (suite_liste_inst)
 
 
-État 73
+État 68
 
    54 affectation: variable OPAFF . expression
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    expression   aller à l'état 105
-    ea1          aller à l'état 61
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb1          aller à l'état 62
-    eb2          aller à l'état 63
-    eb3          aller à l'état 64
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
+    variable     aller à l'état 51
+    expression   aller à l'état 103
+    ea1          aller à l'état 53
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb1          aller à l'état 57
+    eb2          aller à l'état 58
+    eb3          aller à l'état 59
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
 
 
-État 74
+État 69
 
    13 declaration_type: TYPE IDF DEUX_POINTS . suite_declaration_type
 
-    STRUCT   décalage et aller à l'état 106
-    TABLEAU  décalage et aller à l'état 107
+    STRUCT   décalage et aller à l'état 104
+    TABLEAU  décalage et aller à l'état 105
 
-    suite_declaration_type  aller à l'état 108
+    suite_declaration_type  aller à l'état 106
 
 
-État 75
+État 70
 
    30 declaration_variable: VARIABLE IDF DEUX_POINTS . nom_type
 
-    IDF        décalage et aller à l'état 109
-    ENTIER     décalage et aller à l'état 110
-    REEL       décalage et aller à l'état 111
-    BOOLEEN    décalage et aller à l'état 112
-    CHAINE     décalage et aller à l'état 113
-    CARACTERE  décalage et aller à l'état 114
+    IDF        décalage et aller à l'état 107
+    ENTIER     décalage et aller à l'état 108
+    REEL       décalage et aller à l'état 109
+    BOOLEEN    décalage et aller à l'état 110
+    CHAINE     décalage et aller à l'état 111
+    CARACTERE  décalage et aller à l'état 112
 
-    nom_type     aller à l'état 115
-    type_simple  aller à l'état 116
+    nom_type     aller à l'état 113
+    type_simple  aller à l'état 114
 
 
-État 76
+État 71
 
    34 liste_parametres: PARENTHESE_OUVRANTE . liste_param PARENTHESE_FERMANTE
 
-    IDF  décalage et aller à l'état 117
+    IDF  décalage et aller à l'état 115
 
-    liste_param  aller à l'état 118
-    un_param     aller à l'état 119
+    liste_param  aller à l'état 116
+    un_param     aller à l'état 117
 
 
-État 77
+État 72
 
    31 declaration_procedure: PROCEDURE IDF liste_parametres . corps
 
@@ -1227,7 +1118,7 @@ comparaison (100)
     PROCEDURE  décalage et aller à l'état 6
     FONCTION   décalage et aller à l'état 7
 
-    corps                  aller à l'état 120
+    corps                  aller à l'état 118
     liste_declarations     aller à l'état 9
     liste_instructions     aller à l'état 10
     declaration            aller à l'état 11
@@ -1237,21 +1128,57 @@ comparaison (100)
     declaration_fonction   aller à l'état 15
 
 
-État 78
+État 73
 
    32 declaration_fonction: FONCTION IDF liste_parametres . RETOURNE type_simple corps
 
-    RETOURNE  décalage et aller à l'état 121
+    RETOURNE  décalage et aller à l'état 119
 
 
-État 79
+État 74
 
     5 liste_declarations: liste_declarations declaration POINT_VIRGULE .
 
     $défaut  réduction par utilisation de la règle 5 (liste_declarations)
 
 
-État 80
+État 75
+
+   72 ea4: PARENTHESE_OUVRANTE . ea1 PARENTHESE_FERMANTE
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea1       aller à l'état 120
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 76
+
+   60 vtab: CROCHET_OUVRANT ea1 . CROCHET_FERMANT
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
+
+    CROCHET_FERMANT  décalage et aller à l'état 121
+    PLUS             décalage et aller à l'état 94
+    MOINS            décalage et aller à l'état 95
+
+
+État 77
+
+   57 variable: IDF FLECHE variable .
+
+    $défaut  réduction par utilisation de la règle 57 (variable)
+
+
+État 78
 
    48 liste_arguments: PARENTHESE_OUVRANTE liste_args . PARENTHESE_FERMANTE
    50 liste_args: liste_args . VIRGULE un_arg
@@ -1260,148 +1187,52 @@ comparaison (100)
     PARENTHESE_FERMANTE  décalage et aller à l'état 123
 
 
-État 81
+État 79
 
    49 liste_args: un_arg .
 
     $défaut  réduction par utilisation de la règle 49 (liste_args)
 
 
-État 82
+État 80
 
    51 un_arg: expression .
 
     $défaut  réduction par utilisation de la règle 51 (un_arg)
 
 
+État 81
+
+   59 vtab: vtab CROCHET_OUVRANT . ea1 CROCHET_FERMANT
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea1       aller à l'état 124
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 82
+
+   58 variable: IDF vtab FLECHE . variable
+
+    IDF  décalage et aller à l'état 41
+
+    variable  aller à l'état 125
+
+
 État 83
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
-   73 ea4: PARENTHESE_OUVRANTE ea1 . PARENTHESE_FERMANTE
-
-    PARENTHESE_FERMANTE  décalage et aller à l'état 124
-    PLUS                 décalage et aller à l'état 87
-    MOINS                décalage et aller à l'état 88
-
-
-État 84
-
-   71 ea3: PLUS ea4 .
-
-    $défaut  réduction par utilisation de la règle 71 (ea3)
-
-
-État 85
-
-   70 ea3: MOINS ea4 .
-
-    $défaut  réduction par utilisation de la règle 70 (ea3)
-
-
-État 86
-
-   61 vtab: CROCHET_OUVRANT ea1 CROCHET_FERMANT . v2
-
-    CROCHET_OUVRANT  décalage et aller à l'état 18
-    POINT            décalage et aller à l'état 19
-
-    v2       aller à l'état 125
-    vstruct  aller à l'état 33
-    vtab     aller à l'état 34
-
-
-État 87
-
-   64 ea1: ea1 PLUS . ea2
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea2       aller à l'état 126
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
-
-
-État 88
-
-   65 ea1: ea1 MOINS . ea2
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea2       aller à l'état 127
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
-
-
-État 89
-
-   67 ea2: ea2 MULT . ea3
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea3       aller à l'état 128
-    ea4       aller à l'état 53
-
-
-État 90
-
-   68 ea2: ea2 DIV . ea3
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea3       aller à l'état 129
-    ea4       aller à l'état 53
-
-
-État 91
-
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
-   73 ea4: PARENTHESE_OUVRANTE ea1 . PARENTHESE_FERMANTE
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
+   72 ea4: PARENTHESE_OUVRANTE ea1 . PARENTHESE_FERMANTE
    86 comparaison: ea1 . OPEG ea1
    87            | ea1 . OPINF ea1
    88            | ea1 . OPSUP ea1
@@ -1409,418 +1240,471 @@ comparaison (100)
    90            | ea1 . OPSUPE ea1
    91            | ea1 . OPDIFF ea1
 
-    PARENTHESE_FERMANTE  décalage et aller à l'état 124
-    OPEG                 décalage et aller à l'état 94
-    OPINF                décalage et aller à l'état 95
-    OPSUP                décalage et aller à l'état 96
-    OPINFE               décalage et aller à l'état 97
-    OPSUPE               décalage et aller à l'état 98
-    OPDIFF               décalage et aller à l'état 99
-    PLUS                 décalage et aller à l'état 87
-    MOINS                décalage et aller à l'état 88
+    PARENTHESE_FERMANTE  décalage et aller à l'état 126
+    OPEG                 décalage et aller à l'état 88
+    OPINF                décalage et aller à l'état 89
+    OPSUP                décalage et aller à l'état 90
+    OPINFE               décalage et aller à l'état 91
+    OPSUPE               décalage et aller à l'état 92
+    OPDIFF               décalage et aller à l'état 93
+    PLUS                 décalage et aller à l'état 94
+    MOINS                décalage et aller à l'état 95
 
 
-État 92
+État 84
 
    76 eb1: eb1 . OU eb2
    82 eb4: PARENTHESE_OUVRANTE eb1 . PARENTHESE_FERMANTE
 
-    PARENTHESE_FERMANTE  décalage et aller à l'état 130
-    OU                   décalage et aller à l'état 100
+    PARENTHESE_FERMANTE  décalage et aller à l'état 127
+    OU                   décalage et aller à l'état 98
 
 
-État 93
+État 85
 
    80 eb3: NOT eb4 .
 
     $défaut  réduction par utilisation de la règle 80 (eb3)
 
 
-État 94
+État 86
+
+   70 ea3: PLUS ea4 .
+
+    $défaut  réduction par utilisation de la règle 70 (ea3)
+
+
+État 87
+
+   69 ea3: MOINS ea4 .
+
+    $défaut  réduction par utilisation de la règle 69 (ea3)
+
+
+État 88
 
    86 comparaison: ea1 OPEG . ea1
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
+    variable  aller à l'état 51
+    ea1       aller à l'état 128
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 89
+
+   87 comparaison: ea1 OPINF . ea1
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea1       aller à l'état 129
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 90
+
+   88 comparaison: ea1 OPSUP . ea1
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea1       aller à l'état 130
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 91
+
+   89 comparaison: ea1 OPINFE . ea1
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
     ea1       aller à l'état 131
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 92
+
+   90 comparaison: ea1 OPSUPE . ea1
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea1       aller à l'état 132
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 93
+
+   91 comparaison: ea1 OPDIFF . ea1
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea1       aller à l'état 133
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
+
+
+État 94
+
+   63 ea1: ea1 PLUS . ea2
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+
+    variable  aller à l'état 51
+    ea2       aller à l'état 134
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
 
 
 État 95
 
-   87 comparaison: ea1 OPINF . ea1
+   64 ea1: ea1 MOINS . ea2
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 132
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    variable  aller à l'état 51
+    ea2       aller à l'état 135
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
 
 
 État 96
 
-   88 comparaison: ea1 OPSUP . ea1
+   66 ea2: ea2 MULT . ea3
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 133
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    variable  aller à l'état 51
+    ea3       aller à l'état 136
+    ea4       aller à l'état 56
 
 
 État 97
 
-   89 comparaison: ea1 OPINFE . ea1
+   67 ea2: ea2 DIV . ea3
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 134
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    variable  aller à l'état 51
+    ea3       aller à l'état 137
+    ea4       aller à l'état 56
 
 
 État 98
 
-   90 comparaison: ea1 OPSUPE . ea1
+   76 eb1: eb1 OU . eb2
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 135
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    variable     aller à l'état 51
+    ea1          aller à l'état 62
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb2          aller à l'état 138
+    eb3          aller à l'état 59
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
 
 
 État 99
 
-   91 comparaison: ea1 OPDIFF . ea1
+   78 eb2: eb2 ET . eb3
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 136
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    variable     aller à l'état 51
+    ea1          aller à l'état 62
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb3          aller à l'état 139
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
 
 
 État 100
 
-   76 eb1: eb1 OU . eb2
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
-
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    ea1          aller à l'état 67
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb2          aller à l'état 137
-    eb3          aller à l'état 64
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
-
-
-État 101
-
-   78 eb2: eb2 ET . eb3
-
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
-
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    ea1          aller à l'état 67
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb3          aller à l'état 138
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
-
-
-État 102
-
    52 condition: SI eb1 ALORS . liste_instructions SINON liste_instructions
-
-    DEBUT  décalage et aller à l'état 3
-
-    liste_instructions  aller à l'état 139
-
-
-État 103
-
-   53 tant_que: TANT_QUE eb1 FAIRE . liste_instructions
 
     DEBUT  décalage et aller à l'état 3
 
     liste_instructions  aller à l'état 140
 
 
-État 104
+État 101
+
+   53 tant_que: TANT_QUE eb1 FAIRE . liste_instructions
+
+    DEBUT  décalage et aller à l'état 3
+
+    liste_instructions  aller à l'état 141
+
+
+État 102
 
     8 suite_liste_inst: suite_liste_inst instruction POINT_VIRGULE .
 
     $défaut  réduction par utilisation de la règle 8 (suite_liste_inst)
 
 
-État 105
+État 103
 
    54 affectation: variable OPAFF expression .
 
     $défaut  réduction par utilisation de la règle 54 (affectation)
 
 
-État 106
+État 104
 
    14 suite_declaration_type: STRUCT . liste_champs FSTRUCT
 
-    IDF  décalage et aller à l'état 141
+    IDF  décalage et aller à l'état 142
 
-    liste_champs  aller à l'état 142
-    un_champ      aller à l'état 143
+    liste_champs  aller à l'état 143
+    un_champ      aller à l'état 144
 
 
-État 107
+État 105
 
    15 suite_declaration_type: TABLEAU . dimension DE nom_type
 
-    CROCHET_OUVRANT  décalage et aller à l'état 144
+    CROCHET_OUVRANT  décalage et aller à l'état 145
 
-    dimension  aller à l'état 145
+    dimension  aller à l'état 146
 
 
-État 108
+État 106
 
    13 declaration_type: TYPE IDF DEUX_POINTS suite_declaration_type .
 
     $défaut  réduction par utilisation de la règle 13 (declaration_type)
 
 
-État 109
+État 107
 
    24 nom_type: IDF .
 
     $défaut  réduction par utilisation de la règle 24 (nom_type)
 
 
-État 110
+État 108
 
    25 type_simple: ENTIER .
 
     $défaut  réduction par utilisation de la règle 25 (type_simple)
 
 
-État 111
+État 109
 
    26 type_simple: REEL .
 
     $défaut  réduction par utilisation de la règle 26 (type_simple)
 
 
-État 112
+État 110
 
    27 type_simple: BOOLEEN .
 
     $défaut  réduction par utilisation de la règle 27 (type_simple)
 
 
-État 113
+État 111
 
    29 type_simple: CHAINE . CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT
 
-    CROCHET_OUVRANT  décalage et aller à l'état 146
+    CROCHET_OUVRANT  décalage et aller à l'état 147
 
 
-État 114
+État 112
 
    28 type_simple: CARACTERE .
 
     $défaut  réduction par utilisation de la règle 28 (type_simple)
 
 
-État 115
+État 113
 
    30 declaration_variable: VARIABLE IDF DEUX_POINTS nom_type .
 
     $défaut  réduction par utilisation de la règle 30 (declaration_variable)
 
 
-État 116
+État 114
 
    23 nom_type: type_simple .
 
     $défaut  réduction par utilisation de la règle 23 (nom_type)
 
 
-État 117
+État 115
 
    37 un_param: IDF . DEUX_POINTS type_simple
 
-    DEUX_POINTS  décalage et aller à l'état 147
+    DEUX_POINTS  décalage et aller à l'état 148
 
 
-État 118
+État 116
 
    34 liste_parametres: PARENTHESE_OUVRANTE liste_param . PARENTHESE_FERMANTE
    36 liste_param: liste_param . POINT_VIRGULE un_param
 
-    POINT_VIRGULE        décalage et aller à l'état 148
-    PARENTHESE_FERMANTE  décalage et aller à l'état 149
+    POINT_VIRGULE        décalage et aller à l'état 149
+    PARENTHESE_FERMANTE  décalage et aller à l'état 150
 
 
-État 119
+État 117
 
    35 liste_param: un_param .
 
     $défaut  réduction par utilisation de la règle 35 (liste_param)
 
 
-État 120
+État 118
 
    31 declaration_procedure: PROCEDURE IDF liste_parametres corps .
 
     $défaut  réduction par utilisation de la règle 31 (declaration_procedure)
 
 
-État 121
+État 119
 
    32 declaration_fonction: FONCTION IDF liste_parametres RETOURNE . type_simple corps
 
-    ENTIER     décalage et aller à l'état 110
-    REEL       décalage et aller à l'état 111
-    BOOLEEN    décalage et aller à l'état 112
-    CHAINE     décalage et aller à l'état 113
-    CARACTERE  décalage et aller à l'état 114
+    ENTIER     décalage et aller à l'état 108
+    REEL       décalage et aller à l'état 109
+    BOOLEEN    décalage et aller à l'état 110
+    CHAINE     décalage et aller à l'état 111
+    CARACTERE  décalage et aller à l'état 112
 
-    type_simple  aller à l'état 150
+    type_simple  aller à l'état 151
+
+
+État 120
+
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
+   72 ea4: PARENTHESE_OUVRANTE ea1 . PARENTHESE_FERMANTE
+
+    PARENTHESE_FERMANTE  décalage et aller à l'état 126
+    PLUS                 décalage et aller à l'état 94
+    MOINS                décalage et aller à l'état 95
+
+
+État 121
+
+   60 vtab: CROCHET_OUVRANT ea1 CROCHET_FERMANT .
+
+    $défaut  réduction par utilisation de la règle 60 (vtab)
 
 
 État 122
 
    50 liste_args: liste_args VIRGULE . un_arg
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 55
-    NOT                  décalage et aller à l'état 56
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
-    TRUE                 décalage et aller à l'état 57
-    FALSE                décalage et aller à l'état 58
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 44
+    NOT                  décalage et aller à l'état 45
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
+    TRUE                 décalage et aller à l'état 48
+    FALSE                décalage et aller à l'état 49
 
-    un_arg       aller à l'état 151
-    variable     aller à l'état 49
-    v1           aller à l'état 31
-    v2           aller à l'état 32
-    vstruct      aller à l'état 33
-    vtab         aller à l'état 34
-    expression   aller à l'état 82
-    ea1          aller à l'état 61
-    ea2          aller à l'état 51
-    ea3          aller à l'état 52
-    ea4          aller à l'état 53
-    eb1          aller à l'état 62
-    eb2          aller à l'état 63
-    eb3          aller à l'état 64
-    eb4          aller à l'état 65
-    comparaison  aller à l'état 66
+    un_arg       aller à l'état 152
+    variable     aller à l'état 51
+    expression   aller à l'état 80
+    ea1          aller à l'état 53
+    ea2          aller à l'état 54
+    ea3          aller à l'état 55
+    ea4          aller à l'état 56
+    eb1          aller à l'état 57
+    eb2          aller à l'état 58
+    eb3          aller à l'état 59
+    eb4          aller à l'état 60
+    comparaison  aller à l'état 61
 
 
 État 123
@@ -1832,258 +1716,264 @@ comparaison (100)
 
 État 124
 
-   73 ea4: PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE .
+   59 vtab: vtab CROCHET_OUVRANT ea1 . CROCHET_FERMANT
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
 
-    $défaut  réduction par utilisation de la règle 73 (ea4)
+    CROCHET_FERMANT  décalage et aller à l'état 153
+    PLUS             décalage et aller à l'état 94
+    MOINS            décalage et aller à l'état 95
 
 
 État 125
 
-   61 vtab: CROCHET_OUVRANT ea1 CROCHET_FERMANT v2 .
+   58 variable: IDF vtab FLECHE variable .
 
-    $défaut  réduction par utilisation de la règle 61 (vtab)
+    $défaut  réduction par utilisation de la règle 58 (variable)
 
 
 État 126
 
-   64 ea1: ea1 PLUS ea2 .
-   67 ea2: ea2 . MULT ea3
-   68    | ea2 . DIV ea3
+   72 ea4: PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE .
 
-    MULT  décalage et aller à l'état 89
-    DIV   décalage et aller à l'état 90
-
-    $défaut  réduction par utilisation de la règle 64 (ea1)
+    $défaut  réduction par utilisation de la règle 72 (ea4)
 
 
 État 127
-
-   65 ea1: ea1 MOINS ea2 .
-   67 ea2: ea2 . MULT ea3
-   68    | ea2 . DIV ea3
-
-    MULT  décalage et aller à l'état 89
-    DIV   décalage et aller à l'état 90
-
-    $défaut  réduction par utilisation de la règle 65 (ea1)
-
-
-État 128
-
-   67 ea2: ea2 MULT ea3 .
-
-    $défaut  réduction par utilisation de la règle 67 (ea2)
-
-
-État 129
-
-   68 ea2: ea2 DIV ea3 .
-
-    $défaut  réduction par utilisation de la règle 68 (ea2)
-
-
-État 130
 
    82 eb4: PARENTHESE_OUVRANTE eb1 PARENTHESE_FERMANTE .
 
     $défaut  réduction par utilisation de la règle 82 (eb4)
 
 
-État 131
+État 128
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    86 comparaison: ea1 OPEG ea1 .
 
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
     $défaut  réduction par utilisation de la règle 86 (comparaison)
 
 
-État 132
+État 129
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    87 comparaison: ea1 OPINF ea1 .
 
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
     $défaut  réduction par utilisation de la règle 87 (comparaison)
 
 
-État 133
+État 130
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    88 comparaison: ea1 OPSUP ea1 .
 
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
     $défaut  réduction par utilisation de la règle 88 (comparaison)
 
 
-État 134
+État 131
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    89 comparaison: ea1 OPINFE ea1 .
 
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
     $défaut  réduction par utilisation de la règle 89 (comparaison)
 
 
-État 135
+État 132
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    90 comparaison: ea1 OPSUPE ea1 .
 
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
     $défaut  réduction par utilisation de la règle 90 (comparaison)
 
 
-État 136
+État 133
 
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
    91 comparaison: ea1 OPDIFF ea1 .
 
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
     $défaut  réduction par utilisation de la règle 91 (comparaison)
 
 
+État 134
+
+   63 ea1: ea1 PLUS ea2 .
+   66 ea2: ea2 . MULT ea3
+   67    | ea2 . DIV ea3
+
+    MULT  décalage et aller à l'état 96
+    DIV   décalage et aller à l'état 97
+
+    $défaut  réduction par utilisation de la règle 63 (ea1)
+
+
+État 135
+
+   64 ea1: ea1 MOINS ea2 .
+   66 ea2: ea2 . MULT ea3
+   67    | ea2 . DIV ea3
+
+    MULT  décalage et aller à l'état 96
+    DIV   décalage et aller à l'état 97
+
+    $défaut  réduction par utilisation de la règle 64 (ea1)
+
+
+État 136
+
+   66 ea2: ea2 MULT ea3 .
+
+    $défaut  réduction par utilisation de la règle 66 (ea2)
+
+
 État 137
+
+   67 ea2: ea2 DIV ea3 .
+
+    $défaut  réduction par utilisation de la règle 67 (ea2)
+
+
+État 138
 
    76 eb1: eb1 OU eb2 .
    78 eb2: eb2 . ET eb3
 
-    ET  décalage et aller à l'état 101
+    ET  décalage et aller à l'état 99
 
     $défaut  réduction par utilisation de la règle 76 (eb1)
 
 
-État 138
+État 139
 
    78 eb2: eb2 ET eb3 .
 
     $défaut  réduction par utilisation de la règle 78 (eb2)
 
 
-État 139
+État 140
 
    52 condition: SI eb1 ALORS liste_instructions . SINON liste_instructions
 
-    SINON  décalage et aller à l'état 152
+    SINON  décalage et aller à l'état 154
 
 
-État 140
+État 141
 
    53 tant_que: TANT_QUE eb1 FAIRE liste_instructions .
 
     $défaut  réduction par utilisation de la règle 53 (tant_que)
 
 
-État 141
+État 142
 
    22 un_champ: IDF . DEUX_POINTS nom_type
 
-    DEUX_POINTS  décalage et aller à l'état 153
+    DEUX_POINTS  décalage et aller à l'état 155
 
 
-État 142
+État 143
 
    14 suite_declaration_type: STRUCT liste_champs . FSTRUCT
    21 liste_champs: liste_champs . POINT_VIRGULE un_champ
 
-    POINT_VIRGULE  décalage et aller à l'état 154
-    FSTRUCT        décalage et aller à l'état 155
+    POINT_VIRGULE  décalage et aller à l'état 156
+    FSTRUCT        décalage et aller à l'état 157
 
 
-État 143
+État 144
 
    20 liste_champs: un_champ .
 
     $défaut  réduction par utilisation de la règle 20 (liste_champs)
 
 
-État 144
+État 145
 
    16 dimension: CROCHET_OUVRANT . liste_dimensions CROCHET_FERMANT
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
 
-    liste_dimensions  aller à l'état 156
-    une_dimension     aller à l'état 157
-    variable          aller à l'état 49
-    v1                aller à l'état 31
-    v2                aller à l'état 32
-    vstruct           aller à l'état 33
-    vtab              aller à l'état 34
-    ea1               aller à l'état 158
-    ea2               aller à l'état 51
-    ea3               aller à l'état 52
-    ea4               aller à l'état 53
-
-
-État 145
-
-   15 suite_declaration_type: TABLEAU dimension . DE nom_type
-
-    DE  décalage et aller à l'état 159
+    liste_dimensions  aller à l'état 158
+    une_dimension     aller à l'état 159
+    variable          aller à l'état 51
+    ea1               aller à l'état 160
+    ea2               aller à l'état 54
+    ea3               aller à l'état 55
+    ea4               aller à l'état 56
 
 
 État 146
 
-   29 type_simple: CHAINE CROCHET_OUVRANT . CSTE_ENTIERE CROCHET_FERMANT
+   15 suite_declaration_type: TABLEAU dimension . DE nom_type
 
-    CSTE_ENTIERE  décalage et aller à l'état 160
+    DE  décalage et aller à l'état 161
 
 
 État 147
 
-   37 un_param: IDF DEUX_POINTS . type_simple
+   29 type_simple: CHAINE CROCHET_OUVRANT . CSTE_ENTIERE CROCHET_FERMANT
 
-    ENTIER     décalage et aller à l'état 110
-    REEL       décalage et aller à l'état 111
-    BOOLEEN    décalage et aller à l'état 112
-    CHAINE     décalage et aller à l'état 113
-    CARACTERE  décalage et aller à l'état 114
-
-    type_simple  aller à l'état 161
+    CSTE_ENTIERE  décalage et aller à l'état 162
 
 
 État 148
 
-   36 liste_param: liste_param POINT_VIRGULE . un_param
+   37 un_param: IDF DEUX_POINTS . type_simple
 
-    IDF  décalage et aller à l'état 117
+    ENTIER     décalage et aller à l'état 108
+    REEL       décalage et aller à l'état 109
+    BOOLEEN    décalage et aller à l'état 110
+    CHAINE     décalage et aller à l'état 111
+    CARACTERE  décalage et aller à l'état 112
 
-    un_param  aller à l'état 162
+    type_simple  aller à l'état 163
 
 
 État 149
+
+   36 liste_param: liste_param POINT_VIRGULE . un_param
+
+    IDF  décalage et aller à l'état 115
+
+    un_param  aller à l'état 164
+
+
+État 150
 
    34 liste_parametres: PARENTHESE_OUVRANTE liste_param PARENTHESE_FERMANTE .
 
     $défaut  réduction par utilisation de la règle 34 (liste_parametres)
 
 
-État 150
+État 151
 
    32 declaration_fonction: FONCTION IDF liste_parametres RETOURNE type_simple . corps
 
@@ -2093,7 +1983,7 @@ comparaison (100)
     PROCEDURE  décalage et aller à l'état 6
     FONCTION   décalage et aller à l'état 7
 
-    corps                  aller à l'état 163
+    corps                  aller à l'état 165
     liste_declarations     aller à l'état 9
     liste_instructions     aller à l'état 10
     declaration            aller à l'état 11
@@ -2103,233 +1993,230 @@ comparaison (100)
     declaration_fonction   aller à l'état 15
 
 
-État 151
+État 152
 
    50 liste_args: liste_args VIRGULE un_arg .
 
     $défaut  réduction par utilisation de la règle 50 (liste_args)
 
 
-État 152
+État 153
+
+   59 vtab: vtab CROCHET_OUVRANT ea1 CROCHET_FERMANT .
+
+    $défaut  réduction par utilisation de la règle 59 (vtab)
+
+
+État 154
 
    52 condition: SI eb1 ALORS liste_instructions SINON . liste_instructions
 
     DEBUT  décalage et aller à l'état 3
 
-    liste_instructions  aller à l'état 164
-
-
-État 153
-
-   22 un_champ: IDF DEUX_POINTS . nom_type
-
-    IDF        décalage et aller à l'état 109
-    ENTIER     décalage et aller à l'état 110
-    REEL       décalage et aller à l'état 111
-    BOOLEEN    décalage et aller à l'état 112
-    CHAINE     décalage et aller à l'état 113
-    CARACTERE  décalage et aller à l'état 114
-
-    nom_type     aller à l'état 165
-    type_simple  aller à l'état 116
-
-
-État 154
-
-   21 liste_champs: liste_champs POINT_VIRGULE . un_champ
-
-    IDF  décalage et aller à l'état 141
-
-    un_champ  aller à l'état 166
+    liste_instructions  aller à l'état 166
 
 
 État 155
+
+   22 un_champ: IDF DEUX_POINTS . nom_type
+
+    IDF        décalage et aller à l'état 107
+    ENTIER     décalage et aller à l'état 108
+    REEL       décalage et aller à l'état 109
+    BOOLEEN    décalage et aller à l'état 110
+    CHAINE     décalage et aller à l'état 111
+    CARACTERE  décalage et aller à l'état 112
+
+    nom_type     aller à l'état 167
+    type_simple  aller à l'état 114
+
+
+État 156
+
+   21 liste_champs: liste_champs POINT_VIRGULE . un_champ
+
+    IDF  décalage et aller à l'état 142
+
+    un_champ  aller à l'état 168
+
+
+État 157
 
    14 suite_declaration_type: STRUCT liste_champs FSTRUCT .
 
     $défaut  réduction par utilisation de la règle 14 (suite_declaration_type)
 
 
-État 156
+État 158
 
    16 dimension: CROCHET_OUVRANT liste_dimensions . CROCHET_FERMANT
    18 liste_dimensions: liste_dimensions . VIRGULE une_dimension
 
-    CROCHET_FERMANT  décalage et aller à l'état 167
-    VIRGULE          décalage et aller à l'état 168
+    CROCHET_FERMANT  décalage et aller à l'état 169
+    VIRGULE          décalage et aller à l'état 170
 
 
-État 157
+État 159
 
    17 liste_dimensions: une_dimension .
 
     $défaut  réduction par utilisation de la règle 17 (liste_dimensions)
 
 
-État 158
-
-   19 une_dimension: ea1 . POINT POINT ea1
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
-
-    POINT  décalage et aller à l'état 169
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
-
-
-État 159
-
-   15 suite_declaration_type: TABLEAU dimension DE . nom_type
-
-    IDF        décalage et aller à l'état 109
-    ENTIER     décalage et aller à l'état 110
-    REEL       décalage et aller à l'état 111
-    BOOLEEN    décalage et aller à l'état 112
-    CHAINE     décalage et aller à l'état 113
-    CARACTERE  décalage et aller à l'état 114
-
-    nom_type     aller à l'état 170
-    type_simple  aller à l'état 116
-
-
 État 160
 
-   29 type_simple: CHAINE CROCHET_OUVRANT CSTE_ENTIERE . CROCHET_FERMANT
+   19 une_dimension: ea1 . POINT POINT ea1
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
 
-    CROCHET_FERMANT  décalage et aller à l'état 171
+    POINT  décalage et aller à l'état 171
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
 
 État 161
+
+   15 suite_declaration_type: TABLEAU dimension DE . nom_type
+
+    IDF        décalage et aller à l'état 107
+    ENTIER     décalage et aller à l'état 108
+    REEL       décalage et aller à l'état 109
+    BOOLEEN    décalage et aller à l'état 110
+    CHAINE     décalage et aller à l'état 111
+    CARACTERE  décalage et aller à l'état 112
+
+    nom_type     aller à l'état 172
+    type_simple  aller à l'état 114
+
+
+État 162
+
+   29 type_simple: CHAINE CROCHET_OUVRANT CSTE_ENTIERE . CROCHET_FERMANT
+
+    CROCHET_FERMANT  décalage et aller à l'état 173
+
+
+État 163
 
    37 un_param: IDF DEUX_POINTS type_simple .
 
     $défaut  réduction par utilisation de la règle 37 (un_param)
 
 
-État 162
+État 164
 
    36 liste_param: liste_param POINT_VIRGULE un_param .
 
     $défaut  réduction par utilisation de la règle 36 (liste_param)
 
 
-État 163
+État 165
 
    32 declaration_fonction: FONCTION IDF liste_parametres RETOURNE type_simple corps .
 
     $défaut  réduction par utilisation de la règle 32 (declaration_fonction)
 
 
-État 164
+État 166
 
    52 condition: SI eb1 ALORS liste_instructions SINON liste_instructions .
 
     $défaut  réduction par utilisation de la règle 52 (condition)
 
 
-État 165
+État 167
 
    22 un_champ: IDF DEUX_POINTS nom_type .
 
     $défaut  réduction par utilisation de la règle 22 (un_champ)
 
 
-État 166
+État 168
 
    21 liste_champs: liste_champs POINT_VIRGULE un_champ .
 
     $défaut  réduction par utilisation de la règle 21 (liste_champs)
 
 
-État 167
+État 169
 
    16 dimension: CROCHET_OUVRANT liste_dimensions CROCHET_FERMANT .
 
     $défaut  réduction par utilisation de la règle 16 (dimension)
 
 
-État 168
+État 170
 
    18 liste_dimensions: liste_dimensions VIRGULE . une_dimension
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
 
-    une_dimension  aller à l'état 172
-    variable       aller à l'état 49
-    v1             aller à l'état 31
-    v2             aller à l'état 32
-    vstruct        aller à l'état 33
-    vtab           aller à l'état 34
-    ea1            aller à l'état 158
-    ea2            aller à l'état 51
-    ea3            aller à l'état 52
-    ea4            aller à l'état 53
+    une_dimension  aller à l'état 174
+    variable       aller à l'état 51
+    ea1            aller à l'état 160
+    ea2            aller à l'état 54
+    ea3            aller à l'état 55
+    ea4            aller à l'état 56
 
 
-État 169
+État 171
 
    19 une_dimension: ea1 POINT . POINT ea1
 
-    POINT  décalage et aller à l'état 173
+    POINT  décalage et aller à l'état 175
 
 
-État 170
+État 172
 
    15 suite_declaration_type: TABLEAU dimension DE nom_type .
 
     $défaut  réduction par utilisation de la règle 15 (suite_declaration_type)
 
 
-État 171
+État 173
 
    29 type_simple: CHAINE CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT .
 
     $défaut  réduction par utilisation de la règle 29 (type_simple)
 
 
-État 172
+État 174
 
    18 liste_dimensions: liste_dimensions VIRGULE une_dimension .
 
     $défaut  réduction par utilisation de la règle 18 (liste_dimensions)
 
 
-État 173
+État 175
 
    19 une_dimension: ea1 POINT POINT . ea1
 
-    IDF                  décalage et aller à l'état 44
-    CROCHET_OUVRANT      décalage et aller à l'état 18
-    POINT                décalage et aller à l'état 19
-    CSTE_ENTIERE         décalage et aller à l'état 45
-    PARENTHESE_OUVRANTE  décalage et aller à l'état 46
-    PLUS                 décalage et aller à l'état 47
-    MOINS                décalage et aller à l'état 48
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 75
+    PLUS                 décalage et aller à l'état 46
+    MOINS                décalage et aller à l'état 47
 
-    variable  aller à l'état 49
-    v1        aller à l'état 31
-    v2        aller à l'état 32
-    vstruct   aller à l'état 33
-    vtab      aller à l'état 34
-    ea1       aller à l'état 174
-    ea2       aller à l'état 51
-    ea3       aller à l'état 52
-    ea4       aller à l'état 53
+    variable  aller à l'état 51
+    ea1       aller à l'état 176
+    ea2       aller à l'état 54
+    ea3       aller à l'état 55
+    ea4       aller à l'état 56
 
 
-État 174
+État 176
 
    19 une_dimension: ea1 POINT POINT ea1 .
-   64 ea1: ea1 . PLUS ea2
-   65    | ea1 . MOINS ea2
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
 
-    PLUS   décalage et aller à l'état 87
-    MOINS  décalage et aller à l'état 88
+    PLUS   décalage et aller à l'état 94
+    MOINS  décalage et aller à l'état 95
 
     $défaut  réduction par utilisation de la règle 19 (une_dimension)
