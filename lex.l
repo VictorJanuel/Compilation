@@ -24,7 +24,7 @@ end[ ]struct    {return (FSTRUCT);}
 array           {return (TABLEAU);}
 of              {return (DE);}
 
-var             {printf("je suis passé");return (VARIABLE);}
+var             {printf("var");return (VARIABLE);}
 procedure       {return (PROCEDURE);}
 function        {return (FONCTION);}
 return          {return (RETOURNE);}
@@ -61,10 +61,10 @@ else            {return (SINON);}
 \+              {return(PLUS);}
 =               {printf("EGALE\n");return (OPAFF);}
 
-\.              {printf("KIM DOTCOM");return (POINT);}
-\-\>            {printf("Robin des Bois\n"); return(FLECHE);}
+\.              {printf("Point\n");return (POINT);}
+\.\.            {printf("PointPoint\n");return (PP);}
 \,              {return (VIRGULE);}
-\;              {printf("J4AI FINI MAMAN!\n");return (POINT_VIRGULE);}
+\;              {printf("point virgule\n");return (POINT_VIRGULE);}
 \:              {return (DEUX_POINTS);}
 
 \)              {return (PARENTHESE_FERMANTE);}
@@ -76,10 +76,14 @@ true            {return (TRUE);}
 false           {return (FALSE);} 
 
 [a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); yylval=insererLexeme(yytext); return (IDF);}
-0|[1-9][0-9]*            {printf("AINTE");return (CSTE_ENTIERE);}
-0|[1-9][0-9]*\.[0-9]*           {return (CSTE_REELLE);}
+0|[1-9][0-9]*            {printf("constante entiere\n"); return (CSTE_ENTIERE);}
+0|[1-9][0-9]*\.[0-9]+           {return (CSTE_REELLE);}
+
+\'[^']\'        {printf("caractere");return(CARAC);}
+\"[^\"]*\"        {printf("caractere");return(CHAINECARAC);}
+
 \n              {numligne++;}
-[ ]*            {printf("lul\n");}
+[ ]*            {;}
 \t*             {;}
 
 .               {return (ERROR_LEXICO);}

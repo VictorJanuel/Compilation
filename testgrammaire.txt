@@ -1,5 +1,6 @@
 main Test123
 var maVar : int;
+type tab : array [1..5] of oui;
 type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
@@ -20,7 +21,8 @@ begin
 	end;
         void;
         toto[toto[toto[45]]][a[toto[toto[45]]]] = 45;
-        v1->t[toto[a->a][b]]->dude = 4;
+        v1.t[toto[a.a][b]].dude = 4;
+        toto[4][ 7]=2;
         h = rentredestrucs - toutca;
 
         while a > c || b < d do
@@ -31,8 +33,8 @@ begin
                 i4;
                 if(a-b >= a-c) then
                 begin
-                        a[0] = t;
-                        a[1] = o;
+                        a[0] = '*';
+                        a[1] = "ça marche même \l'apostrophe";
                         a[2] = t;
                         a[3] = o;
                         b = 56;

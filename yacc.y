@@ -13,8 +13,8 @@
 %token PROG POINT_VIRGULE DEBUT FIN
 %token TYPE IDF DEUX_POINTS STRUCT FSTRUCT
 %token TABLEAU DE CROCHET_OUVRANT CROCHET_FERMANT 
-%token VIRGULE POINT FLECHE VARIABLE PROCEDURE FONCTION
-%token ENTIER REEL BOOLEEN CHAINE CARACTERE CSTE_ENTIERE CSTE_REELLE
+%token VIRGULE POINT VARIABLE PROCEDURE FONCTION PP
+%token ENTIER REEL BOOLEEN CHAINE CARACTERE CSTE_ENTIERE CSTE_REELLE CARAC CHAINECARAC
 %token PARENTHESE_FERMANTE PARENTHESE_OUVRANTE VIDE RETOURNE
 %token SI ALORS SINON TANT_QUE FAIRE OPAFF
 %token OPEG OPINF OPSUP OPINFE OPSUPE OPDIFF 
@@ -35,7 +35,7 @@ liste_declarations          : declaration POINT_VIRGULE
                             | liste_declarations declaration POINT_VIRGULE
                             ;
 
-liste_instructions          : DEBUT suite_liste_inst FIN {printf("olol g fini\n");}
+liste_instructions          : DEBUT suite_liste_inst FIN
                             ;
 
 suite_liste_inst            : instruction POINT_VIRGULE
@@ -62,7 +62,7 @@ liste_dimensions            : une_dimension
                             | liste_dimensions VIRGULE une_dimension
                             ;
 
-une_dimension               : ea1 POINT POINT ea1
+une_dimension               : CSTE_ENTIERE PP CSTE_ENTIERE
                             ;
 
 liste_champs                : un_champ
@@ -140,8 +140,8 @@ affectation                 : variable OPAFF expression
 
 variable                    : IDF
                             | IDF vtab
-                            | IDF FLECHE variable
-                            | IDF vtab FLECHE variable
+                            | IDF POINT variable
+                            | IDF vtab POINT variable
                             ;
 
 vtab                        : vtab CROCHET_OUVRANT ea1 CROCHET_FERMANT
@@ -172,6 +172,8 @@ ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE
                             | variable
                             | CSTE_ENTIERE
                             | CSTE_REELLE
+                            | CARAC
+                            | CHAINECARAC
                             ;
 
 eb1                         : eb1 OU eb2

@@ -60,10 +60,10 @@ extern int yydebug;
     CROCHET_FERMANT = 270,
     VIRGULE = 271,
     POINT = 272,
-    FLECHE = 273,
-    VARIABLE = 274,
-    PROCEDURE = 275,
-    FONCTION = 276,
+    VARIABLE = 273,
+    PROCEDURE = 274,
+    FONCTION = 275,
+    PP = 276,
     ENTIER = 277,
     REEL = 278,
     BOOLEEN = 279,
@@ -71,35 +71,37 @@ extern int yydebug;
     CARACTERE = 281,
     CSTE_ENTIERE = 282,
     CSTE_REELLE = 283,
-    PARENTHESE_FERMANTE = 284,
-    PARENTHESE_OUVRANTE = 285,
-    VIDE = 286,
-    RETOURNE = 287,
-    SI = 288,
-    ALORS = 289,
-    SINON = 290,
-    TANT_QUE = 291,
-    FAIRE = 292,
-    OPAFF = 293,
-    OPEG = 294,
-    OPINF = 295,
-    OPSUP = 296,
-    OPINFE = 297,
-    OPSUPE = 298,
-    OPDIFF = 299,
-    NEG = 300,
-    POS = 301,
-    NOT = 302,
-    PLUS = 303,
-    MOINS = 304,
-    MULT = 305,
-    DIV = 306,
-    MOD = 307,
-    ET = 308,
-    OU = 309,
-    TRUE = 310,
-    FALSE = 311,
-    ERROR_LEXICO = 312
+    CARAC = 284,
+    CHAINECARAC = 285,
+    PARENTHESE_FERMANTE = 286,
+    PARENTHESE_OUVRANTE = 287,
+    VIDE = 288,
+    RETOURNE = 289,
+    SI = 290,
+    ALORS = 291,
+    SINON = 292,
+    TANT_QUE = 293,
+    FAIRE = 294,
+    OPAFF = 295,
+    OPEG = 296,
+    OPINF = 297,
+    OPSUP = 298,
+    OPINFE = 299,
+    OPSUPE = 300,
+    OPDIFF = 301,
+    NEG = 302,
+    POS = 303,
+    NOT = 304,
+    PLUS = 305,
+    MOINS = 306,
+    MULT = 307,
+    DIV = 308,
+    MOD = 309,
+    ET = 310,
+    OU = 311,
+    TRUE = 312,
+    FALSE = 313,
+    ERROR_LEXICO = 314
   };
 #endif
 /* Tokens.  */
@@ -118,10 +120,10 @@ extern int yydebug;
 #define CROCHET_FERMANT 270
 #define VIRGULE 271
 #define POINT 272
-#define FLECHE 273
-#define VARIABLE 274
-#define PROCEDURE 275
-#define FONCTION 276
+#define VARIABLE 273
+#define PROCEDURE 274
+#define FONCTION 275
+#define PP 276
 #define ENTIER 277
 #define REEL 278
 #define BOOLEEN 279
@@ -129,35 +131,37 @@ extern int yydebug;
 #define CARACTERE 281
 #define CSTE_ENTIERE 282
 #define CSTE_REELLE 283
-#define PARENTHESE_FERMANTE 284
-#define PARENTHESE_OUVRANTE 285
-#define VIDE 286
-#define RETOURNE 287
-#define SI 288
-#define ALORS 289
-#define SINON 290
-#define TANT_QUE 291
-#define FAIRE 292
-#define OPAFF 293
-#define OPEG 294
-#define OPINF 295
-#define OPSUP 296
-#define OPINFE 297
-#define OPSUPE 298
-#define OPDIFF 299
-#define NEG 300
-#define POS 301
-#define NOT 302
-#define PLUS 303
-#define MOINS 304
-#define MULT 305
-#define DIV 306
-#define MOD 307
-#define ET 308
-#define OU 309
-#define TRUE 310
-#define FALSE 311
-#define ERROR_LEXICO 312
+#define CARAC 284
+#define CHAINECARAC 285
+#define PARENTHESE_FERMANTE 286
+#define PARENTHESE_OUVRANTE 287
+#define VIDE 288
+#define RETOURNE 289
+#define SI 290
+#define ALORS 291
+#define SINON 292
+#define TANT_QUE 293
+#define FAIRE 294
+#define OPAFF 295
+#define OPEG 296
+#define OPINF 297
+#define OPSUP 298
+#define OPINFE 299
+#define OPSUPE 300
+#define OPDIFF 301
+#define NEG 302
+#define POS 303
+#define NOT 304
+#define PLUS 305
+#define MOINS 306
+#define MULT 307
+#define DIV 308
+#define MOD 309
+#define ET 310
+#define OU 311
+#define TRUE 312
+#define FALSE 313
+#define ERROR_LEXICO 314
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
