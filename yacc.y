@@ -1,17 +1,29 @@
 %{
-
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "y.tab.h"
+    extern int numligne;
+    extern char * yytext;
+    
+    extern int yylex();
+    extern int yyerror();
+    extern int yylval;
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN
 %token TYPE IDF DEUX_POINTS STRUCT FSTRUCT
 %token TABLEAU DE CROCHET_OUVRANT CROCHET_FERMANT 
-%token VIRGULE POINT VARIABLE PROCEDURE FONCTION
-%token ENTIER REEL BOOLEEN CHAINE CARACTERE CSTE_ENTIERE
+%token VIRGULE POINT VARIABLE PROCEDURE FONCTION PP
+%token ENTIER REEL BOOLEEN CHAINE CARACTERE CSTE_ENTIERE CSTE_REELLE CARAC CHAINECARAC
 %token PARENTHESE_FERMANTE PARENTHESE_OUVRANTE VIDE RETOURNE
 %token SI ALORS SINON TANT_QUE FAIRE OPAFF
 %token OPEG OPINF OPSUP OPINFE OPSUPE OPDIFF 
 %token NEG POS NOT PLUS MOINS MULT DIV MOD
 %token ET OU TRUE FALSE
+<<<<<<< HEAD:grammaire.y
+=======
+%token ERROR_LEXICO
+>>>>>>> dev:yacc.y
 
 %%
 
@@ -53,7 +65,7 @@ liste_dimensions            : une_dimension
                             | liste_dimensions VIRGULE une_dimension
                             ;
 
-une_dimension               : expression POINT POINT expression
+une_dimension               : CSTE_ENTIERE PP CSTE_ENTIERE
                             ;
 
 liste_champs                : un_champ
@@ -102,7 +114,7 @@ instruction                 : affectation
                             | RETOURNE resultat_retourne
                             ;
 
-resultat_retourne           :
+resultat_retourne           : 
                             | expression
                             ;
 
@@ -110,7 +122,7 @@ appel                       : IDF liste_arguments
                             ;
 
 liste_arguments             :
-                            |  PARENTHESE_OUVRANTE liste_args PARENTHESE_FERMANTE
+                            | PARENTHESE_OUVRANTE liste_args PARENTHESE_FERMANTE
                             ;
 
 liste_args                  : un_arg
@@ -120,15 +132,16 @@ liste_args                  : un_arg
 un_arg                      : expression
                             ;
 
-condition                   : SI expression ALORS liste_instructions SINON liste_instructions
+condition                   : SI eb1 ALORS liste_instructions SINON liste_instructions
                             ;
 
-tant_que                    : TANT_QUE expression FAIRE liste_instructions
+tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
                             ;
 
 affectation                 : variable OPAFF expression
                             ;
 
+<<<<<<< HEAD:grammaire.y
 variable                    : IDF suite_var
                             | IDF
                             ;
@@ -136,10 +149,21 @@ variable                    : IDF suite_var
 suite_var                   :  
                             | POINT variable
                             | CROCHET_OUVRANT expression CROCHET_FERMANT suite_var
+=======
+variable                    : IDF
+                            | IDF vtab
+                            | IDF POINT variable
+                            | IDF vtab POINT variable
                             ;
 
-expression                  :ea1
-                            |eb1
+vtab                        : vtab CROCHET_OUVRANT ea1 CROCHET_FERMANT
+                            | CROCHET_OUVRANT ea1 CROCHET_FERMANT
+>>>>>>> dev:yacc.y
+                            ;
+
+
+expression                  : ea1
+                            | eb1
                             ;
 
 ea1                         : ea1 PLUS ea2
@@ -152,14 +176,17 @@ ea2                         : ea2 MULT ea3
                             | ea3
                             ;
           
-ea3                         : NEG ea4
-                            | POS ea4
+ea3                         : MOINS ea4
+                            | PLUS ea4
                             | ea4
                             ;
 
-ea4                         : PARENTHESE_OUVRANTE expression PARENTHESE_FERMANTE
+ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE
                             | variable
                             | CSTE_ENTIERE
+                            | CSTE_REELLE
+                            | CARAC
+                            | CHAINECARAC
                             ;
 
 eb1                         : eb1 OU eb2
@@ -174,18 +201,22 @@ eb3                         : NOT eb4
                             | eb4
                             ;
 
-eb4                         : PARENTHESE_OUVRANTE expression PARENTHESE_FERMANTE
+eb4                         : PARENTHESE_OUVRANTE eb1 PARENTHESE_FERMANTE
                             | TRUE
                             | FALSE
                             | comparaison
-                            | IDF
                             ;
 
-comparaison                 : expression OPEG expression
-                            | expression OPINF expression
-                            | expression OPSUP expression
-                            | expression OPINFE expression
-                            | expression OPSUPE expression
-                            | expression OPDIFF expression
+comparaison                 : ea1 OPEG ea1
+                            | ea1 OPINF ea1
+                            | ea1 OPSUP ea1
+                            | ea1 OPINFE ea1
+                            | ea1 OPSUPE ea1
+                            | ea1 OPDIFF ea1
                             ;
 %%
+
+int yyerror(){
+    printf("erreur ligne %d\n", numligne);
+}
+

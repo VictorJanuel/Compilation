@@ -63,6 +63,7 @@ extern int yydebug;
     VARIABLE = 273,
     PROCEDURE = 274,
     FONCTION = 275,
+<<<<<<< HEAD
     ENTIER = 276,
     REEL = 277,
     BOOLEEN = 278,
@@ -97,6 +98,47 @@ extern int yydebug;
     OU = 307,
     TRUE = 308,
     FALSE = 309
+=======
+    PP = 276,
+    ENTIER = 277,
+    REEL = 278,
+    BOOLEEN = 279,
+    CHAINE = 280,
+    CARACTERE = 281,
+    CSTE_ENTIERE = 282,
+    CSTE_REELLE = 283,
+    CARAC = 284,
+    CHAINECARAC = 285,
+    PARENTHESE_FERMANTE = 286,
+    PARENTHESE_OUVRANTE = 287,
+    VIDE = 288,
+    RETOURNE = 289,
+    SI = 290,
+    ALORS = 291,
+    SINON = 292,
+    TANT_QUE = 293,
+    FAIRE = 294,
+    OPAFF = 295,
+    OPEG = 296,
+    OPINF = 297,
+    OPSUP = 298,
+    OPINFE = 299,
+    OPSUPE = 300,
+    OPDIFF = 301,
+    NEG = 302,
+    POS = 303,
+    NOT = 304,
+    PLUS = 305,
+    MOINS = 306,
+    MULT = 307,
+    DIV = 308,
+    MOD = 309,
+    ET = 310,
+    OU = 311,
+    TRUE = 312,
+    FALSE = 313,
+    ERROR_LEXICO = 314
+>>>>>>> dev
   };
 #endif
 /* Tokens.  */
@@ -118,6 +160,7 @@ extern int yydebug;
 #define VARIABLE 273
 #define PROCEDURE 274
 #define FONCTION 275
+<<<<<<< HEAD
 #define ENTIER 276
 #define REEL 277
 #define BOOLEEN 278
@@ -152,6 +195,47 @@ extern int yydebug;
 #define OU 307
 #define TRUE 308
 #define FALSE 309
+=======
+#define PP 276
+#define ENTIER 277
+#define REEL 278
+#define BOOLEEN 279
+#define CHAINE 280
+#define CARACTERE 281
+#define CSTE_ENTIERE 282
+#define CSTE_REELLE 283
+#define CARAC 284
+#define CHAINECARAC 285
+#define PARENTHESE_FERMANTE 286
+#define PARENTHESE_OUVRANTE 287
+#define VIDE 288
+#define RETOURNE 289
+#define SI 290
+#define ALORS 291
+#define SINON 292
+#define TANT_QUE 293
+#define FAIRE 294
+#define OPAFF 295
+#define OPEG 296
+#define OPINF 297
+#define OPSUP 298
+#define OPINFE 299
+#define OPSUPE 300
+#define OPDIFF 301
+#define NEG 302
+#define POS 303
+#define NOT 304
+#define PLUS 305
+#define MOINS 306
+#define MULT 307
+#define DIV 308
+#define MOD 309
+#define ET 310
+#define OU 311
+#define TRUE 312
+#define FALSE 313
+#define ERROR_LEXICO 314
+>>>>>>> dev
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

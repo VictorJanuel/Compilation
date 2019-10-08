@@ -1,14 +1,20 @@
 %{
+#include <stdlib.h>
+#include <stdio.h>
+#include "y.tab.h"
+#include "table.h"
 
+int numligne=1;
+int yylex();
 %}
 
 %start ope_unaire
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     {return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     {yylval=insererLexeme(yytext); return(PROG);}
 
-begin           {return (DEBUT);}
+begin           {printf("begin\n"); return (DEBUT);}
 end             {return (FIN);}
 
 type            {return (TYPE);}
@@ -18,7 +24,7 @@ end[ ]struct    {return (FSTRUCT);}
 array           {return (TABLEAU);}
 of              {return (DE);}
 
-var             {return (VARIABLE);}
+var             {printf("var");return (VARIABLE);}
 procedure       {return (PROCEDURE);}
 function        {return (FONCTION);}
 return          {return (RETOURNE);}
@@ -36,6 +42,7 @@ if              {return (SI);}
 then            {return (ALORS);}
 else            {return (SINON);}
 
+<<<<<<< HEAD
 \&\&              {BEGIN ope_unaire; return (ET);}
 \|\|              {BEGIN ope_unaire; return (OU);}
 
@@ -55,22 +62,52 @@ else            {return (SINON);}
 =               {BEGIN ope_unaire; return (OPAFF);}
 
 \.              {return (POINT);}
+=======
+\&\&            {return (ET);}
+\|\|            {return (OU);}
+
+
+\!=             {return (OPDIFF);}
+\>=             {return (OPSUPE);}
+\<=             {return (OPINFE);}
+==              {return (OPEG);}
+\>              {return (OPSUP);}
+\<              {return (OPINF);}
+
+\%              {return (MOD);}
+\/              {return (DIV);}
+\*              {return (MULT);}
+\!              {return (NOT);}
+\-              {return(MOINS);}
+\+              {return(PLUS);}
+=               {printf("EGALE\n");return (OPAFF);}
+
+\.              {printf("Point\n");return (POINT);}
+\.\.            {printf("PointPoint\n");return (PP);}
+>>>>>>> dev
 \,              {return (VIRGULE);}
-\;              {return (POINT_VIRGULE);}
+\;              {printf("point virgule\n");return (POINT_VIRGULE);}
 \:              {return (DEUX_POINTS);}
 
 \)              {return (PARENTHESE_FERMANTE);}
-\(              {BEGIN ope_unaire; return (PARENTHESE_OUVRANTE);}
-\]              {return (CROCHET_FERMANT);}
-\[              {return (CROCHET_OUVRANT);}
+\(              {return (PARENTHESE_OUVRANTE);}
+\]              {printf("C F\n");return (CROCHET_FERMANT);}
+\[              {printf("C O\n");return (CROCHET_OUVRANT);}
 
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9]*    {BEGIN 0; return (IDF);}
-0|[1-9][0-9]*           {BEGIN 0; return (CSTE_ENTIERE);}
+[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); yylval=insererLexeme(yytext); return (IDF);}
+0|[1-9][0-9]*            {printf("constante entiere\n"); return (CSTE_ENTIERE);}
+0|[1-9][0-9]*\.[0-9]+           {return (CSTE_REELLE);}
 
-\n              {BEGIN 0; ;}
+\'[^']\'        {printf("caractere");return(CARAC);}
+\"[^\"]*\"        {printf("caractere");return(CHAINECARAC);}
 
+\n              {numligne++;}
+[ ]*            {;}
+\t*             {;}
+
+.               {return (ERROR_LEXICO);}
 %%
 
