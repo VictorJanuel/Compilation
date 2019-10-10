@@ -8,6 +8,7 @@ typedef struct lexico_struct{
     int suivant;
 }lexico;
 
+lexico tab_lexico[NMAX];
 
 
 typedef struct declarations{
@@ -17,13 +18,16 @@ typedef struct declarations{
     int descritpion;
     int exec;
 }declarations;
-
     
+declarations tab_decla[NMAX*2];
+
 typedef struct region{
     int taille;
     int NIS;
     int arbre;  //a changer en arbre 
 }region;
+
+void afficheTabLexico();
 
 void initTabLexico();
 
