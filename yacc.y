@@ -20,10 +20,7 @@
 %token OPEG OPINF OPSUP OPINFE OPSUPE OPDIFF 
 %token NEG POS NOT PLUS MOINS MULT DIV MOD
 %token ET OU TRUE FALSE
-<<<<<<< HEAD:grammaire.y
-=======
 %token ERROR_LEXICO
->>>>>>> dev:yacc.y
 
 %%
 
@@ -65,7 +62,7 @@ liste_dimensions            : une_dimension
                             | liste_dimensions VIRGULE une_dimension
                             ;
 
-une_dimension               : CSTE_ENTIERE PP CSTE_ENTIERE
+une_dimension               : ea1 PP ea1
                             ;
 
 liste_champs                : un_champ
@@ -141,15 +138,6 @@ tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
 affectation                 : variable OPAFF expression
                             ;
 
-<<<<<<< HEAD:grammaire.y
-variable                    : IDF suite_var
-                            | IDF
-                            ;
-
-suite_var                   :  
-                            | POINT variable
-                            | CROCHET_OUVRANT expression CROCHET_FERMANT suite_var
-=======
 variable                    : IDF
                             | IDF vtab
                             | IDF POINT variable
@@ -158,7 +146,6 @@ variable                    : IDF
 
 vtab                        : vtab CROCHET_OUVRANT ea1 CROCHET_FERMANT
                             | CROCHET_OUVRANT ea1 CROCHET_FERMANT
->>>>>>> dev:yacc.y
                             ;
 
 

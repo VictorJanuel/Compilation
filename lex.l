@@ -42,27 +42,6 @@ if              {return (SI);}
 then            {return (ALORS);}
 else            {return (SINON);}
 
-<<<<<<< HEAD
-\&\&              {BEGIN ope_unaire; return (ET);}
-\|\|              {BEGIN ope_unaire; return (OU);}
-
-\!=             {BEGIN ope_unaire; return (OPDIFF);}
-\>=             {BEGIN ope_unaire; return (OPSUPE);}
-\<=             {BEGIN ope_unaire; return (OPINFE);}
-==              {BEGIN ope_unaire; return (OPEG);}
-\>              {BEGIN ope_unaire; return (OPSUP);}
-\<              {BEGIN ope_unaire; return (OPINF);}
-
-\%              {BEGIN ope_unaire; return (MOD);}
-\/              {BEGIN ope_unaire; return (DIV);}
-\*              {BEGIN ope_unaire; return (MULT);}
-\!              {BEGIN ope_unaire; return (NOT);}
-\-              {BEGIN ope_unaire; return(MOINS);}
-\+              {BEGIN ope_unaire; return(PLUS);}
-=               {BEGIN ope_unaire; return (OPAFF);}
-
-\.              {return (POINT);}
-=======
 \&\&            {return (ET);}
 \|\|            {return (OU);}
 
@@ -84,7 +63,6 @@ else            {return (SINON);}
 
 \.              {printf("Point\n");return (POINT);}
 \.\.            {printf("PointPoint\n");return (PP);}
->>>>>>> dev
 \,              {return (VIRGULE);}
 \;              {printf("point virgule\n");return (POINT_VIRGULE);}
 \:              {return (DEUX_POINTS);}

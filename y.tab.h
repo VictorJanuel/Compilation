@@ -63,42 +63,6 @@ extern int yydebug;
     VARIABLE = 273,
     PROCEDURE = 274,
     FONCTION = 275,
-<<<<<<< HEAD
-    ENTIER = 276,
-    REEL = 277,
-    BOOLEEN = 278,
-    CHAINE = 279,
-    CARACTERE = 280,
-    CSTE_ENTIERE = 281,
-    PARENTHESE_FERMANTE = 282,
-    PARENTHESE_OUVRANTE = 283,
-    VIDE = 284,
-    RETOURNE = 285,
-    SI = 286,
-    ALORS = 287,
-    SINON = 288,
-    TANT_QUE = 289,
-    FAIRE = 290,
-    OPAFF = 291,
-    OPEG = 292,
-    OPINF = 293,
-    OPSUP = 294,
-    OPINFE = 295,
-    OPSUPE = 296,
-    OPDIFF = 297,
-    NEG = 298,
-    POS = 299,
-    NOT = 300,
-    PLUS = 301,
-    MOINS = 302,
-    MULT = 303,
-    DIV = 304,
-    MOD = 305,
-    ET = 306,
-    OU = 307,
-    TRUE = 308,
-    FALSE = 309
-=======
     PP = 276,
     ENTIER = 277,
     REEL = 278,
@@ -138,7 +102,6 @@ extern int yydebug;
     TRUE = 312,
     FALSE = 313,
     ERROR_LEXICO = 314
->>>>>>> dev
   };
 #endif
 /* Tokens.  */
@@ -160,42 +123,6 @@ extern int yydebug;
 #define VARIABLE 273
 #define PROCEDURE 274
 #define FONCTION 275
-<<<<<<< HEAD
-#define ENTIER 276
-#define REEL 277
-#define BOOLEEN 278
-#define CHAINE 279
-#define CARACTERE 280
-#define CSTE_ENTIERE 281
-#define PARENTHESE_FERMANTE 282
-#define PARENTHESE_OUVRANTE 283
-#define VIDE 284
-#define RETOURNE 285
-#define SI 286
-#define ALORS 287
-#define SINON 288
-#define TANT_QUE 289
-#define FAIRE 290
-#define OPAFF 291
-#define OPEG 292
-#define OPINF 293
-#define OPSUP 294
-#define OPINFE 295
-#define OPSUPE 296
-#define OPDIFF 297
-#define NEG 298
-#define POS 299
-#define NOT 300
-#define PLUS 301
-#define MOINS 302
-#define MULT 303
-#define DIV 304
-#define MOD 305
-#define ET 306
-#define OU 307
-#define TRUE 308
-#define FALSE 309
-=======
 #define PP 276
 #define ENTIER 277
 #define REEL 278
@@ -235,7 +162,6 @@ extern int yydebug;
 #define TRUE 312
 #define FALSE 313
 #define ERROR_LEXICO 314
->>>>>>> dev
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
