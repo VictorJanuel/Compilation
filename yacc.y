@@ -1,4 +1,5 @@
 %{
+<<<<<<< HEAD:yacc.y
     #include <stdio.h>
     #include <stdlib.h>
     #include "y.tab.h"
@@ -8,6 +9,9 @@
     extern int yylex();
     extern int yyerror();
     extern int yylval;
+=======
+extern int yylex();
+>>>>>>> 5c9b0ee71e9b18d01f1bc0f15e1d16eb2bbba37c:grammaire.y
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN

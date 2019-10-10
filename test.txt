@@ -1,0 +1,7 @@
+prog toto
+
+debut
+
+int a = 2;
+
+fin

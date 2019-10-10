@@ -64,6 +64,7 @@
 /* Copy the first part of user declarations.  */
 #line 1 "yacc.y" /* yacc.c:339  */
 
+<<<<<<< HEAD
     #include <stdio.h>
     #include <stdlib.h>
     #include "y.tab.h"
@@ -75,6 +76,11 @@
     extern int yylval;
 
 #line 78 "y.tab.c" /* yacc.c:339  */
+=======
+extern int yylex();
+
+#line 70 "y.tab.c" /* yacc.c:339  */
+>>>>>>> 5c9b0ee71e9b18d01f1bc0f15e1d16eb2bbba37c
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
