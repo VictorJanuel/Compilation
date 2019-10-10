@@ -66,7 +66,7 @@ liste_dimensions            : une_dimension
                             | liste_dimensions VIRGULE une_dimension
                             ;
 
-une_dimension               : CSTE_ENTIERE PP CSTE_ENTIERE
+une_dimension               : ea1 PP ea1
                             ;
 
 liste_champs                : un_champ

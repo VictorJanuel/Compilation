@@ -38,7 +38,7 @@ Grammaire
    17 liste_dimensions: une_dimension
    18                 | liste_dimensions VIRGULE une_dimension
 
-   19 une_dimension: CSTE_ENTIERE PP CSTE_ENTIERE
+   19 une_dimension: ea1 PP ea1
 
    20 liste_champs: un_champ
    21             | liste_champs POINT_VIRGULE un_champ
@@ -174,7 +174,7 @@ REEL (278) 26
 BOOLEEN (279) 27
 CHAINE (280) 29
 CARACTERE (281) 28
-CSTE_ENTIERE (282) 19 29 74
+CSTE_ENTIERE (282) 29 74
 CSTE_REELLE (283) 75
 CARAC (284) 76
 CHAINECARAC (285) 77
@@ -280,8 +280,8 @@ vtab (92)
 expression (93)
     à gauche: 61 62, à droite: 45 51 54
 ea1 (94)
-    à gauche: 63 64 65, à droite: 59 60 61 63 64 72 88 89 90 91 92
-    93
+    à gauche: 63 64 65, à droite: 19 59 60 61 63 64 72 88 89 90 91
+    92 93
 ea2 (95)
     à gauche: 66 67 68, à droite: 63 64 65 66 67
 ea3 (96)
@@ -1982,10 +1982,22 @@ comparaison (102)
 
    16 dimension: CROCHET_OUVRANT . liste_dimensions CROCHET_FERMANT
 
-    CSTE_ENTIERE  décalage et aller à l'état 160
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    CARAC                décalage et aller à l'état 44
+    CHAINECARAC          décalage et aller à l'état 45
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 77
+    PLUS                 décalage et aller à l'état 48
+    MOINS                décalage et aller à l'état 49
 
-    liste_dimensions  aller à l'état 161
-    une_dimension     aller à l'état 162
+    liste_dimensions  aller à l'état 160
+    une_dimension     aller à l'état 161
+    variable          aller à l'état 53
+    ea1               aller à l'état 162
+    ea2               aller à l'état 56
+    ea3               aller à l'état 57
+    ea4               aller à l'état 58
 
 
 État 148
@@ -2107,25 +2119,29 @@ comparaison (102)
 
 État 160
 
-   19 une_dimension: CSTE_ENTIERE . PP CSTE_ENTIERE
+   16 dimension: CROCHET_OUVRANT liste_dimensions . CROCHET_FERMANT
+   18 liste_dimensions: liste_dimensions . VIRGULE une_dimension
 
-    PP  décalage et aller à l'état 171
+    CROCHET_FERMANT  décalage et aller à l'état 171
+    VIRGULE          décalage et aller à l'état 172
 
 
 État 161
 
-   16 dimension: CROCHET_OUVRANT liste_dimensions . CROCHET_FERMANT
-   18 liste_dimensions: liste_dimensions . VIRGULE une_dimension
+   17 liste_dimensions: une_dimension .
 
-    CROCHET_FERMANT  décalage et aller à l'état 172
-    VIRGULE          décalage et aller à l'état 173
+    $défaut  réduction par utilisation de la règle 17 (liste_dimensions)
 
 
 État 162
 
-   17 liste_dimensions: une_dimension .
+   19 une_dimension: ea1 . PP ea1
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
 
-    $défaut  réduction par utilisation de la règle 17 (liste_dimensions)
+    PP     décalage et aller à l'état 173
+    PLUS   décalage et aller à l'état 96
+    MOINS  décalage et aller à l'état 97
 
 
 État 163
@@ -2194,25 +2210,50 @@ comparaison (102)
 
 État 171
 
-   19 une_dimension: CSTE_ENTIERE PP . CSTE_ENTIERE
-
-    CSTE_ENTIERE  décalage et aller à l'état 176
-
-
-État 172
-
    16 dimension: CROCHET_OUVRANT liste_dimensions CROCHET_FERMANT .
 
     $défaut  réduction par utilisation de la règle 16 (dimension)
 
 
-État 173
+État 172
 
    18 liste_dimensions: liste_dimensions VIRGULE . une_dimension
 
-    CSTE_ENTIERE  décalage et aller à l'état 160
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    CARAC                décalage et aller à l'état 44
+    CHAINECARAC          décalage et aller à l'état 45
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 77
+    PLUS                 décalage et aller à l'état 48
+    MOINS                décalage et aller à l'état 49
 
-    une_dimension  aller à l'état 177
+    une_dimension  aller à l'état 176
+    variable       aller à l'état 53
+    ea1            aller à l'état 162
+    ea2            aller à l'état 56
+    ea3            aller à l'état 57
+    ea4            aller à l'état 58
+
+
+État 173
+
+   19 une_dimension: ea1 PP . ea1
+
+    IDF                  décalage et aller à l'état 41
+    CSTE_ENTIERE         décalage et aller à l'état 42
+    CSTE_REELLE          décalage et aller à l'état 43
+    CARAC                décalage et aller à l'état 44
+    CHAINECARAC          décalage et aller à l'état 45
+    PARENTHESE_OUVRANTE  décalage et aller à l'état 77
+    PLUS                 décalage et aller à l'état 48
+    MOINS                décalage et aller à l'état 49
+
+    variable  aller à l'état 53
+    ea1       aller à l'état 177
+    ea2       aller à l'état 56
+    ea3       aller à l'état 57
+    ea4       aller à l'état 58
 
 
 État 174
@@ -2231,13 +2272,18 @@ comparaison (102)
 
 État 176
 
-   19 une_dimension: CSTE_ENTIERE PP CSTE_ENTIERE .
+   18 liste_dimensions: liste_dimensions VIRGULE une_dimension .
 
-    $défaut  réduction par utilisation de la règle 19 (une_dimension)
+    $défaut  réduction par utilisation de la règle 18 (liste_dimensions)
 
 
 État 177
 
-   18 liste_dimensions: liste_dimensions VIRGULE une_dimension .
+   19 une_dimension: ea1 PP ea1 .
+   63 ea1: ea1 . PLUS ea2
+   64    | ea1 . MOINS ea2
 
-    $défaut  réduction par utilisation de la règle 18 (liste_dimensions)
+    PLUS   décalage et aller à l'état 96
+    MOINS  décalage et aller à l'état 97
+
+    $défaut  réduction par utilisation de la règle 19 (une_dimension)

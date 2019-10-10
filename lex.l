@@ -8,8 +8,6 @@ int numligne=1;
 int yylex();
 %}
 
-%start ope_unaire
-
 %%
 
 ^main[ ][a-zA-Z][a-zA-Z0-9]*     {yylval=insererLexeme(yytext); return(PROG);}
