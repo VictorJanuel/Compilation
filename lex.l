@@ -10,7 +10,7 @@ int yylex();
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     {yylval=insererLexeme(yytext); return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     {initTabLexico(); initTabDecla();/*yylval=insererLexeme(yytext);*/ return(PROG);}
 
 begin           {printf("begin\n"); return (DEBUT);}
 end             {return (FIN);}
@@ -73,7 +73,7 @@ else            {return (SINON);}
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); yylval=insererLexeme(yytext); return (IDF);}
+[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); printf("\n\n----\n%s\n----\n\n", yytext); yylval=insererLexeme(yytext); return (IDF);}
 0|[1-9][0-9]*            {printf("constante entiere\n"); return (CSTE_ENTIERE);}
 0|[1-9][0-9]*\.[0-9]+           {return (CSTE_REELLE);}
 
@@ -87,3 +87,6 @@ false           {return (FALSE);}
 .               {return (ERROR_LEXICO);}
 %%
 
+int yywrap(){
+    afficheTabLexico();
+}
