@@ -67,6 +67,7 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include "y.tab.h"
+    #include "table.h"
     extern int numligne;
     extern char * yytext;
     
@@ -74,7 +75,7 @@
     extern int yyerror();
     extern int yylval;
 
-#line 78 "y.tab.c" /* yacc.c:339  */
+#line 79 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -243,7 +244,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 247 "y.tab.c" /* yacc.c:358  */
+#line 248 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -546,16 +547,16 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    30,    31,    34,    35,    38,    41,    42,
-      45,    46,    47,    48,    51,    54,    55,    58,    61,    62,
-      65,    68,    69,    72,    75,    76,    79,    80,    81,    82,
-      83,    86,    89,    92,    95,    96,    99,   100,   103,   106,
-     107,   108,   109,   110,   111,   114,   115,   118,   121,   122,
-     125,   126,   129,   132,   135,   138,   141,   142,   143,   144,
-     147,   148,   152,   153,   156,   157,   158,   161,   162,   163,
-     166,   167,   168,   171,   172,   173,   174,   175,   176,   179,
-     180,   183,   184,   187,   188,   191,   192,   193,   194,   197,
-     198,   199,   200,   201,   202
+       0,    28,    28,    31,    32,    35,    36,    39,    42,    43,
+      46,    47,    48,    49,    52,    55,    56,    59,    62,    63,
+      66,    69,    70,    73,    76,    77,    80,    81,    82,    83,
+      84,    87,    90,    93,    96,    97,   100,   101,   104,   107,
+     108,   109,   110,   111,   112,   115,   116,   119,   122,   123,
+     126,   127,   130,   133,   136,   139,   142,   143,   144,   145,
+     148,   149,   153,   154,   157,   158,   159,   162,   163,   164,
+     167,   168,   169,   172,   173,   174,   175,   176,   177,   180,
+     181,   184,   185,   188,   189,   192,   193,   194,   195,   198,
+     199,   200,   201,   202,   203
 };
 #endif
 
@@ -1459,8 +1460,44 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
-#line 1464 "y.tab.c" /* yacc.c:1646  */
+        case 14:
+#line 52 "yacc.y" /* yacc.c:1646  */
+    {if((yyvsp[0])==0){chercherLexeme((yyvsp[-2]),N_STRUCT);}else{chercherLexeme((yyvsp[-2]),N_TAB);}}
+#line 1467 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 55 "yacc.y" /* yacc.c:1646  */
+    { (yyval)=0;}
+#line 1473 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 56 "yacc.y" /* yacc.c:1646  */
+    {(yyval)=1;}
+#line 1479 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 31:
+#line 87 "yacc.y" /* yacc.c:1646  */
+    {chercherLexeme((yyvsp[-2]),N_VAR);}
+#line 1485 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 90 "yacc.y" /* yacc.c:1646  */
+    {chercherLexeme((yyvsp[-2]),N_PROC);}
+#line 1491 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 93 "yacc.y" /* yacc.c:1646  */
+    {chercherLexeme((yyvsp[-4]),N_FONC);}
+#line 1497 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1501 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1688,7 +1725,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 204 "yacc.y" /* yacc.c:1906  */
+#line 205 "yacc.y" /* yacc.c:1906  */
 
 
 int yyerror(){

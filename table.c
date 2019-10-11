@@ -26,10 +26,11 @@ void initTabDecla(){
     
     for(i=0; i<NMAX*2; i++){
         if(i>4)
-            strcpy(tab_decla[i].nature, "");
+            tab_decla[i].nature=N_BASE;
         else
-            strcpy(tab_decla[i].nature, "T-B");
-        tab_decla[i].suivant = -1;
+            tab_decla[i].nature=N_EMPTY;
+        
+        tab_decla[i].suivant = NO_NEXT;
         tab_decla[i].region = -1;
         tab_decla[i].description = -1;
         tab_decla[i].exec = -1;
@@ -41,7 +42,6 @@ void initTabDecla(){
  */
 int insererLexeme(char* lexeme){
     int i;
-
     printf("lexem :%s\n",lexeme );
     //cherche si le lexeme est dans la table sinon il rentre le lexeme dans la table
     i=0;
@@ -52,9 +52,7 @@ int insererLexeme(char* lexeme){
     if(i<NMAX){
         if(!strcmp(tab_lexico[i].lexeme, "")){
             strcpy(tab_lexico[i].lexeme,lexeme);
-            insererDeclaration(lexeme, i);
-        }else{
-            insererDeclarationExistante(lexeme, i);
+          
         }
     }else{
         return 0;
@@ -62,42 +60,52 @@ int insererLexeme(char* lexeme){
     return 1;
 }
 
-int insererDeclaration(char *s, int caseNb){
+void chercherLexeme(char *s,int nat){
+    int i=0;
+    while((strcmp(tab_lexico[i].lexeme,"")!=0 && strcmp(tab_lexico[i].lexeme,s)!=0)){
+        i++;
+    }
+    if(strcmp(tab_lexico[i].lexeme,s)==0){
+        if(tab_lexico[i].suivant==-1){
+            insererDeclaration(s,i,nat);
+        }else{
+            insererDeclarationExistante(s,i,nat);
+        }
+    }
+  
+
+}
+
+int insererDeclaration(char *s,int caseNb,int nat){
     int i = 4;
-    /**
-     *
-     */
-    while(!strcmp(tab_decla[caseNb].nature, ""))
+    
+    while(tab_decla[i].nature!=N_EMPTY)
         i++;
     tab_lexico[caseNb].suivant = i;
-    /**
-     * Remplissage nature! A COMPLETER!
-     */
-    strcpy(tab_decla[i].nature, "var");
-
+    tab_decla[i].nature=nat;
     return 0;
 }
 
-int insererDeclarationExistante(char *s, int caseNb){
+int insererDeclarationExistante(char *s,int caseNb,int nat){
     int i = 500;
     int caseD = tab_lexico[caseNb].suivant;
     /**
      * Récupération case à insérer (NATURE DU LEXEME)
      */
-    while(!strcmp(tab_decla[i].nature, ""))
+    while(tab_decla[i].nature!=N_EMPTY){
         i++;
-
+    }
     /**
      * Récupération case à insérer (SUIVANT DU LEXEME)
      */
-    while(tab_decla[caseD].suivant != -1)
+    while(tab_decla[caseD].suivant != -1){
         caseD = tab_decla[caseD].suivant;
-
+    }
+    tab_decla[i].nature=nat;
     tab_decla[caseD].suivant = i;
     /**
      * Remplissage nature! A COMPLETER!
      */
-    strcpy(tab_decla[i].nature, "var");
 
     return 0;
 }

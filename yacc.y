@@ -2,9 +2,9 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include "y.tab.h"
+    #include "table.h"
     extern int numligne;
     extern char * yytext;
-    
     extern int yylex();
     extern int yyerror();
     extern int yylval;
@@ -42,17 +42,17 @@ suite_liste_inst            : instruction POINT_VIRGULE
                             | suite_liste_inst instruction POINT_VIRGULE
                             ;
 
-declaration                 : declaration_type
+declaration                 : declaration_type       
                             | declaration_variable
                             | declaration_procedure
                             | declaration_fonction
                             ;
 
-declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type
+declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {if($4==0){chercherLexeme($2,N_STRUCT);}else{chercherLexeme($2,N_TAB);}}
                             ;
 
-suite_declaration_type      : STRUCT liste_champs FSTRUCT
-                            | TABLEAU dimension DE nom_type
+suite_declaration_type      : STRUCT liste_champs FSTRUCT { $$=0;}
+                            | TABLEAU dimension DE nom_type {$$=1;}
                             ;
 
 dimension                   : CROCHET_OUVRANT liste_dimensions CROCHET_FERMANT
@@ -83,13 +83,13 @@ type_simple                 : ENTIER
                             | CHAINE CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT
                             ;
 
-declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type
+declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {chercherLexeme($2,N_VAR);}
                             ;
 
-declaration_procedure       : PROCEDURE IDF liste_parametres corps
+declaration_procedure       : PROCEDURE IDF liste_parametres corps {chercherLexeme($2,N_PROC);}
                             ;
 
-declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps
+declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {chercherLexeme($2,N_FONC);}
                             ;
 
 liste_parametres            :
