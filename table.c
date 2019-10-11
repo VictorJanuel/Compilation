@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "table.h"
+#include "pile.h"
+
 
 
 /**
@@ -34,6 +36,20 @@ void initTabDecla(){
         tab_decla[i].description = -1;
         tab_decla[i].exec = -1;
     }
+}
+
+/**
+ * Initialisation de la table des régions
+ */
+void initTabRegion(){
+    int i;
+
+    for(i=0;i<NMAX;i++){
+        tab_region[i].taille = -1;
+        tab_region[i].NIS = -1;
+        tab_region[i].arbre = -1;
+    }
+
 }
 
 /**
