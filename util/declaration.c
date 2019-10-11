@@ -24,11 +24,12 @@ int insererDeclaration(char *s,int caseNb, int nat){
     int i = 4;
     
     while(i<NMAX){
-        if(tab.lexico[].lexeme)
+        //if(tab_lexico[i].lexeme)
     }
     
-    while(tab_decla[i].nature!=N_EMPTY)
+    while(tab_decla[i].nature!=N_EMPTY){
         i++;
+    }
     tab_lexico[caseNb].suivant = i;
     tab_decla[i].nature=nat;
     return 0;

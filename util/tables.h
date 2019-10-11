@@ -12,6 +12,7 @@
 #include "pile.h"
 
 
+#define EMPTY -1
 #define EMPTY_HASH -1
 #define NO_NEXT -1
 #define N_EMPTY -1

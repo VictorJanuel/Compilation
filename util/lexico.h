@@ -14,6 +14,7 @@ lexico tab_lexico[NMAX];
 int tab_hash[32];
 
 void initTabLexico();
+void initTabHash();
 int insererLexeme(char* lexeme);
 void afficheTabLexico();
 int hashage(char *s);

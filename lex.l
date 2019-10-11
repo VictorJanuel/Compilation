@@ -11,7 +11,7 @@ int yylex();
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     {initTabLexico(); initTabDecla();/*yylval=insererLexeme(yytext);*/ return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     {initTabLexico(); initTabDecla(); initTabHash(); afficheTabLexico();/*yylval=insererLexeme(yytext);*/ return(PROG);}
 
 begin           {printf("begin\n"); return (DEBUT);}
 end             {return (FIN);}
@@ -89,5 +89,5 @@ false           {return (FALSE);}
 %%
 
 int yywrap(){
-    afficheTabLexico();
+afficheTabLexico();
 }

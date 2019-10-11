@@ -11,4 +11,5 @@ typedef struct region{
 
 region tab_region[NMAX];
 
+void initTabRegion();
 #endif
