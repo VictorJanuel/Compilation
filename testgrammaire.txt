@@ -7,7 +7,9 @@ type maStruct3578bc3 :
 		champ_2_mais : float;
 		champ2canne : char 
 	end struct;
+        var x: int;
 begin
+        y=3;
 	maVar = toto;
 	etcr;
 	f(3.456,0);

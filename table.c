@@ -57,7 +57,7 @@ int insererLexeme(char* lexeme){
     }else{
         return 0;
     }   
-    return 1;
+    return i;
 }
 
 void chercherLexeme(char *s,int nat){
