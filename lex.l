@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "y.tab.h"
-#include "table.h"
+#include "util/tables.h"
+
 
 int numligne=1;
 int yylex();

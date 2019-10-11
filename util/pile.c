@@ -1,11 +1,10 @@
 /**
  * Module pile
- * © Victor Januel
+ * © Victor Januel - Yoann Laroche - Joris Verdun
  * Date : 05/03/2019
  * 
  * UPDATE : 11/10/2019
  */
-
 #include "pile.h"
 
 void * allocation_mem(size_t nobjets,size_t taille);
@@ -19,7 +18,7 @@ pile pile_vide(){
 
 /* Test pile vide */
 int est_pile_vide(pile p){
-    if(p == est_pile_vide()){
+    if(p == pile_vide()){
         return 1;
     }
     return 0;   
@@ -27,12 +26,13 @@ int est_pile_vide(pile p){
 
 /* empiler element */
 pile empiler(pile p, element e){
+    pile cell=pile_vide();
     //Initialisation de la liste
     pile p2 = pile_vide();
     //Allocation mémoire + test
     cell = (pile)allocation_mem(1, sizeof(struct_cellule));
     cell->elem = e;
-    cell->suivant = p;
+    cell->suivant = p2;
 
     //Return
     return cell;
@@ -40,21 +40,21 @@ pile empiler(pile p, element e){
 
 /* Renvoi du sommet de la pile */
 element sommet(pile p){
-    if(est_vide(p)){
+    if(est_pile_vide(p)){
         //Affichage erreur
         fprintf(stderr, "Erreur: La pile est vide");
         exit(EXIT_FAILURE);
     }
 
-    return l->elem;
+    return p->elem;
 }
 
 /* Dépiler element */
 pile depiler(pile p){
     //Récup élement suivant
-    pile next = l->suivant;
+    pile next = p->suivant;
     //Libération mémoire
-    libere_mem(&l);
+    libere_mem(&p);
 
     //return liste modifiée
     return next;
@@ -64,7 +64,7 @@ pile depiler(pile p){
 int taille_pile(pile p){
     int n = 0;
     //Recup arg
-    p pCurrent = p;
+    pile pCurrent = p;
     //Parcours pile
     while(pCurrent != NULL){
         //Recup taille
@@ -94,7 +94,7 @@ void * allocation_mem(size_t nobjets,size_t taille)
 
     /* on verifie si l'allocation a marche*/
     if (pt==NULL) 
-      mon_erreur("Impossible d'allouer la memoire %d %d\n",nobjets,taille); 
+        fprintf(stderr,"Impossible d'allouer la memoire\n"); 
 
     return(pt);
 }
@@ -112,8 +112,8 @@ void * allocation_mem(size_t nobjets,size_t taille)
 void libere_mem(void *pt)
 {
   void ** adr_pt=(void **) pt; // on suppose que pt est l'adresse de pointeur à libérer
-  if((*adr_pt)!=NULL)
+  if((*adr_pt)!=NULL){
     free(*adr_pt); /*liberation de *pt */
-
+  }
     *adr_pt=NULL; /* *pt pointe maintenant sur NULL*/
 }

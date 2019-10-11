@@ -1,6 +1,6 @@
 /**
  * Module pile -- fichier .h
- * © Victor Januel
+ * © Victor Januel - Yoann Laroche - Joris Verdun
  * Date : 05/03/2019
  *  
  * UPDATE : 11/10/2019
@@ -9,9 +9,10 @@
 #ifndef _PILE_H_
 #define _PILE_H_
 
+#include "tables.h"
+
 /**
  * Création du type pile
- * i.e. une liste
  */
 
 typedef int element;
@@ -21,7 +22,7 @@ typedef struct cellule{
     struct cellule *suivant;
 }struct_cellule;
 
-typedef struct_cellule pile;
+typedef struct_cellule *pile;
 
 /* Fonction d'initialisation */
 pile pile_vide();
