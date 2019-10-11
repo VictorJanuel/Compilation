@@ -38,6 +38,7 @@ typedef struct region{
     int arbre;  //a changer en arbre 
 }region;
 
+region tab_region[NMAX];
 
 void initTabLexico();
 void initTabDecla();
