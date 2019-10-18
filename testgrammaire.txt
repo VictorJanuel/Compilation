@@ -1,10 +1,12 @@
 main Test123
 var maVar : int;
+var a : int;
+var A : int;
 type tab : array [1..5] of oui;
 type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
-		champ_2_mais : float;
+		champ_2_mais : double;
 		champ2canne : char 
 	end struct;
         var x: int;

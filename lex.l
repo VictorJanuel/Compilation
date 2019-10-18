@@ -11,7 +11,7 @@ int yylex();
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     {initTabLexico(); initTabDecla(); initTabHash(); afficheTabLexico();/*yylval=insererLexeme(yytext);*/ return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     { initTabLexico();initTabDecla();initTabHash();initTabRepresentation();return(PROG);}
 
 begin           {printf("begin\n"); return (DEBUT);}
 end             {return (FIN);}
@@ -28,11 +28,11 @@ procedure       {return (PROCEDURE);}
 function        {return (FONCTION);}
 return          {return (RETOURNE);}
 
-int             {return (ENTIER);}
-double          {return (REEL);}
-bool            {return (BOOLEEN);}
+int             {yylval=N_INT;return (ENTIER);}
+double          {yylval=N_DOUBLE;return (REEL);}
+bool            {yylval=N_BOOL;return (BOOLEEN);}
 string          {return (CHAINE);}
-char            {return (CARACTERE);}
+char            {yylval=N_CHAR;return (CARACTERE);}
 void            {return (VIDE);}
 
 while           {return (TANT_QUE);}
@@ -90,4 +90,6 @@ false           {return (FALSE);}
 
 int yywrap(){
 afficheTabLexico();
+afficheTabDeclaration();
+afficheTabRepresentation();
 }

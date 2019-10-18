@@ -42,4 +42,5 @@ pile depiler(pile p);
 /* récupérer nb éléments dans la pile */
 int taille_pile(pile p);
 
+pile p;
 #endif

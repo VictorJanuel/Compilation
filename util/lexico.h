@@ -21,3 +21,4 @@ int hashage(char *s);
 int insererNouveauLexeme(char *s);
 int insererLexeme(char* lexeme);
 #endif
+

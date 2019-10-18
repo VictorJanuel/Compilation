@@ -10,6 +10,7 @@
 #include "declaration.h"
 #include "region.h"
 #include "pile.h"
+#include "representation.h"
 
 
 #define EMPTY -1
@@ -23,6 +24,12 @@
 #define N_PARAM 4
 #define N_PROC 5
 #define N_FONC 6
+
+#define N_INT 0
+#define N_DOUBLE 1
+#define N_BOOL 2
+#define N_CHAR 3
+
 
 #endif
 

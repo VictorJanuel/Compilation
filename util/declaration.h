@@ -14,7 +14,7 @@ typedef struct declarations{
 declarations tab_decla[NMAX*2];
 
 void initTabDecla();
-int insererDeclaration(char *s,int caseNb,int nat);
+int insererDeclaration(int num_lex, int nature, int numchamps);
 int insererDeclarationExistante(char *s,int caseNb,int nat);
-
+void afficheTabDeclaration();
 #endif

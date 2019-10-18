@@ -1,7 +1,7 @@
 all : cpyrr
 
-cpyrr: y.tab.c lex.yy.o lexico.o declaration.o region.o arbre.o pile.o 
-	gcc -o cpyrr y.tab.c lex.yy.o lexico.o declaration.o pile.o -ly -ll
+cpyrr: y.tab.c lex.yy.o lexico.o declaration.o region.o arbre.o pile.o representation.o
+	gcc -o cpyrr y.tab.c lex.yy.o lexico.o declaration.o pile.o representation.o -ly -ll
 
 y.tab.c: yacc.y
 	yacc -d -v yacc.y
@@ -28,7 +28,10 @@ arbre.o: util/arbre.c util/arbre.h
 	gcc -Wall util/arbre.c -c
 
 pile.o:  util/pile.c util/pile.h
-	gcc -Wall util/pile.c -c	
+	gcc -Wall util/pile.c -c
+
+representation.o:  util/representation.c util/representation.h
+	gcc -Wall util/representation.c -c	
 
 clean :
 	rm -rf *.o y.tab.* lex.yy.o lex.yy.c cpyrr y.output 

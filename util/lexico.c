@@ -1,5 +1,7 @@
 #include "lexico.h"
 
+int n_lexico=4;
+
 /**
  * Initialisation de la table lexicographique
  */
@@ -33,31 +35,33 @@ int insererLexeme(char* lexeme){
     int k = -1;
     int hashcode = hashage(lexeme);
 
+    printf("hashcode %s : %d\n", lexeme, hashcode);
+    
     if(tab_hash[hashcode] == EMPTY_HASH){
         tab_hash[hashcode] = insererNouveauLexeme(lexeme);
         return tab_hash[hashcode];
     }else{
         k = tab_hash[hashcode];
         
-        while(tab_lexico[k].suivant != -1){
-            k = tab_lexico[k].suivant;
+        printf("tab_hash[%d] = %d\n", hashcode, tab_hash[hashcode]);
+        while(tab_lexico[k].suivant != -1 && strcmp(tab_lexico[k].lexeme,lexeme)!=0){
+            k=tab_lexico[k].suivant;
         }
         
-        strcpy(tab_lexico[k].lexeme, lexeme);
-        tab_lexico[k].longueur = strlen(lexeme);
+        if(strcmp(tab_lexico[k].lexeme,lexeme)!=0){
+            tab_lexico[k].suivant=insererNouveauLexeme(lexeme);
+        }
     }
 
-    return k;
+    return tab_lexico[k].suivant;
 }
 
 
 int insererNouveauLexeme(char *s){
-    int i=0;
-    while((strcmp(tab_lexico[i].lexeme,"")!=0)){
-        i++;
-    }
-    strcpy(tab_lexico[i].lexeme, s);
-    tab_lexico[i].longueur = strlen(s);
+    int i=n_lexico;
+    strcpy(tab_lexico[n_lexico].lexeme, s);
+    tab_lexico[n_lexico].longueur = strlen(s);
+    n_lexico++;
     return i;
 }
 
@@ -68,13 +72,12 @@ int insererNouveauLexeme(char *s){
 void afficheTabLexico(){
     int i=0;
     fprintf(stdout, "Table Lexicographique\n ______________________________\n");
-    while(i<40 && tab_lexico[i].lexeme!=NULL){
+    while(i<50 && tab_lexico[i].lexeme!=NULL){
         fprintf(stdout, "%d\t%s\t%d\n", i, tab_lexico[i].lexeme, tab_lexico[i].suivant);
         i++;
     }
 }
 
-    
 /**
  * Création table de hashage
  */

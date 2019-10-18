@@ -8,6 +8,8 @@
     extern int yylex();
     extern int yyerror();
     extern int yylval;
+
+    int numchamps=0;
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN
@@ -48,7 +50,7 @@ declaration                 : declaration_type
                             | declaration_fonction
                             ;
 
-declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {/*if($4==0){chercherLexeme($2,N_STRUCT);}else{chercherLexeme($2,N_TAB);}*/}
+declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {if($4==0){insererDeclaration($2,N_STRUCT, numchamps);}else{insererDeclaration($2,N_TAB, numchamps); numchamps=0;}}
                             ;
 
 suite_declaration_type      : STRUCT liste_champs FSTRUCT { $$=0;}
@@ -69,27 +71,27 @@ liste_champs                : un_champ
                             | liste_champs POINT_VIRGULE un_champ
                             ;
 
-un_champ                    : IDF DEUX_POINTS nom_type
+un_champ                    : IDF DEUX_POINTS nom_type {numchamps++; empiler(p, $1); empiler(p, $3);}
                             ;
 
-nom_type                    : type_simple
-                            | IDF
+nom_type                    : type_simple                 {$$=$1;}
+                            | IDF                         {$$=$1;}
                             ;
 
-type_simple                 : ENTIER
-                            | REEL
-                            | BOOLEEN
-                            | CARACTERE
+type_simple                 : ENTIER                      {$$=$1;}
+                            | REEL                        {$$=$1;}
+                            | BOOLEEN                     {$$=$1;}
+                            | CARACTERE                   {$$=$1;}
                             | CHAINE CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT
                             ;
 
-declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {/*chercherLexeme($2,N_VAR);*/}
+declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($4,N_VAR, numchamps);}
                             ;
 
-declaration_procedure       : PROCEDURE IDF liste_parametres corps {/*chercherLexeme($2,N_PROC);*/}
+declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, numchamps);}
                             ;
 
-declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {/*chercherLexeme($2,N_FONC);*/}
+declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {insererDeclaration($2,N_FONC, numchamps);}
                             ;
 
 liste_parametres            :
