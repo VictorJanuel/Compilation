@@ -25,9 +25,13 @@ int insererDeclaration(int num_lex, int nature, int numchamps){
 
     tab_decla[num_lex].nature=nature;
     //insererRegion;
+    printf("ok?kk\n");
     if(numchamps!=0){
         description=insererRepresentation(nature, numchamps);
     }
+
+    tab_decla[num_lex].description=description;
+    
 
     
     return 0;
@@ -35,12 +39,14 @@ int insererDeclaration(int num_lex, int nature, int numchamps){
 
 void afficheTabDeclaration(){
     int i=0;
-    fprintf(stdout, "Table Declaration\n ______________________________\n");
-    while(i<50 && tab_lexico[i].lexeme!=NULL){
-        fprintf(stdout, "%d\t%d\t%d\n", i, tab_decla[i].nature, tab_decla[i].suivant);
+    fprintf(stdout, "Table Declaration\n ______________________________\nnumdecla-----nsuivant-----description\n");
+    while(i<30 && tab_lexico[i].lexeme!=NULL){
+        fprintf(stdout, "%d\t%d\t%d\t%d\n", i, tab_decla[i].nature, tab_decla[i].suivant, tab_decla[i].description);
         i++;
     }
 }
+
+
 /*
 int insererDeclarationExistante(char *s,int caseNb,int nat){
     int i = 500;

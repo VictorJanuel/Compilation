@@ -4,13 +4,20 @@ void initTabRepresentation(){
     int i;
     
     for(i=0; i<NMAX; i++){
-        tab_decla[i].nature=N_EMPTY;
+        tab_representation[i] = INT_MIN;
     }
 }
 
 
+int trouverK(){
+    int i=0;
+    while(tab_representation[i]!=INT_MIN && i<NMAX)
+        i++;
+    return i;
+}
+
 /**
- * ©
+ * ATTENTION : 
  *
  */
 int insererRepresentation(int nature, int numchamps){
@@ -21,6 +28,7 @@ int insererRepresentation(int nature, int numchamps){
     /**
      * Trouver le bon emplacement k;
      */
+    k = trouverK();
     
     switch(nature){
         /**
@@ -30,54 +38,79 @@ int insererRepresentation(int nature, int numchamps){
     case N_STRUCT:
         i=k;
         tab_representation[i]=numchamps;
-        while(!est_vide(f)){
+        printf("compteur : %d\n", compteur_champs);
+        printf("num : %d\n", numchamps);        
+        while(!est_file_vide(f) && compteur_champs<numchamps){
             i++;
+            printf("toto\n");
             tab_representation[i] = fin_file(f);
-            f=defiler(f)
-                }
+            f=defiler(f);
+            compteur_champs++;
+        }
         break;
     case N_TAB:
         i=k;
-        tab_representation[k]=numchamps;
         /**
          * i++ car on saut le champs k+1 pour laisser la place au type à la fin
          */
         i++;
-        while(!est_vide(p) && compteur_champs<numchamps*2){
+        printf("toto45\n");
+        printf("compteur : %d\n", compteur_champs);
+        printf("num : %d\n", numchamps);
+        tab_representation[i] = numchamps;
+        while((!est_file_vide(f)) && compteur_champs<numchamps*2){
+            printf("dude\n");
             i++;
+            printf("toto2\n");
+            tab_representation[i] = fin_file(f);
+            f=defiler(f);
+            compteur_champs++;
+        }
+        printf("tyty\n");
+        tab_representation[k]= fin_file(f);
+        f=defiler(f);
+        break;
+    case N_PROC:
+         i=k;
+        tab_representation[k]=numchamps;
+        while(!est_file_vide(f) && compteur_champs<numchamps*2){
+            i++;
+            printf("toto3\n");
             tab_representation[i] = fin_file(f);
             f=defiler(f);
             compteur_champs++;
         } 
-        tab_representation[k+1]= fin_file(f);
+        break;
+    case N_FONC:
+        i=k;
+        tab_representation[k+1]=numchamps;
+        /**
+         * i++ car on saut le champs k+1 pour laisser la place au type à la fin
+         */
+        i++;
+        while(!est_file_vide(f) && compteur_champs<numchamps*2){
+            i++;
+            printf("toto4\n");
+            tab_representation[i] = fin_file(f);
+            f=defiler(f);
+            compteur_champs++;
+        } 
+        tab_representation[k]= fin_file(f);
         f=defiler(f);
         break;
-/**      case N_PROC:
-         case N_FONC:
-         i=numchamps*2;
-         tab_representation[k]=numchamps;
-         while(!est_vide(p) && i>1){
-         tab_representation[k+i]=sommet(p);
-         depiler(p);
-         i--;
-         tab_representation[k+i]=sommet(p);
-         depiler(p);
-         i--;
-         }
-         tab_representation[k+i]=sommet(p);
-         depiler(p);
-         break; **/
+    default:
+        fprintf(stderr, "Invalid declaration (this is nor function, nor procedure, nor struct, nor array!)\n");
+        return 0;
     }
-
-    
-    return 1;
+ 
+    return k;
 }
 
 void afficheTabRepresentation(){
     int i;
 
     fprintf(stdout, "Table Representation\n ______________________________\n");
-    for(i=0; i<50; i++){
+    for(i=0; i<50 && tab_representation[i]!=INT_MIN; i++){
         fprintf(stdout, "%d\t%d\n", i, tab_representation[i]);
     }
 }

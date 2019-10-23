@@ -27,8 +27,8 @@
 
 #define N_INT 0
 #define N_DOUBLE 1
-#define N_BOOL 2
-#define N_CHAR 3
+#define N_CHAR 2
+#define N_BOOL 3
 
 
 #endif

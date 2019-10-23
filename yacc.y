@@ -8,8 +8,10 @@
     extern int yylex();
     extern int yyerror();
     extern int yylval;
+    extern file f;
     int nb_dimensions=0;
     int numchamps=0;
+    int nb_params =0;
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN
@@ -56,8 +58,8 @@ declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {
                             }
                             ;
 
-suite_declaration_type      : STRUCT liste_champs FSTRUCT { $$=0;}
-                            | TABLEAU dimension DE nom_type {$$=1;}
+suite_declaration_type      : STRUCT liste_champs FSTRUCT {printf("struct kk\n"); $$=0;}
+                            | TABLEAU dimension DE nom_type {$$=1;f=enfiler(f, $4);}
                             ;
 
 dimension                   : CROCHET_OUVRANT liste_dimensions CROCHET_FERMANT
@@ -67,14 +69,14 @@ liste_dimensions            : une_dimension
                             | liste_dimensions VIRGULE une_dimension
                             ;
 
-une_dimension               : ea1 PP ea1 {nb_dimensions++; enfiler(f,$1); enfiler(f,$3);}
+une_dimension               : ea1 PP ea1 {nb_dimensions++; printf("$1=%d $3=%d \n",$1,$3);f=enfiler(f,$1); f=enfiler(f,$3);}
                             ;
 
 liste_champs                : un_champ
                             | liste_champs POINT_VIRGULE un_champ
                             ;
 
-un_champ                    : IDF DEUX_POINTS nom_type {numchamps++; enfiler(f,$3);enfiler(f, $1);}
+un_champ                    : IDF DEUX_POINTS nom_type {printf("struct k1\n");printf("$1:%d    \t $2:%d\n",$1,$3);numchamps++; f=enfiler(f,$3); f=enfiler(f, $1);printf("struct k2\n");}
                             ;
 
 nom_type                    : type_simple                 {$$=$1;}
@@ -91,21 +93,21 @@ type_simple                 : ENTIER                      {$$=$1;}
 declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($4,N_VAR, numchamps);}
                             ;
 
-declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, numchamps);}
+declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, nb_params);nb_params=0;}
                             ;
 
-declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {insererDeclaration($2,N_FONC, numchamps);}
+declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5);insererDeclaration($2,N_FONC, numchamps);}
                             ;
 
 liste_parametres            :
-                            | PARENTHESE_OUVRANTE liste_param PARENTHESE_FERMANTE
+| PARENTHESE_OUVRANTE liste_param PARENTHESE_FERMANTE {//enfiler nbparam et nbparam=0}
                             ;
 
 liste_param                 : un_param
                             | liste_param POINT_VIRGULE un_param
                             ;
 
-un_param                    : IDF DEUX_POINTS type_simple
+un_param                    : IDF DEUX_POINTS type_simple {nb_params++; enfiler(f, $1); f=enfiler(f,$3);}
                             ;
 
 instruction                 : affectation
@@ -175,9 +177,9 @@ ea3                         : MOINS ea4 {$$=-1*$2;}
 
 ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE {$$=$2;}
                             | variable  {$$=$1;}
-                            | CSTE_ENTIERE {$$=$1;}
+                            | CSTE_ENTIERE {printf("\n\n\n tutu $1=%d\n",$1);$$=$1;}
                             | CSTE_REELLE {$$=$1;}
-                            | CARAC  {$$=$1}
+                            | CARAC  {$$=$1;}
                             | CHAINECARAC
                             ;
 

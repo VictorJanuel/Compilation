@@ -75,8 +75,9 @@ true            {return (TRUE);}
 false           {return (FALSE);} 
 
 [a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); printf("\n\n----\n%s\n----\n\n", yytext); yylval=insererLexeme(yytext); return (IDF);}
-0|[1-9][0-9]*            {printf("constante entiere\n"); return (CSTE_ENTIERE);}
-0|[1-9][0-9]*\.[0-9]+           {return (CSTE_REELLE);}
+0|[1-9][0-9]*            {printf("constante entiere\n"); yylval=atoi(yytext);
+                          printf("%s : %d \n",yytext,yylval);return (CSTE_ENTIERE);}
+0|[1-9][0-9]*\.[0-9]+           {yylval=atof(yytext);return (CSTE_REELLE);}
 
 \'[^']\'        {printf("caractere");return(CARAC);}
 \"[^\"]*\"        {printf("caractere");return(CHAINECARAC);}

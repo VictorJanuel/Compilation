@@ -1083,52 +1083,53 @@ YY_RULE_SETUP
 case 51:
 YY_RULE_SETUP
 #line 78 "lex.l"
-{printf("constante entiere\n"); return (CSTE_ENTIERE);}
+{printf("constante entiere\n"); yylval=atoi(yytext);
+                          printf("%s : %d \n",yytext,yylval);return (CSTE_ENTIERE);}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 79 "lex.l"
-{return (CSTE_REELLE);}
+#line 80 "lex.l"
+{yylval=atof(yytext);return (CSTE_REELLE);}
 	YY_BREAK
 case 53:
 /* rule 53 can match eol */
 YY_RULE_SETUP
-#line 81 "lex.l"
+#line 82 "lex.l"
 {printf("caractere");return(CARAC);}
 	YY_BREAK
 case 54:
 /* rule 54 can match eol */
 YY_RULE_SETUP
-#line 82 "lex.l"
+#line 83 "lex.l"
 {printf("caractere");return(CHAINECARAC);}
 	YY_BREAK
 case 55:
 /* rule 55 can match eol */
 YY_RULE_SETUP
-#line 84 "lex.l"
+#line 85 "lex.l"
 {numligne++;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 85 "lex.l"
+#line 86 "lex.l"
 {;}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 86 "lex.l"
+#line 87 "lex.l"
 {;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 88 "lex.l"
+#line 89 "lex.l"
 {return (ERROR_LEXICO);}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 89 "lex.l"
+#line 90 "lex.l"
 ECHO;
 	YY_BREAK
-#line 1132 "lex.yy.c"
+#line 1133 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2136,7 +2137,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 89 "lex.l"
+#line 90 "lex.l"
 
 
 int yywrap(){

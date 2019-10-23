@@ -24,7 +24,7 @@ typedef struct cellule{
 
 typedef struct_cellule *file;
 
-
+file f;
 
 /* Fonction d'initialisation */
 file file_vide();
@@ -44,5 +44,4 @@ file defiler(file f);
 /* récupérer nb éléments dans la pile */
 int taille_file(file f);
 
-file f;
 #endif

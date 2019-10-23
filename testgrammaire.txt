@@ -2,7 +2,7 @@ main Test123
 var maVar : int;
 var a : int;
 var A : int;
-type tab : array [5..5] of oui;
+type tab : array [1..5] of oui;
 type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;

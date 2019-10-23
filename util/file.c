@@ -28,19 +28,23 @@ int est_file_vide(file f){
 file enfiler(file f, element e){
     file cell=file_vide();
     file fc=f;
-
+    printf("deb\n");
     //Allocation mémoires
     cell = (file)allocation_mem(1, sizeof(struct_cellule));
     cell->elem = e;
+    cell->suivant= file_vide();
+    printf("mid\n");
     if(est_file_vide(f)){
+         fprintf(stderr, "File crée \n");
         return cell;
     }
+    printf("before while\n");
     while(fc->suivant!=file_vide()){
         fc=fc->suivant;
+        printf("dude\n");
     }
-
     fc->suivant=cell;
-   
+  fprintf(stderr, "Enfiler nouvel elem\n");
     
     //Return
     return f;
@@ -52,7 +56,7 @@ element fin_file(file f){
     
     if(est_file_vide(f)){
         //Affichage erreur
-        fprintf(stderr, "Erreur: La file est vide");
+        fprintf(stderr, "Erreur: La file est vide\n");
         exit(EXIT_FAILURE);
     }
 
