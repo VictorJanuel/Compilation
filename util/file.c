@@ -24,24 +24,34 @@ int est_file_vide(file f){
     return 0;   
 }
 
+element creer_elem(int type,int num_lexico){
+    element e;
+    e.type=type;
+    e.num_lexico=num_lexico;
+    e.exec=0;
+    return e;
+}
+
 /* enfiler element */
 file enfiler(file f, element e){
     file cell=file_vide();
+    file fc=f;
 
     //Allocation mémoires
     cell = (file)allocation_mem(1, sizeof(struct_cellule));
     cell->elem = e;
-    cell->suivant=f;
-    /*    
+    if(est_file_vide(f)){
+        return cell;
+    }
     while(fc->suivant!=file_vide()){
         fc=fc->suivant;
     }
 
     fc->suivant=cell;
-    */
+   
     
     //Return
-    return cell;
+    return f;
 }
 
 /* Renvoi du sommet de la file */
@@ -61,6 +71,7 @@ element fin_file(file f){
 file defiler(file f){
     //Récup élement suivant
     file next = f->suivant;
+  
     //Libération mémoire
     libere_mem(&f);
 
