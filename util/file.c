@@ -1,76 +1,84 @@
 /**
- * Module pile
+ * Module file
  * © Victor Januel - Yoann Laroche - Joris Verdun
  * Date : 05/03/2019
  * 
  * UPDATE : 11/10/2019
  */
-#include "pile.h"
+#include "file.h"
 
 void * allocation_mem(size_t nobjets,size_t taille);
 void libere_mem(void *pt);
 
 
 /* Fonction d'initialisation */
-pile pile_vide(){
+file file_vide(){
     return NULL;
 }
 
-/* Test pile vide */
-int est_pile_vide(pile p){
-    if(p == pile_vide()){
+/* Test file vide */
+int est_file_vide(file f){
+    if(f == file_vide()){
         return 1;
     }
     return 0;   
 }
 
-/* empiler element */
-pile empiler(pile p, element e){
-    pile cell=pile_vide();
-    //Initialisation de la liste
-    pile p2 = pile_vide();
-    //Allocation mémoire + test
-    cell = (pile)allocation_mem(1, sizeof(struct_cellule));
-    cell->elem = e;
-    cell->suivant = p2;
+/* enfiler element */
+file enfiler(file f, element e){
+    file cell=file_vide();
 
+    //Allocation mémoires
+    cell = (file)allocation_mem(1, sizeof(struct_cellule));
+    cell->elem = e;
+    cell->suivant=f;
+    /*    
+    while(fc->suivant!=file_vide()){
+        fc=fc->suivant;
+    }
+
+    fc->suivant=cell;
+    */
+    
     //Return
     return cell;
 }
 
-/* Renvoi du sommet de la pile */
-element sommet(pile p){
-    if(est_pile_vide(p)){
+/* Renvoi du sommet de la file */
+element fin_file(file f){
+
+    
+    if(est_file_vide(f)){
         //Affichage erreur
-        fprintf(stderr, "Erreur: La pile est vide");
+        fprintf(stderr, "Erreur: La file est vide");
         exit(EXIT_FAILURE);
     }
 
-    return p->elem;
+    return f->elem;
 }
 
-/* Dépiler element */
-pile depiler(pile p){
+/* Défiler element */
+file defiler(file f){
     //Récup élement suivant
-    pile next = p->suivant;
+    file next = f->suivant;
     //Libération mémoire
-    libere_mem(&p);
+    libere_mem(&f);
 
     //return liste modifiée
     return next;
 }
 
-/* récupérer nb éléments dans la pile */
-int taille_pile(pile p){
+/* récupérer nb éléments dans la file */
+int taille_file(file f){
     int n = 0;
     //Recup arg
-    pile pCurrent = p;
+    file fCurrent = f;
     //Parcours pile
-    while(pCurrent != NULL){
+    while(fCurrent != NULL){
         //Recup taille
         n++;
         //Itération element suivant
-        pCurrent = pCurrent->suivant;
+        fCurrent = fCurrent->suivant;
     }
 
     //Return taille

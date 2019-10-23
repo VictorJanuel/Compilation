@@ -23,7 +23,7 @@ int insererRepresentation(int nature, int numchamps){
     
     switch(nature){
         /**
-         * Note: Les piles ne sont peut être pas la meilleure solution ici.
+         * Note: Les files ne sont peut être pas la meilleure solution ici.
          * Ainsi, on envisage de les remplacer par des files.
          */
     case N_STRUCT:

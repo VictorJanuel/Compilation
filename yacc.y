@@ -71,7 +71,7 @@ liste_champs                : un_champ
                             | liste_champs POINT_VIRGULE un_champ
                             ;
 
-un_champ                    : IDF DEUX_POINTS nom_type {numchamps++; empiler(p, $1); empiler(p, $3);}
+un_champ                    : IDF DEUX_POINTS nom_type {numchamps++; enfiler(f, $1); enfiler(f, $3);}
                             ;
 
 nom_type                    : type_simple                 {$$=$1;}
