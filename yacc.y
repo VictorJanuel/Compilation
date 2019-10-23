@@ -8,7 +8,7 @@
     extern int yylex();
     extern int yyerror();
     extern int yylval;
-
+    int nb_dimensions=0;
     int numchamps=0;
 %}
 
@@ -50,7 +50,10 @@ declaration                 : declaration_type
                             | declaration_fonction
                             ;
 
-declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {if($4==0){insererDeclaration($2,N_STRUCT, numchamps);}else{insererDeclaration($2,N_TAB, numchamps); numchamps=0;}}
+declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {
+                              if($4==0){insererDeclaration($2,N_STRUCT, numchamps);numchamps=0;}
+                              else{insererDeclaration($2,N_TAB, nb_dimensions);nb_dimensions=0; }
+                            }
                             ;
 
 suite_declaration_type      : STRUCT liste_champs FSTRUCT { $$=0;}
@@ -64,14 +67,14 @@ liste_dimensions            : une_dimension
                             | liste_dimensions VIRGULE une_dimension
                             ;
 
-une_dimension               : ea1 PP ea1
+une_dimension               : ea1 PP ea1 {nb_dimensions++; enfiler(f,$1); enfiler(f,$3);}
                             ;
 
 liste_champs                : un_champ
                             | liste_champs POINT_VIRGULE un_champ
                             ;
 
-un_champ                    : IDF DEUX_POINTS nom_type {numchamps++; enfiler(f, creer_elem($3,$1));}
+un_champ                    : IDF DEUX_POINTS nom_type {numchamps++; enfiler(f,$3);enfiler(f, $1);}
                             ;
 
 nom_type                    : type_simple                 {$$=$1;}
@@ -140,7 +143,7 @@ tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
 affectation                 : variable OPAFF expression
                             ;
 
-variable                    : IDF
+variable                    : IDF 
                             | IDF vtab
                             | IDF POINT variable
                             | IDF vtab POINT variable
@@ -155,26 +158,26 @@ expression                  : ea1
                             | eb1
                             ;
 
-ea1                         : ea1 PLUS ea2
-                            | ea1 MOINS ea2
-                            | ea2
+ea1                         : ea1 PLUS ea2 {$$=$1 + $2;}
+                            | ea1 MOINS ea2 {$$=$1 + $2;}
+                            | ea2 {$$=$1;}
                             ;
 
-ea2                         : ea2 MULT ea3
-                            | ea2 DIV ea3
-                            | ea3
+ea2                         : ea2 MULT ea3 {$$=$1 * $2;}
+                            | ea2 DIV ea3  {$$=$1/$2;}
+                            | ea3 {$$=$1;}
                             ;
           
-ea3                         : MOINS ea4
-                            | PLUS ea4
-                            | ea4
+ea3                         : MOINS ea4 {$$=-1*$2;}
+                            | PLUS ea4  {$$=1*$2;}
+                            | ea4  {$$=$1;}
                             ;
 
-ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE
-                            | variable
-                            | CSTE_ENTIERE
-                            | CSTE_REELLE
-                            | CARAC
+ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE {$$=$2;}
+                            | variable  {$$=$1;}
+                            | CSTE_ENTIERE {$$=$1;}
+                            | CSTE_REELLE {$$=$1;}
+                            | CARAC  {$$=$1}
                             | CHAINECARAC
                             ;
 

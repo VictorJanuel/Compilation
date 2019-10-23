@@ -15,12 +15,7 @@
  * Création du type file
  */
 
-typedef struct element
-{
-    int type;
-    int num_lexico;
-    int exec;
-    }element;
+typedef int element;
 
 typedef struct cellule{
     element elem;
@@ -29,8 +24,7 @@ typedef struct cellule{
 
 typedef struct_cellule *file;
 
-/*Fonction création d'un éléments*/
-element creer_elem(int type,int num_lexico);
+
 
 /* Fonction d'initialisation */
 file file_vide();

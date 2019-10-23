@@ -10,11 +10,12 @@ void initTabRepresentation(){
 
 
 /**
- * © Verdun Joris
+ * ©
  *
  */
 int insererRepresentation(int nature, int numchamps){
     int k=0, i=0;
+    int compteur_champs=0;
     int n_lex, n_dec;
 
     /**
@@ -27,49 +28,45 @@ int insererRepresentation(int nature, int numchamps){
          * Ainsi, on envisage de les remplacer par des files.
          */
     case N_STRUCT:
-        i=numchamps*3;
-        tab_representation[k]=numchamps;
-        /* while(!est_vide(p) && i>2){
-            tab_representation[k+i]=sommet(p);
-            depiler(p);
-            i--;
-            tab_representation[k+i]=sommet(p);
-            depiler(p);
-            i--;
-            tab_representation[k+i]=sommet(p);
-            depiler(p);
-            i--;
-        }
+        i=k;
+        tab_representation[i]=numchamps;
+        while(!est_vide(f)){
+            i++;
+            tab_representation[i] = fin_file(f);
+            f=defiler(f)
+                }
         break;
     case N_TAB:
-        i=numchamps*2;
+        i=k;
         tab_representation[k]=numchamps;
-        while(!est_vide(p) && i>1){
-            tab_representation[k+i]=sommet(p);
-            depiler(p);
-            i--;
-            tab_representation[k+i]=sommet(p);
-            depiler(p);
-            i--;
-        }
-        tab_representation[k+i]=sommet(p);
-        depiler(p);
-        break;*/
-/**    case N_PROC:
-    case N_FONC:
-       i=numchamps*2;
-        tab_representation[k]=numchamps;
-        while(!est_vide(p) && i>1){
-            tab_representation[k+i]=sommet(p);
-            depiler(p);
-            i--;
-            tab_representation[k+i]=sommet(p);
-            depiler(p);
-            i--;
-        }
-        tab_representation[k+i]=sommet(p);
-        depiler(p);
-        break; **/
+        /**
+         * i++ car on saut le champs k+1 pour laisser la place au type à la fin
+         */
+        i++;
+        while(!est_vide(p) && compteur_champs<numchamps*2){
+            i++;
+            tab_representation[i] = fin_file(f);
+            f=defiler(f);
+            compteur_champs++;
+        } 
+        tab_representation[k+1]= fin_file(f);
+        f=defiler(f);
+        break;
+/**      case N_PROC:
+         case N_FONC:
+         i=numchamps*2;
+         tab_representation[k]=numchamps;
+         while(!est_vide(p) && i>1){
+         tab_representation[k+i]=sommet(p);
+         depiler(p);
+         i--;
+         tab_representation[k+i]=sommet(p);
+         depiler(p);
+         i--;
+         }
+         tab_representation[k+i]=sommet(p);
+         depiler(p);
+         break; **/
     }
 
     

@@ -24,14 +24,6 @@ int est_file_vide(file f){
     return 0;   
 }
 
-element creer_elem(int type,int num_lexico){
-    element e;
-    e.type=type;
-    e.num_lexico=num_lexico;
-    e.exec=0;
-    return e;
-}
-
 /* enfiler element */
 file enfiler(file f, element e){
     file cell=file_vide();
