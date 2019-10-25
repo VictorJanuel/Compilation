@@ -23,7 +23,7 @@ int trouverK(){
 int insererRepresentation(int nature, int numchamps){
     int k=0, i=0;
     int compteur_champs=0;
-    int n_lex, n_dec;
+    //int n_lex, n_dec;
 
     /**
      * Trouver le bon emplacement k;
@@ -38,11 +38,11 @@ int insererRepresentation(int nature, int numchamps){
     case N_STRUCT:
         i=k;
         tab_representation[i]=numchamps;
-        printf("compteur : %d\n", compteur_champs);
+        /*printf("compteur : %d\n", compteur_champs);
         printf("num : %d\n", numchamps);        
+        */
         while(!est_file_vide(f) && compteur_champs<numchamps){
             i++;
-            printf("toto\n");
             tab_representation[i] = fin_file(f);
             f=defiler(f);
             compteur_champs++;
@@ -54,19 +54,13 @@ int insererRepresentation(int nature, int numchamps){
          * i++ car on saut le champs k+1 pour laisser la place au type à la fin
          */
         i++;
-        printf("toto45\n");
-        printf("compteur : %d\n", compteur_champs);
-        printf("num : %d\n", numchamps);
         tab_representation[i] = numchamps;
         while((!est_file_vide(f)) && compteur_champs<numchamps*2){
-            printf("dude\n");
             i++;
-            printf("toto2\n");
             tab_representation[i] = fin_file(f);
             f=defiler(f);
             compteur_champs++;
         }
-        printf("tyty\n");
         tab_representation[k]= fin_file(f);
         f=defiler(f);
         break;
@@ -75,7 +69,6 @@ int insererRepresentation(int nature, int numchamps){
         tab_representation[k]=numchamps;
         while(!est_file_vide(f) && compteur_champs<numchamps*2){
             i++;
-            printf("toto3\n");
             tab_representation[i] = fin_file(f);
             f=defiler(f);
             compteur_champs++;
@@ -90,7 +83,6 @@ int insererRepresentation(int nature, int numchamps){
         i++;
         while(!est_file_vide(f) && compteur_champs<numchamps*2){
             i++;
-            printf("toto4\n");
             tab_representation[i] = fin_file(f);
             f=defiler(f);
             compteur_champs++;

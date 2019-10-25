@@ -25,7 +25,6 @@ int insererDeclaration(int num_lex, int nature, int numchamps){
 
     tab_decla[num_lex].nature=nature;
     //insererRegion;
-    printf("ok?kk\n");
     if(numchamps!=0){
         description=insererRepresentation(nature, numchamps);
     }

@@ -80,7 +80,7 @@ false           {return (FALSE);}
 0|[1-9][0-9]*\.[0-9]+           {yylval=atof(yytext);return (CSTE_REELLE);}
 
 \'[^']\'        {printf("caractere");return(CARAC);}
-\"[^\"]*\"        {printf("caractere");return(CHAINECARAC);}
+\"[^\"]*\"        {printf("chaine caractere");return(CHAINECARAC);}
 
 \n              {numligne++;}
 [ ]*            {;}

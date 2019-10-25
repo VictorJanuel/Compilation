@@ -40,16 +40,13 @@ int insererLexeme(char* lexeme){
      * Pas de hashcode existant
      */
     if(tab_hash[hashcode] == EMPTY_HASH){
-        printf("there 45545?\n");
         tab_hash[hashcode] = insererNouveauLexeme(lexeme);
         return tab_hash[hashcode];
     }else{
-        printf("there 545?\n");
         k = tab_hash[hashcode];
         
         printf("tab_hash[%d] = %d\n", hashcode, tab_hash[hashcode]);
         while(tab_lexico[k].suivant != -1 && strcmp(tab_lexico[k].lexeme,lexeme)!=0){
-            printf("there?\n");
             k=tab_lexico[k].suivant;
         }
         
@@ -67,8 +64,6 @@ int insererNouveauLexeme(char *s){
     strcpy(tab_lexico[n_lexico].lexeme, s);
     tab_lexico[n_lexico].longueur = strlen(s);
     n_lexico++;
-            printf("there 545454545?\n");
-
     return i;
 }
 
