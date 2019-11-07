@@ -44,4 +44,30 @@ file defiler(file f);
 /* récupérer nb éléments dans la pile */
 int taille_file(file f);
 
+/**
+ * Création du type pile
+ * i.e. une liste
+ */
+typedef struct_cellule *pile;
+pile p;
+
+/* Fonction d'initialisation */
+pile pile_vide();
+
+/* Test pile vide */
+int est_pile_vide(pile p);
+
+/* empiler element */
+pile empiler(pile p, element e);
+
+/* Renvoi du sommet de la pile */
+element sommet(pile p);
+
+/* Dépiler element */
+pile depiler(pile p);
+
+/* récupérer nb éléments dans la pile */
+int taille_pile(pile p);
+
+
 #endif

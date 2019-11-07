@@ -90,24 +90,24 @@ type_simple                 : ENTIER                      {$$=$1;}
                             | CHAINE CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT
                             ;
 
-declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($4,N_VAR, numchamps);}
+declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($2,N_VAR, numchamps);}
                             ;
 
-declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, nb_params);nb_params=0;}
+declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, $3);}
                             ;
 
-declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5);insererDeclaration($2,N_FONC, numchamps);}
+declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5); insererDeclaration($2,N_FONC,$3);}
                             ;
 
 liste_parametres            :
-                            | PARENTHESE_OUVRANTE liste_param PARENTHESE_FERMANTE {/*enfiler nbparam et nbparam=0*/}
+                            | PARENTHESE_OUVRANTE liste_param PARENTHESE_FERMANTE {$$=nb_params; nb_params=0;}
                             ;
 
 liste_param                 : un_param
                             | liste_param POINT_VIRGULE un_param
                             ;
 
-un_param                    : IDF DEUX_POINTS type_simple {nb_params++; enfiler(f, $1); f=enfiler(f,$3);}
+un_param                    : IDF DEUX_POINTS type_simple {nb_params++; f=enfiler(f, $3); f=enfiler(f,$1);}
                             ;
 
 instruction                 : affectation

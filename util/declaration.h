@@ -15,6 +15,6 @@ declarations tab_decla[NMAX*2];
 
 void initTabDecla();
 int insererDeclaration(int num_lex, int nature, int numchamps);
-int insererDeclarationExistante(char *s,int caseNb,int nat);
+int insererDeclarationExistante(int num_lex,int nat,int numchamps);
 void afficheTabDeclaration();
 #endif

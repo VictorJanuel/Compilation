@@ -1,8 +1,16 @@
 main Test123
 var maVar : int;
 var a : int;
-var A : int;
-type tab : array [1..5] of oui;
+type a : array [20..30,40..50] of non;
+function a ( param1 : int ; param2 : char) return int	
+procedure b (p1 : int ; p2 : bool)
+begin
+	x =4;
+end;
+
+begin
+	y=2;
+end;
 type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
@@ -13,21 +21,6 @@ type maStruct3578bc3 :
 begin
         y=3;
 	maVar = toto;
-	etcr;
-	f(3.456,0);
-	if (mamansi == -45.17) || (destrucs > moinsdetrucs) && true then
-	begin		
-		destrucs = destrucs + 1;
-	end
-	else
-	begin	
-		moinsdetrucs = moinsdetrucs - 1;
-	end;
-        void;
-        toto[toto[toto[45]]][a[toto[toto[45]]]] = 45;
-        v1.t[toto[a.a][b]].dude = 4;
-        toto[4][ 7]=2;
-        h = rentredestrucs - toutca;
 
         while a > c || b < d do
         begin

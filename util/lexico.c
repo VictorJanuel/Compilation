@@ -49,13 +49,14 @@ int insererLexeme(char* lexeme){
         while(tab_lexico[k].suivant != -1 && strcmp(tab_lexico[k].lexeme,lexeme)!=0){
             k=tab_lexico[k].suivant;
         }
-        
+        /* si c'est un lexème different */
         if(strcmp(tab_lexico[k].lexeme,lexeme)!=0){
             tab_lexico[k].suivant=insererNouveauLexeme(lexeme);
+            return tab_lexico[k].suivant;
         }
     }
-
-    return tab_lexico[k].suivant;
+    //on renvoie le meme lexeme
+    return k;
 }
 
 
