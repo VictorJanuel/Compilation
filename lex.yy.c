@@ -286,6 +286,7 @@ void yy_delete_buffer ( YY_BUFFER_STATE b  );
 void yy_flush_buffer ( YY_BUFFER_STATE b  );
 void yypush_buffer_state ( YY_BUFFER_STATE new_buffer  );
 void yypop_buffer_state ( void );
+<<<<<<< HEAD
 
 static void yyensure_buffer_stack ( void );
 static void yy_load_buffer_state ( void );
@@ -296,6 +297,18 @@ YY_BUFFER_STATE yy_scan_buffer ( char *base, yy_size_t size  );
 YY_BUFFER_STATE yy_scan_string ( const char *yy_str  );
 YY_BUFFER_STATE yy_scan_bytes ( const char *bytes, int len  );
 
+=======
+
+static void yyensure_buffer_stack ( void );
+static void yy_load_buffer_state ( void );
+static void yy_init_buffer ( YY_BUFFER_STATE b, FILE *file  );
+#define YY_FLUSH_BUFFER yy_flush_buffer( YY_CURRENT_BUFFER )
+
+YY_BUFFER_STATE yy_scan_buffer ( char *base, yy_size_t size  );
+YY_BUFFER_STATE yy_scan_string ( const char *yy_str  );
+YY_BUFFER_STATE yy_scan_bytes ( const char *bytes, int len  );
+
+>>>>>>> 632afc07ec3ed81009eb41740cdd988d8e9a9c20
 void *yyalloc ( yy_size_t  );
 void *yyrealloc ( void *, yy_size_t  );
 void yyfree ( void *  );
@@ -545,7 +558,7 @@ char *yytext;
 #include "y.tab.h"
 #include "util/tables.h"
 
-
+int incr_reg=0;
 int numligne=1;
 int yylex();
 #line 552 "lex.yy.c"
@@ -833,7 +846,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 14 "lex.l"
-{ initTabLexico();initTabDecla();initTabHash();initTabRepresentation();return(PROG);}
+{ initTabRegion();initTabLexico();initTabDecla();initTabHash();initTabRepresentation();insererRegion(incr_reg);p=empiler(p,incr_reg++);return(PROG);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
@@ -878,12 +891,12 @@ YY_RULE_SETUP
 case 10:
 YY_RULE_SETUP
 #line 27 "lex.l"
-{return (PROCEDURE);}
+{insererRegion(incr_reg);p=empiler(p,incr_reg++); return (PROCEDURE);} 
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 28 "lex.l"
-{return (FONCTION);}
+{insererRegion(incr_reg);p=empiler(p,incr_reg++);return (FONCTION);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
@@ -2144,4 +2157,5 @@ int yywrap(){
 afficheTabLexico();
 afficheTabDeclaration();
 afficheTabRepresentation();
+afficheTabRegion();
 }

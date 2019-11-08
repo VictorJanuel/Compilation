@@ -4,14 +4,14 @@
 #include "y.tab.h"
 #include "util/tables.h"
 
-
+int incr_reg=0;
 int numligne=1;
 int yylex();
 %}
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     { initTabLexico();initTabDecla();initTabHash();initTabRepresentation();return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     { initTabRegion();initTabLexico();initTabDecla();initTabHash();initTabRepresentation();insererRegion(incr_reg);p=empiler(p,incr_reg++);return(PROG);}
 
 begin           {printf("begin\n"); return (DEBUT);}
 end             {return (FIN);}
@@ -24,8 +24,8 @@ array           {return (TABLEAU);}
 of              {return (DE);}
 
 var             {printf("var");return (VARIABLE);}
-procedure       {return (PROCEDURE);}
-function        {return (FONCTION);}
+procedure       {insererRegion(incr_reg);p=empiler(p,incr_reg++); return (PROCEDURE);} 
+function        {insererRegion(incr_reg);p=empiler(p,incr_reg++);return (FONCTION);}
 return          {return (RETOURNE);}
 
 int             {yylval=N_INT;return (ENTIER);}
@@ -93,4 +93,5 @@ int yywrap(){
 afficheTabLexico();
 afficheTabDeclaration();
 afficheTabRepresentation();
+afficheTabRegion();
 }
