@@ -31,12 +31,23 @@
 programme                   : PROG corps
                             ;
 
-corps                       : liste_declarations liste_instructions
-                            | liste_instructions
+corps                       : liste_declarations liste_instructions {p=depiler(p);}
                             ;
 
-liste_declarations          : declaration POINT_VIRGULE
-                            | liste_declarations declaration POINT_VIRGULE
+liste_declarations          : liste_declarations_type liste_declarations_variable liste_declarations_pf
+                            ;
+
+
+liste_declarations_type     : liste_declarations_type declaration_type POINT_VIRGULE
+                            |
+                            ;
+
+liste_declarations_variable : liste_declarations_variable declaration_variable POINT_VIRGULE
+                            |
+                            ;
+
+liste_declarations_pf       : liste_declarations_pf declaration_pf POINT_VIRGULE
+                            |
                             ;
 
 liste_instructions          : DEBUT suite_liste_inst FIN
@@ -46,9 +57,7 @@ suite_liste_inst            : instruction POINT_VIRGULE
                             | suite_liste_inst instruction POINT_VIRGULE
                             ;
 
-declaration                 : declaration_type       
-                            | declaration_variable
-                            | declaration_procedure
+declaration_pf              : declaration_procedure
                             | declaration_fonction
                             ;
 

@@ -1,7 +1,7 @@
 main Test123
+type a : array [20..30,40..50] of non;
 var maVar : int;
 var a : int;
-type a : array [20..30,40..50] of non;
 function a ( param1 : int ; param2 : char) return int	
 procedure b (p1 : int ; p2 : bool)
 begin
@@ -11,13 +11,34 @@ end;
 begin
 	y=2;
 end;
+procedure x ( p4 : int ; p5 : int)
 type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
 		champ_2_mais : double;
 		champ2canne : char 
 	end struct;
-        var x: int;
+var x: int;
+
+procedure y ( p4 : int ; p5 : int)
+procedure z ( p4 : int ; p5 : int)
+begin
+	vide;
+end;
+begin
+	vide;
+end;
+
+procedure f ( p4 : int ; p5 : int)
+begin
+	vide;
+end;
+
+begin
+	vide;
+end;
+
+        
 begin
         y=3;
 	maVar = toto;
