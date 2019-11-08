@@ -74,9 +74,9 @@ int insererNouveauLexeme(char *s){
 
 void afficheTabLexico(){
     int i=0;
-    fprintf(stdout, "Table Lexicographique\n ______________________________\n");
-    while(i<50 && tab_lexico[i].lexeme!=NULL){
-        fprintf(stdout, "%d\t%s\t%d\n", i, tab_lexico[i].lexeme, tab_lexico[i].suivant);
+    fprintf(stdout, "\n______________________________\nTable Lexicographique\n______________________________\n");
+    while(i<36 && tab_lexico[i].lexeme!=NULL){
+        fprintf(stdout, "%d\t%s\t\t%d\n", i, tab_lexico[i].lexeme, tab_lexico[i].suivant);
         i++;
     }
 }

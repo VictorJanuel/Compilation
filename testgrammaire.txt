@@ -1,13 +1,16 @@
 main Test123
 var maVar : int;
 var a : int;
+var a : zskf;
 type a : array [20..30,40..50] of non;
 function a ( param1 : int ; param2 : char) return int	
 procedure b (p1 : int ; p2 : bool)
 begin
 	x =4;
+ 	f=8;
 end;
 
+var f : int;
 begin
 	y=2;
 end;
@@ -15,7 +18,7 @@ type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
 		champ_2_mais : double;
-		champ2canne : char 
+		champ2canne : char
 	end struct;
         var x: int;
 begin

@@ -39,19 +39,74 @@ int insererDeclaration(int num_lex, int nature, int numchamps){
 }
 
 void afficheTabDeclaration(){
+    char nat[10];
     int i=0;
-    fprintf(stdout, "Table Declaration\n ______________________________\nnumdecla--nature---suivant-----description\n");
+    fprintf(stdout, "\n_____________________________________________________________________________\nTable Declaration\n_____________________________________________________________________________\nnumdecla--------nature----------------suivant--------region-------description\n");
     while(i<30 && tab_lexico[i].lexeme!=NULL){
-        fprintf(stdout, "%d\t%d\t%d\t%d\n", i, tab_decla[i].nature, tab_decla[i].suivant, tab_decla[i].description);
+
+        switch(tab_decla[i].nature){
+        case N_BASE:
+            strcpy(nat, "N_BASE  ");
+            break;
+        case N_STRUCT:
+            strcpy(nat, "N_STRUCT");
+            break;
+        case N_TAB:
+            strcpy(nat, "N_TAB   ");
+            break;
+        case N_VAR:
+            strcpy(nat, "N_VAR   ");
+            break;
+        case N_PARAM:
+            strcpy(nat, "N_PARAM ");
+            break;
+        case N_PROC:
+            strcpy(nat, "N_PROC  ");
+            break;
+        case N_FONC:
+            strcpy(nat, "N_FONC  ");
+            break;
+        default:
+            strcpy(nat, "        ");
+            break;
+            
+        } 
+        fprintf(stdout, "%d\t\t%s\t\t%d\t\t%d\t\t%d\n", i, nat, tab_decla[i].suivant, tab_decla[i].region, tab_decla[i].description);
         i++;
     }
     i=499;
     while(i<538 && tab_lexico[i].lexeme!=NULL){
-        fprintf(stdout, "%d\t%d\t%d\t%d\n", i, tab_decla[i].nature, tab_decla[i].suivant, tab_decla[i].description);
+
+        switch(tab_decla[i].nature){
+        case N_BASE:
+            strcpy(nat, "N_BASE  ");
+            break;
+        case N_STRUCT:
+            strcpy(nat, "N_STRUCT");
+            break;
+        case N_TAB:
+            strcpy(nat, "N_TAB   ");
+            break;
+        case N_VAR:
+            strcpy(nat, "N_VAR   ");
+            break;
+        case N_PARAM:
+            strcpy(nat, "N_PARAM ");
+            break;
+        case N_PROC:
+            strcpy(nat, "N_PROC  ");
+            break;
+        case N_FONC:
+            strcpy(nat, "N_FONC  ");
+            break;
+        default:
+            strcpy(nat, "        ");
+            break;
+        } 
+        fprintf(stdout, "%d\t\t%s\t\t%d\t\t%d\t\t%d\n", i, nat, tab_decla[i].suivant, tab_decla[i].region, tab_decla[i].description);
         i++;
     }
 }
-
 
 
 int insererDeclarationExistante(int num_lex,int nat,int numchamps){

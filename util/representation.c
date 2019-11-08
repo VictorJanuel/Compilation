@@ -106,13 +106,12 @@ int insererRepresentation(int nature, int numchamps){
 }
 
 void afficheTabRepresentation(){
-    int i;
+    int i=0;
 
-    fprintf(stdout, "Table Representation\n ______________________________\n");
-    for(i=0; i<50; i++){
-        if(tab_representation[i]==INT_MIN){
-            fprintf(stdout, "%d\tVIDE\n", i);
-        }else
-            fprintf(stdout, "%d\t%d\n", i, tab_representation[i]);
+    fprintf(stdout, "\n___________________________\nTable Representation\n___________________________\n");
+    while(tab_representation[i]!=INT_MIN){
+        fprintf(stdout, "%d\t%d\n", i, tab_representation[i]);
+        i++;
     }
+   
 }
