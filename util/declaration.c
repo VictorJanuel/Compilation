@@ -50,8 +50,6 @@ int insererDeclaration(int num_lex, int nature, int numchamps){
 }
 
 void afficheTabDeclaration(){
-<<<<<<< HEAD
-=======
     /*int i=0;
     fprintf(stdout, "Table Declaration\n ______________________________\nnumdecla--nature---suivant-----region-----description\n");
     while(i<30 && tab_lexico[i].lexeme!=NULL){
@@ -63,7 +61,6 @@ void afficheTabDeclaration(){
         fprintf(stdout, "%d\t%d\t%d\t%d\t%d\n", i, tab_decla[i].nature, tab_decla[i].suivant,tab_decla[i].region, tab_decla[i].description);
         i++;
         }*/
->>>>>>> 632afc07ec3ed81009eb41740cdd988d8e9a9c20
     char nat[10];
     int i=0;
     fprintf(stdout, "\n_____________________________________________________________________________\nTable Declaration\n_____________________________________________________________________________\nnumdecla--------nature----------------suivant--------region-------description\n");
@@ -132,6 +129,7 @@ void afficheTabDeclaration(){
         i++;
     }
 }
+
 
 
 int insererDeclarationExistante(int num_lex,int nat,int numchamps){
