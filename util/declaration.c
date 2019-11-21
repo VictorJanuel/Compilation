@@ -31,6 +31,7 @@ int insererDeclaration(int num_lex, int nature, int numchamps){
     }else{
         tab_decla[num_lex].nature=nature;
         //insererRegion
+        printf("toto\n");
         tab_decla[num_lex].region=sommet(p);
         switch(nature){
         case N_PROC:
@@ -172,10 +173,11 @@ int insererDeclarationExistante(int num_lex,int nat,int numchamps){
 int assoc_nom(int num_lex){
     pile p2;
     int i=num_lex;
+    printf("sommet pile : %d,  tab decla region : %d", sommet(p), tab_decla[i].region);
     if(tab_decla[i].region==sommet(p)){
         return i;
     }
-    
+    printf("asssoc: entree\n");
     while(!est_pile_vide(p)){       
         while(tab_decla[i].suivant!=NO_NEXT){
             if(est_pile_vide(p)){
@@ -194,14 +196,17 @@ int assoc_nom(int num_lex){
                     p=empiler(p, sommet(p2));
                     p2=depiler(p2);
                 }
+                //Sortie principale
+                printf("sortie\n");
                 return i;
             }
+                printf("asssoc:2\n");
             i=tab_decla[i].suivant;
         }
         p2 = empiler(p2, sommet(p));
         p=depiler(p);
-        
+            printf("asssoc: 4\n");
     }
-
+    //Pour gcc
     return 1;    
 }

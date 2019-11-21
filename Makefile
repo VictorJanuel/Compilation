@@ -1,7 +1,7 @@
 all : cpyrr
 
 cpyrr: y.tab.c lex.yy.o lexico.o declaration.o region.o arbre.o file.o representation.o
-	gcc -o cpyrr y.tab.c lex.yy.o lexico.o declaration.o file.o representation.o region.o -ly -ll
+	gcc -o cpyrr y.tab.c lex.yy.o lexico.o declaration.o arbre.o file.o representation.o region.o -ly -ll
 
 y.tab.c: yacc.y
 	yacc -d -v yacc.y
@@ -13,7 +13,7 @@ lex.yy.c: lex.l
 	lex lex.l
 
 tables.o: util/tables.c util/tables.h
-	gcc -Wall util/tables.c -c		
+	gcc -Wall util/tables.c -c
 
 lexico.o: util/lexico.c util/lexico.h util/tables.h
 	gcc -Wall util/lexico.c -c

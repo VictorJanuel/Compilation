@@ -7,11 +7,13 @@
     extern char * yytext;
     extern int yylex();
     extern int yyerror();
+    extern int assoc_nom(int n);
     extern int yylval;
     extern file f;
     int nb_dimensions=0;
     int numchamps=0;
     int nb_params =0;
+    arbre ab;
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN
@@ -28,10 +30,41 @@
 
 %%
 
-programme                   : PROG corps
+programme                   : PROG corps{
+                                arbre ag = creer_arbre_vide();
+                                arbre ad = creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    ag=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                a = creer_arbre(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad);}
                             ;
 
-corps                       : liste_declarations liste_instructions {p=depiler(p);}
+corps                       : liste_declarations liste_instructions {p=depiler(p);
+                                arbre ag = creer_arbre_vide();
+                                arbre ad = creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    ag=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                arbre ab = creer_arbre(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
                             ;
 
 liste_declarations          : liste_declarations_type liste_declarations_variable liste_declarations_pf
@@ -50,7 +83,23 @@ liste_declarations_pf       : liste_declarations_pf declaration_pf POINT_VIRGULE
                             |
                             ;
 
-liste_instructions          : DEBUT suite_liste_inst FIN
+liste_instructions          : DEBUT suite_liste_inst FIN{
+                                arbre ag = creer_arbre_vide();
+                                arbre ad = creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    ag=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                arbre ab = creer_arbre(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
                             ;
 
 suite_liste_inst            : instruction POINT_VIRGULE
@@ -131,7 +180,23 @@ resultat_retourne           :
                             | expression
                             ;
 
-appel                       : IDF liste_arguments
+appel                       : IDF liste_arguments{
+                                arbre ag=creer_arbre_vide();
+                                arbre ad=creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    arbre ag=creer_noeud(A_APPEL, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=creer_noeud(A_APPEL, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                arbre ab = creer_arbre(A_APPEL, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
                             ;
 
 liste_arguments             :
@@ -145,16 +210,74 @@ liste_args                  : un_arg
 un_arg                      : expression
                             ;
 
-condition                   : SI eb1 ALORS liste_instructions SINON liste_instructions
+condition                   : SI eb1 ALORS liste_instructions SINON liste_instructions{
+                                arbre ag=creer_arbre_vide();
+                                arbre ad=creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    ag=creer_noeud(A_IF, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=creer_noeud(A_IF, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                arbre ab = creer_arbre(A_IF, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
                             ;
 
-tant_que                    : TANT_QUE eb1 FAIRE liste_instructions
+tant_que                    : TANT_QUE eb1 FAIRE liste_instructions{
+                                arbre ag=creer_arbre_vide();
+                                arbre ad=creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    ag=creer_noeud(A_WHILE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=creer_noeud(A_WHILE, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                arbre ab = creer_arbre(A_WHILE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
                             ;
 
-affectation                 : variable OPAFF expression
+affectation                 : variable OPAFF expression {
+    printf("OLOL\n");
+                                arbre ag=creer_arbre_vide();
+                                  printf("OLOL2\n");
+                                arbre ad=creer_arbre_vide();
+                                  printf("OLOL3\n");
+                                if(!a_est_pile_vide(p_arbre)){
+                                      printf("OLOL IF\n");
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                      printf("OLOL else\n");
+                                    ag=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    printf("OLOL IF2\n");
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    printf("OLOL else 2\n");
+                                    ad=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                printf("OLOL end\n");
+                                ab = creer_arbre(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                printf("OLOL ARBRE OK\n");
+                                p_arbre=a_empiler(p_arbre, ab);printf("OVER & OUT\n");
+                                }
                             ;
 
-variable                    : IDF 
+variable                    : IDF {printf("???? $1 :: %d\n", $1);ab = creer_arbre_vide(); ab=creer_noeud(A_IDF, $1, assoc_nom($1));printf("J'empile\n"); p_arbre=a_empiler(p_arbre, ab);}
                             | IDF vtab
                             | IDF POINT variable
                             | IDF vtab POINT variable
@@ -169,27 +292,71 @@ expression                  : ea1
                             | eb1
                             ;
 
-ea1                         : ea1 PLUS ea2 {$$=$1 + $2;}
-                            | ea1 MOINS ea2 {$$=$1 + $2;}
+ea1                         : ea1 PLUS ea2 {$$=$1 + $2;
+                                arbre ag=creer_arbre_vide();
+                                arbre ad=creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    ag=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
+                                }
+                                ab = creer_arbre(A_PLUS, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
+                            | ea1 MOINS ea2 {$$=$1 + $2;
+                                arbre ag=creer_arbre_vide();
+                                arbre ad=creer_arbre_vide();
+                                if(!a_est_pile_vide(p_arbre)){                           
+                                    ag=a_sommet(p_arbre); 
+                                    p_arbre=a_depiler(p_arbre);
+                                }else{
+                                    ag=a_sommet(p_arbre);
+                                }
+                                if(!a_est_pile_vide(p_arbre)){
+                                    ad=a_sommet(p_arbre); 
+                                    p_arbre = a_depiler(p_arbre);
+                                }else{
+                                    ad=a_sommet(p_arbre);                                   
+                                }
+                                ab = creer_arbre(A_MOINS, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
                             | ea2 {$$=$1;}
                             ;
 
-ea2                         : ea2 MULT ea3 {$$=$1 * $2;}
-                            | ea2 DIV ea3  {$$=$1/$2;}
+ea2                         : ea2 MULT ea3 {$$=$1 * $2;
+                                arbre ag=a_sommet(p_arbre); 
+                                p_arbre=a_depiler(p_arbre);
+                                arbre ad=a_sommet(p_arbre); 
+                                p_arbre = a_depiler(p_arbre);
+                                ab = creer_arbre(A_MULT, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
+                            | ea2 DIV ea3  {$$=$1/$2;
+                                arbre ag=a_sommet(p_arbre); 
+                                p_arbre=a_depiler(p_arbre);
+                                arbre ad=a_sommet(p_arbre); 
+                                p_arbre = a_depiler(p_arbre);
+                                ab = creer_arbre(A_DIV, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
+                                p_arbre=a_empiler(p_arbre, ab);}
                             | ea3 {$$=$1;}
                             ;
           
-ea3                         : MOINS ea4 {$$=-1*$2;}
-                            | PLUS ea4  {$$=1*$2;}
+ea3                         : MOINS ea4 {$$=-1*$2;/*** OBSOLETE ***/}
+                            | PLUS ea4  {$$=1*$2;/*** OBSOLETE ***/ }
                             | ea4  {$$=$1;}
                             ;
 
 ea4                         : PARENTHESE_OUVRANTE ea1 PARENTHESE_FERMANTE {$$=$2;}
                             | variable  {$$=$1;}
-                            | CSTE_ENTIERE {$$=$1;}
-                            | CSTE_REELLE {$$=$1;}
-                            | CARAC  {$$=$1;}
-                            | CHAINECARAC
+                            | CSTE_ENTIERE {$$=$1; printf("avconst\n");ab = creer_noeud(A_CSTE_E, A_EMPTY_LEX, A_EMPTY_DEC); printf("const\n");p_arbre=a_empiler(p_arbre, ab);}
+                            | CSTE_REELLE {$$=$1; ab = creer_noeud(A_CSTE_R, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
+                            | CARAC  {$$=$1; ab = creer_noeud(A_CSTE_C, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
+                            | CHAINECARAC {ab = creer_noeud(A_CSTE_S, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
                             ;
 
 eb1                         : eb1 OU eb2
@@ -205,8 +372,8 @@ eb3                         : NOT eb4
                             ;
 
 eb4                         : PARENTHESE_OUVRANTE eb1 PARENTHESE_FERMANTE
-                            | TRUE
-                            | FALSE
+                            | TRUE {ab = creer_noeud(A_TRUE, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
+                            | FALSE {ab = creer_noeud(A_FALSE, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
                             | comparaison
                             ;
 

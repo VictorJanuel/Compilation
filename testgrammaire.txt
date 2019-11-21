@@ -6,6 +6,7 @@ function a ( param1 : int ; param2 : char) return int
 procedure b (p1 : int ; p2 : bool)
 begin
 	x =4;
+	t=45;
 end;
 
 begin
