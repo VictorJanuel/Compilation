@@ -175,6 +175,7 @@ int assoc_nom(int num_lex){
     if(tab_decla[i].region==sommet(p)){
         return i;
     }
+    
     while(!est_pile_vide(p)){       
         while(tab_decla[i].suivant!=NO_NEXT){
             if(est_pile_vide(p)){
@@ -182,7 +183,7 @@ int assoc_nom(int num_lex){
                  * <AMELIORATION> : Faire en sorte de dire dans quel region la variable a pu être déclarer ou dire si l'utilisateur ne c'est pas tromper de variable, proposer un solution
                  */
                 while(!est_pile_vide(p2)){
-                    p=empiler(sommet(p2),p);
+                    p=empiler(p,sommet(p2));
                     p2=depiler(p2);
                 }
                 printf("la variable %s n'est pas déclarée dans les regions englobante",tab_lexico[i].lexeme);
@@ -190,17 +191,17 @@ int assoc_nom(int num_lex){
                     }
             if(tab_decla[i].region==sommet(p)){
                 while(!est_pile_vide(p2)){
-                    p=empiler(sommet(p2),p);
+                    p=empiler(p, sommet(p2));
                     p2=depiler(p2);
                 }
                 return i;
             }
             i=tab_decla[i].suivant;
         }
-        p2 = empiler(sommet(p),p2);
+        p2 = empiler(p2, sommet(p));
         p=depiler(p);
         
     }
-    
-    
+
+    return 1;    
 }
