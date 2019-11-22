@@ -3,12 +3,16 @@ type a : array [20..30,40..50] of non;
 var maVar : int;
 var a : int;
 function a ( param1 : int ; param2 : char) return int	
+var y: int;
 procedure b (p1 : int ; p2 : bool)
+var x : int;
+var t : int;
+var y : int;
 begin
 	x =4;
 	t=45;
+	y=20;
 end;
-
 begin
 	y=2;
 end;

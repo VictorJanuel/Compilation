@@ -171,26 +171,15 @@ int insererDeclarationExistante(int num_lex,int nat,int numchamps){
 
 
 int assoc_nom(int num_lex){
-    pile p2;
+    pile p2=pile_vide();
     int i=num_lex;
-    printf("sommet pile : %d,  tab decla region : %d", sommet(p), tab_decla[i].region);
+    printf("sommet pile : %d,  tab decla region : %d\n", sommet(p), tab_decla[i].region);
     if(tab_decla[i].region==sommet(p)){
         return i;
     }
     printf("asssoc: entree\n");
-    while(!est_pile_vide(p)){       
-        while(tab_decla[i].suivant!=NO_NEXT){
-            if(est_pile_vide(p)){
-                /**
-                 * <AMELIORATION> : Faire en sorte de dire dans quel region la variable a pu être déclarer ou dire si l'utilisateur ne c'est pas tromper de variable, proposer un solution
-                 */
-                while(!est_pile_vide(p2)){
-                    p=empiler(p,sommet(p2));
-                    p2=depiler(p2);
-                }
-                printf("la variable %s n'est pas déclarée dans les regions englobante",tab_lexico[i].lexeme);
-                return -1;
-                    }
+    while(!est_pile_vide(p)){
+        while(i!=NO_NEXT){
             if(tab_decla[i].region==sommet(p)){
                 while(!est_pile_vide(p2)){
                     p=empiler(p, sommet(p2));
@@ -198,15 +187,32 @@ int assoc_nom(int num_lex){
                 }
                 //Sortie principale
                 printf("sortie\n");
+                printf("Num decla %d\n",i);
                 return i;
             }
                 printf("asssoc:2\n");
-            i=tab_decla[i].suivant;
+                i=tab_decla[i].suivant;
+                printf("suivant %d  region : %d region de la decla : %d \n", i,sommet(p),tab_decla[i].region );
         }
+        
         p2 = empiler(p2, sommet(p));
         p=depiler(p);
             printf("asssoc: 4\n");
     }
+
+    if(est_pile_vide(p)){
+        /**
+         * <AMELIORATION> : Faire en sorte de dire dans quel region la variable a pu être déclarer ou dire si l'utilisateur ne c'est pas tromper de variable, proposer un solution
+         */
+        while(!est_pile_vide(p2)){
+            p=empiler(p,sommet(p2));
+            p2=depiler(p2);
+        }
+        printf("la variable %s n'est pas déclarée dans les regions englobante\n",tab_lexico[num_lex].lexeme);
+        exit(-1);
+    }
+
     //Pour gcc
+    printf("sortie mauvaise\n");
     return 1;    
 }
