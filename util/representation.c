@@ -77,7 +77,7 @@ int insererRepresentation(int nature, int numchamps){
     case N_FONC:
         i=k;
         tab_representation[k+1]=numchamps;
-        printf("Valeur de nul champs : %d \n",tab_representation[k]);
+     
         /**
          * i++ car on saute le champs k+1 pour laisser la place au type à la fin
          */
@@ -95,6 +95,7 @@ int insererRepresentation(int nature, int numchamps){
          */
         printf("fin_file :  %d \n",fin_file(f));
         tab_representation[k]= fin_file(f);
+        printf("Valeur de nul champs : %d \n",tab_representation[k]);
         f=defiler(f);
         break;
     default:

@@ -22,6 +22,7 @@ typedef struct cellule{
     struct cellule *suivant;
 }struct_cellule;
 
+
 typedef struct_cellule *file;
 
 file f;
@@ -49,6 +50,7 @@ int taille_file(file f);
  * i.e. une liste
  */
 typedef struct_cellule *pile;
+
 pile p;
 
 /* Fonction d'initialisation */
@@ -68,6 +70,5 @@ pile depiler(pile p);
 
 /* récupérer nb éléments dans la pile */
 int taille_pile(pile p);
-
 
 #endif

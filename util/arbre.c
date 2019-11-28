@@ -3,8 +3,6 @@
 void * allocation_mem(size_t nobjets,size_t taille);
 void libere_mem(void *pt);
 
-arbre ag;
-
 int est_vide(arbre a){
     return a==creer_arbre_vide();
 }
@@ -13,11 +11,11 @@ arbre creer_arbre_vide(){
     return NULL;
 }
 
-arbre creer_noeud(int appel){
-    arbre a = (arbre)allocation_mem(1, sizeof(noeud));
+arbre creer_noeud(int appel, int num_lex, int num_decla){
+    arbre a = (arbre)allocation_mem(1, sizeof(struct_noeud));
     a->appel=appel;
-    a->num_lex=A_EMPTY_LEX;
-    a->num_dec=A_EMPTY_DEC;
+    a->num_lex=num_lex;
+    a->num_dec=num_decla;
     a->fils_gauche=creer_arbre_vide();
     a->frere_droit=creer_arbre_vide();
     return a;
@@ -25,7 +23,7 @@ arbre creer_noeud(int appel){
 
 arbre creer_arbre(int appel, int num_lex, int num_decla, arbre filsgauche,arbre freredroit){
     arbre a = creer_arbre_vide();
-    a=creer_noeud(appel);
+    a=creer_noeud(appel, num_lex, num_decla);
     a->num_lex=num_lex;
     a->num_dec=num_decla;
     a->fils_gauche=filsgauche;
@@ -52,55 +50,66 @@ arbre parcours(arbre a){
     return a_suiv->fils_gauche;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*--------------------------------------------------------------------
- *
- * ©Amaury Habrard
- * 
- *fonction d'allocation de memoire du type defini par taille 
- *pour un nombre nobjets
- *alloue un espace de memoire de taille  nobjets*taille octets
- */
-void * allocation_mem(size_t nobjets,size_t taille)
-{
-    void * pt;
-    
-    pt = malloc (nobjets * taille);/*allocation*/
-
-    /* on verifie si l'allocation a marche*/
-    if (pt==NULL) 
-        fprintf(stderr,"Impossible d'allouer la memoire\n"); 
-
-    return(pt);
+/* Fonction d'initialisation */
+pile_arbre a_pile_vide(){
+    return NULL;
 }
 
-/*--------------------------------------------------------------------
- *
- * © Amaury Habrard
- * 
- *fonction qui libere de la memoire allouee en *pt
- *et place le pointeur à NULL
- *ICI on suppose que pt est l'adresse de la variable pointeur allouée
- *nécessaire pour pouvoir libérer.
- *attention pt doit en fait être un void **
- */
-void libere_mem(void *pt)
-{
-  void ** adr_pt=(void **) pt; // on suppose que pt est l'adresse de pointeur à libérer
-  if((*adr_pt)!=NULL){
-    free(*adr_pt); /*liberation de *pt */
-  }
-    *adr_pt=NULL; /* *pt pointe maintenant sur NULL*/
+/* Test pile vide */
+int a_est_pile_vide(pile_arbre p){
+    if(p == a_pile_vide()){
+        return 1;
+    }
+    return 0;   
+}
+
+/* empiler element */
+pile_arbre a_empiler(pile_arbre p, arbre e){
+    pile_arbre cell = a_pile_vide();
+    //Allocation mémoire + test
+    cell = (pile_arbre)allocation_mem(1, sizeof(struct_cellule_arbre));
+    cell->e = e;
+    cell->suivant = p;
+
+    //Return
+    return cell;
+}
+
+/* Renvoi du sommet de la pile */
+arbre a_sommet(pile_arbre p){
+    if(a_pile_vide(p)){
+        //Affichage erreur
+        fprintf(stderr, "Erreur: La pile est vide");
+        exit(EXIT_FAILURE);
+    }
+
+    return p->e;
+}
+
+/* Dépiler element */
+pile_arbre a_depiler(pile_arbre p){
+    //Récup élement suivant
+    pile_arbre next = p->suivant;
+    //Libération mémoire
+    libere_mem(&p);
+
+    //return liste modifiée
+    return next;
+}
+
+/* récupérer nb éléments dans la pile */
+int a_taille_pile(pile_arbre p){
+    int n = 0;
+    //Recup arg
+    pile_arbre pCurrent = p;
+    //Parcours pile
+    while(pCurrent != NULL){
+        //Recup taille
+        n++;
+        //Itération element suivant
+        pCurrent = pCurrent->suivant;
+    }
+
+    //Return taille
+    return n;
 }
