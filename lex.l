@@ -4,6 +4,7 @@
 #include "y.tab.h"
 #include "util/tables.h"
 
+
 int incr_reg=0;
 int numligne=1;
 int yylex();
@@ -58,29 +59,29 @@ else            {return (SINON);}
 \!              {return (NOT);}
 \-              {return(MOINS);}
 \+              {return(PLUS);}
-=               {printf("EGALE\n");return (OPAFF);}
+=               {return (OPAFF);}
 
-\.              {printf("Point\n");return (POINT);}
-\.\.            {printf("PointPoint\n");return (PP);}
+\.              {return (POINT);}
+\.\.            {return (PP);}
 \,              {return (VIRGULE);}
-\;              {printf("point virgule\n");return (POINT_VIRGULE);}
+\;              {return (POINT_VIRGULE);}
 \:              {return (DEUX_POINTS);}
 
 \)              {return (PARENTHESE_FERMANTE);}
 \(              {return (PARENTHESE_OUVRANTE);}
-\]              {printf("C F\n");return (CROCHET_FERMANT);}
-\[              {printf("C O\n");return (CROCHET_OUVRANT);}
+\]              {return (CROCHET_FERMANT);}
+\[              {return (CROCHET_OUVRANT);}
 
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); printf("\n\n----\n%s\n----\n\n", yytext); yylval=insererLexeme(yytext); return (IDF);}
-0|[1-9][0-9]*            {printf("constante entiere\n"); yylval=atoi(yytext);
-                          printf("%s : %d \n",yytext,yylval);return (CSTE_ENTIERE);}
-0|[1-9][0-9]*\.[0-9]+           {yylval=atof(yytext);return (CSTE_REELLE);}
+[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); printf("\n\n----\n%s\n----\n\n", yytext); yylval.i=insererLexeme(yytext); return (IDF);}
+0|[1-9][0-9]*            {yylval.i=atoi(yytext);
+                          return (CSTE_ENTIERE);}
+0|[1-9][0-9]*\.[0-9]+           {yylval.f=atof(yytext);return (CSTE_REELLE);}
 
-\'[^']\'        {printf("caractere");return(CARAC);}
-\"[^\"]*\"        {printf("chaine caractere");return(CHAINECARAC);}
+\'[^']\'        {yylval.c=yytext[0];return(CARAC);}
+\"[^\"]*\"        {return(CHAINECARAC);}
 
 \n              {numligne++;}
 [ ]*            {;}

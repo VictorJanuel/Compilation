@@ -47,6 +47,9 @@
 #define A_TRUE 24
 #define A_FALSE 25
 
+#define A_ET 26
+#define A_OU 27
+
 typedef struct noeud{
     int appel;
     int num_lex;
@@ -97,5 +100,9 @@ pile_arbre a_depiler(pile_arbre p);
 
 /* récupérer nb éléments dans la pile */
 int a_taille_pile(pile_arbre p);
+
+arbre concat_frere(arbre a, arbre frere);
+
+arbre concat_fils(arbre a,arbre fils);
 
 #endif

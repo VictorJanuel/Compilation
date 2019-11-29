@@ -113,3 +113,14 @@ int a_taille_pile(pile_arbre p){
     //Return taille
     return n;
 }
+
+arbre concat_frere(arbre a,arbre frere){
+    a.frere_droit=frere;
+    return a;
+}
+
+
+arbre concat_fils(arbre a,arbre fils){
+    a->fils_gauche=fils;
+    return a;
+}
