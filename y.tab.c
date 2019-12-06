@@ -1728,7 +1728,7 @@ yyreduce:
 
   case 58:
 #line 280 "yacc.y" /* yacc.c:1646  */
-    {printf("???? $1 :: %d\n", (yyvsp[0]));ab = creer_arbre_vide(); ab=creer_noeud(A_IDF, (yyvsp[0]), assoc_nom((yyvsp[0])));printf("J'empile\n"); p_arbre=a_empiler(p_arbre, ab);}
+    {printf("???? $1 :: %d\n", (yyvsp[0]));ab = creer_arbre_vide();printf("toto\n"); ab=creer_noeud(A_IDF, (yyvsp[0]), assoc_nom((yyvsp[0])));printf("J'empile\n"); p_arbre=a_empiler(p_arbre, ab);}
 #line 1733 "y.tab.c" /* yacc.c:1646  */
     break;
 

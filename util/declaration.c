@@ -173,8 +173,9 @@ int insererDeclarationExistante(int num_lex,int nat,int numchamps){
 int assoc_nom(int num_lex){
     pile p2;
     int i=num_lex;
-    printf("sommet pile : %d,  tab decla region : %d", sommet(p), tab_decla[i].region);
+    printf("sommet pile : %d,  tab decla region : %d\n", 0,1);
     if(tab_decla[i].region==sommet(p)){
+        printf("o???\n");
         return i;
     }
     printf("asssoc: entree\n");
@@ -182,7 +183,8 @@ int assoc_nom(int num_lex){
         while(tab_decla[i].suivant!=NO_NEXT){
             if(est_pile_vide(p)){
                 /**
-                 * <AMELIORATION> : Faire en sorte de dire dans quel region la variable a pu être déclarer ou dire si l'utilisateur ne c'est pas tromper de variable, proposer un solution
+                 * <AMELIORATION> : Faire en sorte de dire dans quel region la variable a pu être déclarer ou dire si l'utilisateur 
+                 * ne s'est pas tromper de variable, proposer un solution
                  */
                 while(!est_pile_vide(p2)){
                     p=empiler(p,sommet(p2));
@@ -190,7 +192,7 @@ int assoc_nom(int num_lex){
                 }
                 printf("la variable %s n'est pas déclarée dans les regions englobante",tab_lexico[i].lexeme);
                 return -1;
-                    }
+            }
             if(tab_decla[i].region==sommet(p)){
                 while(!est_pile_vide(p2)){
                     p=empiler(p, sommet(p2));

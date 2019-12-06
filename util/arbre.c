@@ -12,12 +12,15 @@ arbre creer_arbre_vide(){
 }
 
 arbre creer_noeud(int appel, int num_lex, int num_decla){
+    printf("debut \n");
     arbre a = (arbre)allocation_mem(1, sizeof(struct_noeud));
     a->appel=appel;
     a->num_lex=num_lex;
     a->num_dec=num_decla;
+    printf("avant branches\n");
     a->fils_gauche=creer_arbre_vide();
     a->frere_droit=creer_arbre_vide();
+    printf("out\n");
     return a;
 }
 

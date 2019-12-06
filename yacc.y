@@ -277,7 +277,7 @@ affectation                 : variable OPAFF expression {
                                 }
                             ;
 
-variable                    : IDF {printf("???? $1 :: %d\n", $1);ab = creer_arbre_vide(); ab=creer_noeud(A_IDF, $1, assoc_nom($1));printf("J'empile\n"); p_arbre=a_empiler(p_arbre, ab);}
+variable                    : IDF {printf("???? $1 :: %d\n", $1);ab = creer_arbre_vide();printf("toto\n"); ab=creer_noeud(A_IDF, $1, assoc_nom($1));printf("J'empile\n"); p_arbre=a_empiler(p_arbre, ab);}
                             | IDF vtab
                             | IDF POINT variable
                             | IDF vtab POINT variable
