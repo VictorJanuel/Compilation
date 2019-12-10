@@ -28,10 +28,16 @@ arbre creer_arbre(int appel, int num_lex, int num_decla, arbre filsgauche,arbre 
     arbre a = creer_arbre_vide();
     printf("avant crea\n");
     a=creer_noeud(appel, num_lex, num_decla);
-    printf(" \n");
+    printf("avant a->num_lex\n");
     a->num_lex=num_lex;
+    printf("avant a->num_dec\n");
     a->num_dec=num_decla;
+    printf("avant a->fils_gauche\n");
     a->fils_gauche=filsgauche;
+    printf("avant a->frere_droit\n");
+    if(filsgauche==NULL){
+        printf("filsgauche null\n");
+    }
     filsgauche->frere_droit=freredroit;
     printf("Père : %d ",a->appel);
     if(a->fils_gauche!=NULL){
