@@ -89,4 +89,7 @@ pile_arbre a_depiler(pile_arbre p);
 /* récupérer nb éléments dans la pile */
 int a_taille_pile(pile_arbre p);
 
+/* affiche un arbre */
+arbre affiche_arbre(arbre a);
+
 #endif

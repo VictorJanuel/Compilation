@@ -1,22 +1,26 @@
 main Test123
-type a : array [20..30,40..50] of non;
-var maVar : int;
+type a : array [20..30,40..50] of int;
+var maVar : a;
 var a : int;
-function a ( param1 : int ; param2 : char) return int	
-var y: int;
-procedure b (p1 : int ; p2 : bool)
-var x : int;
-var t : int;
-var y : int;
-begin
-	x =4;
-	t=45;
-	y=20;
-end;
+var toto : int;
+var b : int;
+var c : int;
+var d : int;
+function aaa ( param1 : int ; param2 : char) return int	
+var y: char;
+	procedure bbb (p1 : int ; p2 : bool)
+	var x : int;
+	var t : int;
+	var y : int;
+	begin
+		x =4;
+		t=45;
+		y=20;
+	end;
 begin
 	y=2;
 end;
-procedure x ( p4 : int ; p5 : int)
+procedure xxx ( p4 : int ; p5 : int)
 type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
@@ -25,28 +29,24 @@ type maStruct3578bc3 :
 	end struct;
 var x: int;
 
-procedure y ( p4 : int ; p5 : int)
-procedure z ( p4 : int ; p5 : int)
-begin
-	vide;
-end;
-begin
-	vide;
-end;
+	procedure y ( p78 : int ; p55 : int)
+	var jl : int;
+	begin
+		vide;
+	end;
 
-procedure f ( p4 : int ; p5 : int)
-begin
-	vide;
-end;
-
+	procedure fff ( p4 : int ; p5 : int)
+	var y : double;
+	begin
+		vide;
+	end;
 begin
 	vide;
 end;
 
         
 begin
-        y=3;
-	maVar = toto;
+       	maVar = toto;
 
         while a > c || b < d do
         begin
@@ -58,8 +58,8 @@ begin
                 begin
                         a[0] = '*';
                         a[1] = "ça marche même \l'apostrophe";
-                        a[2] = t;
-                        a[3] = o;
+                        a[2] = toto;
+                        a[3] = 	c;
                         b = 56;
                 end
                 else

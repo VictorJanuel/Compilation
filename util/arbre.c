@@ -113,3 +113,18 @@ int a_taille_pile(pile_arbre p){
     //Return taille
     return n;
 }
+
+arbre affiche_arbre(arbre a){
+    fprintf(stdout, "%d ", a->num_lex);
+    
+    if(!est_vide(a->fils_gauche)){
+        fprintf(stdout, "\n");
+        affiche_arbre(a->fils_gauche);
+    }
+    
+    if(!est_vide(a->frere_droit)){
+    fprintf(stdout, "\t");
+        affiche_arbre(a->frere_droit);
+    }
+    return a;
+}

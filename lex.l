@@ -5,8 +5,11 @@
 #include "util/tables.h"
 
 int incr_reg=0;
+int reg=0;
 int numligne=1;
 int yylex();
+int toto=0;
+int tata=0;
 %}
 
 %%
@@ -24,8 +27,8 @@ array           {return (TABLEAU);}
 of              {return (DE);}
 
 var             {printf("var");return (VARIABLE);}
-procedure       {insererRegion(incr_reg);p=empiler(p,incr_reg++); return (PROCEDURE);} 
-function        {insererRegion(incr_reg);p=empiler(p,incr_reg++);return (FONCTION);}
+procedure       {insererRegion(incr_reg);printf("\t\t\t\t\t\t\t%d, %d\n", toto, tata); toto++;p=empiler(p,incr_reg++); return (PROCEDURE);}
+function        {insererRegion(incr_reg);printf("\t\t\t\t\t\t\t%d, %d\n", toto, tata); toto++;p=empiler(p,incr_reg++);return (FONCTION);}
 return          {return (RETOURNE);}
 
 int             {yylval=N_INT;return (ENTIER);}
@@ -94,4 +97,7 @@ afficheTabLexico();
 afficheTabDeclaration();
 afficheTabRepresentation();
 afficheTabRegion();
+fprintf(stdout, "\nArbre :\n");
+affiche_arbre(a);
+fprintf(stdout, "\n\n");
 }

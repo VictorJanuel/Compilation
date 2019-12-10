@@ -10,10 +10,13 @@
     extern int assoc_nom(int n);
     extern int yylval;
     extern file f;
+    extern int reg;
     int nb_dimensions=0;
     int numchamps=0;
     int nb_params =0;
     arbre ab;
+    extern int toto;
+    extern int tata;
 %}
 
 %token PROG POINT_VIRGULE DEBUT FIN
@@ -79,7 +82,7 @@ liste_declarations_variable : liste_declarations_variable declaration_variable P
                             |
                             ;
 
-liste_declarations_pf       : liste_declarations_pf declaration_pf POINT_VIRGULE
+liste_declarations_pf       : liste_declarations_pf declaration_pf POINT_VIRGULE  {}
                             |
                             ;
 
@@ -111,8 +114,8 @@ declaration_pf              : declaration_procedure
                             ;
 
 declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {
-                              if($4==0){insererDeclaration($2,N_STRUCT, numchamps);numchamps=0;}
-                              else{insererDeclaration($2,N_TAB, nb_dimensions);nb_dimensions=0; }
+    if($4==0){insererDeclaration($2,N_STRUCT, numchamps, -1);numchamps=0;}
+    else{insererDeclaration($2,N_TAB, nb_dimensions, -1);nb_dimensions=0; }
                             }
                             ;
 
@@ -148,13 +151,13 @@ type_simple                 : ENTIER                      {$$=$1;}
                             | CHAINE CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT
                             ;
 
-declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($2,N_VAR, numchamps);}
+declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($2,N_VAR, numchamps, $4);}
                             ;
 
-declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, $3);}
+declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, $3,  -1);}
                             ;
 
-declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5); insererDeclaration($2,N_FONC,$3);}
+declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5); insererDeclaration($2,N_FONC,$3, -1);}
                             ;
 
 liste_parametres            :
@@ -165,7 +168,7 @@ liste_param                 : un_param
                             | liste_param POINT_VIRGULE un_param
                             ;
 
-un_param                    : IDF DEUX_POINTS type_simple {nb_params++; f=enfiler(f, $3); f=enfiler(f,$1);}
+un_param                    : IDF DEUX_POINTS type_simple {insererDeclaration($1, N_PARAM, numchamps, $3); nb_params++; f=enfiler(f, $3); f=enfiler(f,$1);}
                             ;
 
 instruction                 : affectation
@@ -309,7 +312,7 @@ ea1                         : ea1 PLUS ea2 {$$=$1 + $2;
                                 }
                                 ab = creer_arbre(A_PLUS, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
                                 p_arbre=a_empiler(p_arbre, ab);}
-                            | ea1 MOINS ea2 {$$=$1 + $2;
+                            | ea1 MOINS ea2 {$$=$1 - $2;
                                 arbre ag=creer_arbre_vide();
                                 arbre ad=creer_arbre_vide();
                                 if(!a_est_pile_vide(p_arbre)){                           
