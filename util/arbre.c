@@ -26,11 +26,24 @@ arbre creer_noeud(int appel, int num_lex, int num_decla){
 
 arbre creer_arbre(int appel, int num_lex, int num_decla, arbre filsgauche,arbre freredroit){
     arbre a = creer_arbre_vide();
+    printf("avant crea\n");
     a=creer_noeud(appel, num_lex, num_decla);
     a->num_lex=num_lex;
     a->num_dec=num_decla;
     a->fils_gauche=filsgauche;
-    a->frere_droit=freredroit;
+    filsgauche->frere_droit=freredroit;
+    printf("Père : %d ",a->appel);
+    if(a->fils_gauche!=NULL){
+        printf(" Fils gauche : %d",a->fils_gauche->appel);
+        if(a->fils_gauche->appel==A_IDF){
+            printf("NUM LEX : %d NUM DECLA : %d",a->fils_gauche->num_lex,a->fils_gauche->num_dec);
+
+        }
+    }
+    if(filsgauche->frere_droit!=NULL){
+        printf(" Frère droit : %d\n)",filsgauche->frere_droit->appel);
+
+    }
     return a;
 }
 
@@ -53,66 +66,13 @@ arbre parcours(arbre a){
     return a_suiv->fils_gauche;
 }
 
-/* Fonction d'initialisation */
-pile_arbre a_pile_vide(){
-    return NULL;
+arbre concat_frere(arbre a,arbre frere){
+    a->frere_droit=frere;
+    return a;
 }
 
-/* Test pile vide */
-int a_est_pile_vide(pile_arbre p){
-    if(p == a_pile_vide()){
-        return 1;
-    }
-    return 0;   
-}
 
-/* empiler element */
-pile_arbre a_empiler(pile_arbre p, arbre e){
-    pile_arbre cell = a_pile_vide();
-    //Allocation mémoire + test
-    cell = (pile_arbre)allocation_mem(1, sizeof(struct_cellule_arbre));
-    cell->e = e;
-    cell->suivant = p;
-
-    //Return
-    return cell;
-}
-
-/* Renvoi du sommet de la pile */
-arbre a_sommet(pile_arbre p){
-    if(a_pile_vide(p)){
-        //Affichage erreur
-        fprintf(stderr, "Erreur: La pile est vide");
-        exit(EXIT_FAILURE);
-    }
-
-    return p->e;
-}
-
-/* Dépiler element */
-pile_arbre a_depiler(pile_arbre p){
-    //Récup élement suivant
-    pile_arbre next = p->suivant;
-    //Libération mémoire
-    libere_mem(&p);
-
-    //return liste modifiée
-    return next;
-}
-
-/* récupérer nb éléments dans la pile */
-int a_taille_pile(pile_arbre p){
-    int n = 0;
-    //Recup arg
-    pile_arbre pCurrent = p;
-    //Parcours pile
-    while(pCurrent != NULL){
-        //Recup taille
-        n++;
-        //Itération element suivant
-        pCurrent = pCurrent->suivant;
-    }
-
-    //Return taille
-    return n;
+arbre concat_fils(arbre a,arbre fils){
+    a->fils_gauche=fils;
+    return a;
 }

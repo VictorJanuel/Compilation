@@ -1,8 +1,10 @@
 %{
 #include <stdlib.h>
 #include <stdio.h>
-#include "y.tab.h"
 #include "util/tables.h"
+#include "y.tab.h"
+
+
 
 int incr_reg=0;
 int numligne=1;
@@ -28,11 +30,11 @@ procedure       {insererRegion(incr_reg);p=empiler(p,incr_reg++); return (PROCED
 function        {insererRegion(incr_reg);p=empiler(p,incr_reg++);return (FONCTION);}
 return          {return (RETOURNE);}
 
-int             {yylval=N_INT;return (ENTIER);}
-double          {yylval=N_DOUBLE;return (REEL);}
-bool            {yylval=N_BOOL;return (BOOLEEN);}
+int             {/*yylval.arbre_type.i=N_INT;*/return (ENTIER);}
+double          {/*yylval.arbre_type.f=N_DOUBLE;*/return (REEL);}
+bool            {/*yylval.arbre_type.i=N_BOOL;*/return (BOOLEEN);}
 string          {return (CHAINE);}
-char            {yylval=N_CHAR;return (CARACTERE);}
+char            {/*yylval.arbre_type.c=N_CHAR;*/return (CARACTERE);}
 void            {return (VIDE);}
 
 while           {return (TANT_QUE);}
@@ -58,29 +60,29 @@ else            {return (SINON);}
 \!              {return (NOT);}
 \-              {return(MOINS);}
 \+              {return(PLUS);}
-=               {printf("EGALE\n");return (OPAFF);}
+=               {return (OPAFF);}
 
-\.              {printf("Point\n");return (POINT);}
-\.\.            {printf("PointPoint\n");return (PP);}
+\.              {return (POINT);}
+\.\.            {return (PP);}
 \,              {return (VIRGULE);}
-\;              {printf("point virgule\n");return (POINT_VIRGULE);}
+\;              {return (POINT_VIRGULE);}
 \:              {return (DEUX_POINTS);}
 
 \)              {return (PARENTHESE_FERMANTE);}
 \(              {return (PARENTHESE_OUVRANTE);}
-\]              {printf("C F\n");return (CROCHET_FERMANT);}
-\[              {printf("C O\n");return (CROCHET_OUVRANT);}
+\]              {return (CROCHET_FERMANT);}
+\[              {return (CROCHET_OUVRANT);}
 
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); printf("\n\n----\n%s\n----\n\n", yytext); yylval=insererLexeme(yytext); return (IDF);}
-0|[1-9][0-9]*            {printf("constante entiere\n"); yylval=atoi(yytext);
-                          printf("%s : %d \n",yytext,yylval);return (CSTE_ENTIERE);}
-0|[1-9][0-9]*\.[0-9]+           {yylval=atof(yytext);return (CSTE_REELLE);}
+[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); printf("\n\n----\n%s\n----\n\n", yytext); yylval.arbre_type.type=insererLexeme(yytext); return (IDF);}
+0|[1-9][0-9]*            {yylval.arbre_type.i=atoi(yytext);
+                          return (CSTE_ENTIERE);}
+0|[1-9][0-9]*\.[0-9]+           {yylval.arbre_type.f=atof(yytext);return (CSTE_REELLE);}
 
-\'[^']\'        {printf("caractere");return(CARAC);}
-\"[^\"]*\"        {printf("chaine caractere");return(CHAINECARAC);}
+\'[^']\'        {yylval.arbre_type.c=yytext[0];return(CARAC);}
+\"[^\"]*\"        {return(CHAINECARAC);}
 
 \n              {numligne++;}
 [ ]*            {;}

@@ -66,21 +66,22 @@
 
     #include <stdio.h>
     #include <stdlib.h>
-    #include "y.tab.h"
     #include "util/tables.h"
+    #include "y.tab.h"
     extern int numligne;
     extern char * yytext;
     extern int yylex();
     extern int yyerror();
     extern int assoc_nom(int n);
-    extern int yylval;
+    //extern int yylval;
     extern file f;
+
     int nb_dimensions=0;
     int numchamps=0;
     int nb_params =0;
     arbre ab;
 
-#line 84 "y.tab.c" /* yacc.c:339  */
+#line 85 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -235,7 +236,25 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 34 "yacc.y" /* yacc.c:355  */
+
+    struct{
+        union{
+            int i;
+            float f;
+            char c;
+        };
+        int type;
+        arbre a;
+    }arbre_type;
+
+#line 255 "y.tab.c" /* yacc.c:355  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -249,7 +268,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 253 "y.tab.c" /* yacc.c:358  */
+#line 272 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -550,18 +569,18 @@ static const yytype_uint8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint16 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
-       0,    33,    33,    51,    70,    74,    75,    78,    79,    82,
-      83,    86,   105,   106,   109,   110,   113,   119,   120,   123,
-     126,   127,   130,   133,   134,   137,   140,   141,   144,   145,
-     146,   147,   148,   151,   154,   157,   160,   161,   164,   165,
-     168,   171,   172,   173,   174,   175,   176,   179,   180,   183,
-     202,   203,   206,   207,   210,   213,   232,   251,   280,   281,
-     282,   283,   286,   287,   291,   292,   295,   312,   329,   332,
-     339,   346,   349,   350,   351,   354,   355,   356,   357,   358,
-     359,   362,   363,   366,   367,   370,   371,   374,   375,   376,
-     377,   380,   381,   382,   383,   384,   385
+       0,    54,    54,    57,    60,    64,    65,    68,    69,    72,
+      73,    76,    79,    80,    83,    84,    87,    93,    94,    97,
+     100,   101,   104,   107,   108,   111,   114,   115,   118,   119,
+     120,   121,   122,   125,   128,   131,   134,   135,   138,   139,
+     142,   145,   146,   147,   148,   149,   150,   153,   154,   157,
+     160,   161,   164,   165,   168,   171,   177,   180,   185,   186,
+     187,   188,   191,   192,   196,   197,   200,   202,   204,   207,
+     208,   209,   212,   213,   214,   217,   218,   219,   220,   221,
+     222,   225,   226,   229,   230,   233,   234,   237,   238,   239,
+     240,   243,   244,   245,   246,   247,   248
 };
 #endif
 
@@ -1465,421 +1484,471 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 33 "yacc.y" /* yacc.c:1646  */
-    {
-                                arbre ag = creer_arbre_vide();
-                                arbre ad = creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                a = creer_arbre(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad);}
-#line 1486 "y.tab.c" /* yacc.c:1646  */
+#line 54 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a; ab = (yyval.arbre_type).a;}
+#line 1490 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 51 "yacc.y" /* yacc.c:1646  */
-    {p=depiler(p);
-                                arbre ag = creer_arbre_vide();
-                                arbre ad = creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                arbre ab = creer_arbre(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1508 "y.tab.c" /* yacc.c:1646  */
+#line 57 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1496 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 86 "yacc.y" /* yacc.c:1646  */
-    {
-                                arbre ag = creer_arbre_vide();
-                                arbre ad = creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                arbre ab = creer_arbre(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1530 "y.tab.c" /* yacc.c:1646  */
+#line 76 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[-1].arbre_type).a;}
+#line 1502 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 12:
+#line 79 "yacc.y" /* yacc.c:1646  */
+    {printf("eazea \n");(yyval.arbre_type).a=concat_fils(creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC),(yyvsp[-1].arbre_type).a);}
+#line 1508 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 13:
+#line 80 "yacc.y" /* yacc.c:1646  */
+    {printf("SIGSEGV\n");(yyval.arbre_type).a=(yyvsp[-2].arbre_type).a; (yyval.arbre_type).a->fils_gauche=concat_frere((yyval.arbre_type).a->fils_gauche,concat_fils(creer_noeud(A_LISTE, A_EMPTY_LEX, A_EMPTY_DEC),(yyvsp[-1].arbre_type).a));}
+#line 1514 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 113 "yacc.y" /* yacc.c:1646  */
+#line 87 "yacc.y" /* yacc.c:1646  */
     {
-                              if((yyvsp[0])==0){insererDeclaration((yyvsp[-2]),N_STRUCT, numchamps);numchamps=0;}
-                              else{insererDeclaration((yyvsp[-2]),N_TAB, nb_dimensions);nb_dimensions=0; }
+                              if((yyvsp[0].arbre_type).type==0){insererDeclaration((yyvsp[-2].arbre_type).type,N_STRUCT, numchamps);numchamps=0;}
+                              else{insererDeclaration((yyvsp[-2].arbre_type).type,N_TAB, nb_dimensions);nb_dimensions=0; }
                             }
-#line 1539 "y.tab.c" /* yacc.c:1646  */
+#line 1523 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 119 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=0;}
-#line 1545 "y.tab.c" /* yacc.c:1646  */
+#line 93 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=0;}
+#line 1529 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 120 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=1;f=enfiler(f, (yyvsp[0]));}
-#line 1551 "y.tab.c" /* yacc.c:1646  */
+#line 94 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=1;f=enfiler(f, (yyvsp[0].arbre_type).type);}
+#line 1535 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 130 "yacc.y" /* yacc.c:1646  */
-    {nb_dimensions++;;f=enfiler(f,(yyvsp[-2])); f=enfiler(f,(yyvsp[0]));}
-#line 1557 "y.tab.c" /* yacc.c:1646  */
+#line 104 "yacc.y" /* yacc.c:1646  */
+    {nb_dimensions++;;f=enfiler(f,(yyvsp[-2].arbre_type).type); f=enfiler(f,(yyvsp[0].arbre_type).type);}
+#line 1541 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 137 "yacc.y" /* yacc.c:1646  */
-    {numchamps++; f=enfiler(f,(yyvsp[0])); f=enfiler(f, (yyvsp[-2]));}
-#line 1563 "y.tab.c" /* yacc.c:1646  */
+#line 111 "yacc.y" /* yacc.c:1646  */
+    {numchamps++; f=enfiler(f,(yyvsp[0].arbre_type).type); f=enfiler(f, (yyvsp[-2].arbre_type).type);}
+#line 1547 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 140 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1569 "y.tab.c" /* yacc.c:1646  */
+#line 114 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=(yyvsp[0].arbre_type).type;}
+#line 1553 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 141 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1575 "y.tab.c" /* yacc.c:1646  */
+#line 115 "yacc.y" /* yacc.c:1646  */
+    {printf("???\n");(yyval.arbre_type).type=(yyvsp[0].arbre_type).type;}
+#line 1559 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 144 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1581 "y.tab.c" /* yacc.c:1646  */
+#line 118 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=(yyvsp[0].arbre_type).type;}
+#line 1565 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 145 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1587 "y.tab.c" /* yacc.c:1646  */
+#line 119 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=(yyvsp[0].arbre_type).type;}
+#line 1571 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 146 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1593 "y.tab.c" /* yacc.c:1646  */
+#line 120 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=(yyvsp[0].arbre_type).type;}
+#line 1577 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 147 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1599 "y.tab.c" /* yacc.c:1646  */
+#line 121 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=(yyvsp[0].arbre_type).type;}
+#line 1583 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 122 "yacc.y" /* yacc.c:1646  */
+    {;}
+#line 1589 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 151 "yacc.y" /* yacc.c:1646  */
-    {insererDeclaration((yyvsp[-2]),N_VAR, numchamps);}
-#line 1605 "y.tab.c" /* yacc.c:1646  */
+#line 125 "yacc.y" /* yacc.c:1646  */
+    {insererDeclaration((yyvsp[-2].arbre_type).type,N_VAR, numchamps);}
+#line 1595 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 154 "yacc.y" /* yacc.c:1646  */
-    {insererDeclaration((yyvsp[-2]),N_PROC, (yyvsp[-1]));}
-#line 1611 "y.tab.c" /* yacc.c:1646  */
+#line 128 "yacc.y" /* yacc.c:1646  */
+    {insererDeclaration((yyvsp[-2].arbre_type).type,N_PROC, (yyvsp[-1].arbre_type).type);}
+#line 1601 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 157 "yacc.y" /* yacc.c:1646  */
-    {f=enfiler(f,(yyvsp[-1])); insererDeclaration((yyvsp[-4]),N_FONC,(yyvsp[-3]));}
-#line 1617 "y.tab.c" /* yacc.c:1646  */
+#line 131 "yacc.y" /* yacc.c:1646  */
+    {f=enfiler(f,(yyvsp[-1].arbre_type).type); insererDeclaration((yyvsp[-4].arbre_type).type,N_FONC,(yyvsp[-3].arbre_type).type);}
+#line 1607 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 36:
+#line 134 "yacc.y" /* yacc.c:1646  */
+    {;}
+#line 1613 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 161 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=nb_params; nb_params=0;}
-#line 1623 "y.tab.c" /* yacc.c:1646  */
+#line 135 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).type=nb_params; nb_params=0;}
+#line 1619 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 168 "yacc.y" /* yacc.c:1646  */
-    {nb_params++; f=enfiler(f, (yyvsp[0])); f=enfiler(f,(yyvsp[-2]));}
-#line 1629 "y.tab.c" /* yacc.c:1646  */
+#line 142 "yacc.y" /* yacc.c:1646  */
+    {nb_params++; f=enfiler(f, (yyvsp[0].arbre_type).type); f=enfiler(f,(yyvsp[-2].arbre_type).type);}
+#line 1625 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 41:
+#line 145 "yacc.y" /* yacc.c:1646  */
+    {printf("toto1\n");(yyval.arbre_type) = (yyvsp[0].arbre_type);}
+#line 1631 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 42:
+#line 146 "yacc.y" /* yacc.c:1646  */
+    {printf("toto2\n");(yyval.arbre_type) = (yyvsp[0].arbre_type);}
+#line 1637 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 43:
+#line 147 "yacc.y" /* yacc.c:1646  */
+    {printf("toto3\n");(yyval.arbre_type) = (yyvsp[0].arbre_type);}
+#line 1643 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 44:
+#line 148 "yacc.y" /* yacc.c:1646  */
+    {printf("toto4\n");(yyval.arbre_type) = (yyvsp[0].arbre_type);}
+#line 1649 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 45:
+#line 149 "yacc.y" /* yacc.c:1646  */
+    {printf("toto5\n");(yyval.arbre_type) = (yyvsp[0].arbre_type);}
+#line 1655 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 46:
+#line 150 "yacc.y" /* yacc.c:1646  */
+    {printf("totok\n");(yyval.arbre_type) = (yyvsp[0].arbre_type);}
+#line 1661 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 47:
+#line 153 "yacc.y" /* yacc.c:1646  */
+    {;}
+#line 1667 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 183 "yacc.y" /* yacc.c:1646  */
-    {
-                                arbre ag=creer_arbre_vide();
-                                arbre ad=creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    arbre ag=creer_noeud(A_APPEL, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_APPEL, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                arbre ab = creer_arbre(A_APPEL, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1651 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 55:
-#line 213 "yacc.y" /* yacc.c:1646  */
-    {
-                                arbre ag=creer_arbre_vide();
-                                arbre ad=creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=creer_noeud(A_IF, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_IF, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                arbre ab = creer_arbre(A_IF, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
+#line 157 "yacc.y" /* yacc.c:1646  */
+    {printf("dude\n");(yyval.arbre_type).a = creer_noeud((yyvsp[-1].arbre_type).type, A_EMPTY_LEX, A_EMPTY_DEC); (yyval.arbre_type).type=(yyvsp[-1].arbre_type).type;}
 #line 1673 "y.tab.c" /* yacc.c:1646  */
     break;
 
+  case 50:
+#line 160 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a = creer_arbre_vide();}
+#line 1679 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 51:
+#line 161 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type) = (yyvsp[-1].arbre_type);}
+#line 1685 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 52:
+#line 164 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type)=(yyvsp[0].arbre_type);}
+#line 1691 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 165 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a = concat_frere((yyvsp[-2].arbre_type).a, (yyvsp[0].arbre_type).a);}
+#line 1697 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 54:
+#line 168 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type) = (yyvsp[0].arbre_type);}
+#line 1703 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 55:
+#line 171 "yacc.y" /* yacc.c:1646  */
+    {fprintf(stdout, "olol1\n");(yyval.arbre_type).a=creer_arbre(A_IF,A_EMPTY_LEX,A_EMPTY_DEC,concat_fils(creer_noeud(A_LISTE_IF,A_EMPTY_LEX,A_EMPTY_DEC),(yyvsp[-2].arbre_type).a),concat_fils(creer_noeud(A_LISTE_ELSE,A_EMPTY_LEX,A_EMPTY_DEC),(yyvsp[0].arbre_type).a));
+                                                                                                         
+
+ }
+#line 1712 "y.tab.c" /* yacc.c:1646  */
+    break;
+
   case 56:
-#line 232 "yacc.y" /* yacc.c:1646  */
-    {
-                                arbre ag=creer_arbre_vide();
-                                arbre ad=creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=creer_noeud(A_WHILE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_WHILE, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                arbre ab = creer_arbre(A_WHILE, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1695 "y.tab.c" /* yacc.c:1646  */
+#line 177 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_WHILE,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1718 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 251 "yacc.y" /* yacc.c:1646  */
-    {
-    printf("OLOL\n");
-                                arbre ag=creer_arbre_vide();
-                                  printf("OLOL2\n");
-                                arbre ad=creer_arbre_vide();
-                                  printf("OLOL3\n");
-                                if(!a_est_pile_vide(p_arbre)){
-                                      printf("OLOL IF\n");
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                      printf("OLOL else\n");
-                                    ag=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
+#line 180 "yacc.y" /* yacc.c:1646  */
+    {printf("TEST AFFEC\n");(yyval.arbre_type).a=creer_arbre(A_AFFECT,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a); 
+                              
                                 }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    printf("OLOL IF2\n");
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    printf("OLOL else 2\n");
-                                    ad=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                printf("OLOL end\n");
-                                ab = creer_arbre(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                printf("OLOL ARBRE OK\n");
-                                p_arbre=a_empiler(p_arbre, ab);printf("OVER & OUT\n");
-                                }
-#line 1727 "y.tab.c" /* yacc.c:1646  */
+#line 1726 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 280 "yacc.y" /* yacc.c:1646  */
-    {printf("???? $1 :: %d\n", (yyvsp[0]));ab = creer_arbre_vide();printf("toto\n"); ab=creer_noeud(A_IDF, (yyvsp[0]), assoc_nom((yyvsp[0])));printf("J'empile\n"); p_arbre=a_empiler(p_arbre, ab);}
-#line 1733 "y.tab.c" /* yacc.c:1646  */
+#line 185 "yacc.y" /* yacc.c:1646  */
+    {printf("avant bug\n");creer_noeud(A_IDF,(yyvsp[0].arbre_type).type,assoc_nom((yyvsp[0].arbre_type).type));(yyval.arbre_type).type=(yyvsp[0].arbre_type).type;printf("apres bug\n");}
+#line 1732 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 59:
+#line 186 "yacc.y" /* yacc.c:1646  */
+    {printf("avant bugaezeza\n");creer_noeud(A_IDF,(yyvsp[-1].arbre_type).type,assoc_nom((yyvsp[-1].arbre_type).type)); (yyval.arbre_type).type=(yyvsp[-1].arbre_type).type;}
+#line 1738 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 187 "yacc.y" /* yacc.c:1646  */
+    {printf("avant bezazeug\n");creer_noeud(A_IDF,(yyvsp[-2].arbre_type).type,assoc_nom((yyvsp[-2].arbre_type).type));}
+#line 1744 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 188 "yacc.y" /* yacc.c:1646  */
+    {printf("avanzeezat bug\n");creer_noeud(A_IDF,(yyvsp[-3].arbre_type).type,assoc_nom((yyvsp[-3].arbre_type).type));}
+#line 1750 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 64:
+#line 196 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type)=(yyvsp[0].arbre_type);}
+#line 1756 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 65:
+#line 197 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type)=(yyvsp[0].arbre_type);}
+#line 1762 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 295 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[-2]) + (yyvsp[-1]);
-                                arbre ag=creer_arbre_vide();
-                                arbre ad=creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                ab = creer_arbre(A_PLUS, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1755 "y.tab.c" /* yacc.c:1646  */
+#line 200 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_PLUS,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1768 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 312 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[-2]) + (yyvsp[-1]);
-                                arbre ag=creer_arbre_vide();
-                                arbre ad=creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){                           
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=a_sommet(p_arbre);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=a_sommet(p_arbre);                                   
-                                }
-                                ab = creer_arbre(A_MOINS, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1777 "y.tab.c" /* yacc.c:1646  */
+#line 202 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_MOINS,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1774 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 329 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1783 "y.tab.c" /* yacc.c:1646  */
+#line 204 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1780 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 332 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[-2]) * (yyvsp[-1]);
-                                arbre ag=a_sommet(p_arbre); 
-                                p_arbre=a_depiler(p_arbre);
-                                arbre ad=a_sommet(p_arbre); 
-                                p_arbre = a_depiler(p_arbre);
-                                ab = creer_arbre(A_MULT, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1795 "y.tab.c" /* yacc.c:1646  */
+#line 207 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_MULT,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1786 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 339 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[-2])/(yyvsp[-1]);
-                                arbre ag=a_sommet(p_arbre); 
-                                p_arbre=a_depiler(p_arbre);
-                                arbre ad=a_sommet(p_arbre); 
-                                p_arbre = a_depiler(p_arbre);
-                                ab = creer_arbre(A_DIV, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-#line 1807 "y.tab.c" /* yacc.c:1646  */
+#line 208 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_DIV,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1792 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 346 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1813 "y.tab.c" /* yacc.c:1646  */
+#line 209 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1798 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 349 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=-1*(yyvsp[0]);/*** OBSOLETE ***/}
-#line 1819 "y.tab.c" /* yacc.c:1646  */
+#line 212 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1804 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 350 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=1*(yyvsp[0]);/*** OBSOLETE ***/ }
-#line 1825 "y.tab.c" /* yacc.c:1646  */
+#line 213 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1810 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 351 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1831 "y.tab.c" /* yacc.c:1646  */
+#line 214 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1816 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 354 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[-1]);}
-#line 1837 "y.tab.c" /* yacc.c:1646  */
+#line 217 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[-1].arbre_type).a;}
+#line 1822 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 355 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]);}
-#line 1843 "y.tab.c" /* yacc.c:1646  */
+#line 218 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1828 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 356 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]); printf("avconst\n");ab = creer_noeud(A_CSTE_E, A_EMPTY_LEX, A_EMPTY_DEC); printf("const\n");p_arbre=a_empiler(p_arbre, ab);}
-#line 1849 "y.tab.c" /* yacc.c:1646  */
+#line 219 "yacc.y" /* yacc.c:1646  */
+    {printf("buuuuusd fgfdggy\n");(yyval.arbre_type).a=creer_noeud(A_CSTE_E,A_EMPTY_LEX,A_EMPTY_DEC); (yyval.arbre_type).i=(yyvsp[0].arbre_type).i;}
+#line 1834 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 357 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]); ab = creer_noeud(A_CSTE_R, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
-#line 1855 "y.tab.c" /* yacc.c:1646  */
+#line 220 "yacc.y" /* yacc.c:1646  */
+    {printf("buuuuuff df dfggy\n");(yyval.arbre_type).a=creer_noeud(A_CSTE_R,A_EMPTY_LEX,A_EMPTY_DEC); (yyval.arbre_type).f=(yyvsp[0].arbre_type).f;}
+#line 1840 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 358 "yacc.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]); ab = creer_noeud(A_CSTE_C, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
-#line 1861 "y.tab.c" /* yacc.c:1646  */
+#line 221 "yacc.y" /* yacc.c:1646  */
+    {printf("buuuuusdggdfggy\n");(yyval.arbre_type).a=creer_noeud(A_CSTE_C,A_EMPTY_LEX,A_EMPTY_DEC); (yyval.arbre_type).c = (yyvsp[0].arbre_type).c;}
+#line 1846 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 359 "yacc.y" /* yacc.c:1646  */
-    {ab = creer_noeud(A_CSTE_S, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
-#line 1867 "y.tab.c" /* yacc.c:1646  */
+#line 222 "yacc.y" /* yacc.c:1646  */
+    {printf("buuuuugfgfdggy\n");(yyval.arbre_type).a=creer_noeud(A_CSTE_S,A_EMPTY_LEX,A_EMPTY_DEC);}
+#line 1852 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 81:
+#line 225 "yacc.y" /* yacc.c:1646  */
+    {printf("buuuuugaezaezegy\n");(yyval.arbre_type).a=creer_arbre(A_OU,A_EMPTY_LEX,A_EMPTY_DEC, (yyvsp[-2].arbre_type).a, (yyvsp[0].arbre_type).a);}
+#line 1858 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 82:
+#line 226 "yacc.y" /* yacc.c:1646  */
+    {printf("buuuuuezaeeaggy\n");(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1864 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 83:
+#line 229 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_ET,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1870 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 84:
+#line 230 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1876 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 85:
+#line 233 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1882 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 86:
+#line 234 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1888 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 87:
+#line 237 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[-1].arbre_type).a;}
+#line 1894 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 375 "yacc.y" /* yacc.c:1646  */
-    {ab = creer_noeud(A_TRUE, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
-#line 1873 "y.tab.c" /* yacc.c:1646  */
+#line 238 "yacc.y" /* yacc.c:1646  */
+    {printf("btrueee  uuuuuggy\n");(yyval.arbre_type).a=creer_noeud(A_TRUE,A_EMPTY_LEX,A_EMPTY_DEC);}
+#line 1900 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 376 "yacc.y" /* yacc.c:1646  */
-    {ab = creer_noeud(A_FALSE, A_EMPTY_LEX, A_EMPTY_DEC); p_arbre=a_empiler(p_arbre, ab);}
-#line 1879 "y.tab.c" /* yacc.c:1646  */
+#line 239 "yacc.y" /* yacc.c:1646  */
+    {printf("buuuuugg   false y\n");(yyval.arbre_type).a=creer_noeud(A_FALSE,A_EMPTY_LEX,A_EMPTY_DEC);}
+#line 1906 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 90:
+#line 240 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=(yyvsp[0].arbre_type).a;}
+#line 1912 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 91:
+#line 243 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_EG,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1918 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 92:
+#line 244 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_INF,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1924 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 93:
+#line 245 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_SUP,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1930 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 94:
+#line 246 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_INF_EG,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1936 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 95:
+#line 247 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_SUP_EG,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1942 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 96:
+#line 248 "yacc.y" /* yacc.c:1646  */
+    {(yyval.arbre_type).a=creer_arbre(A_DIFF,A_EMPTY_LEX,A_EMPTY_DEC,(yyvsp[-2].arbre_type).a,(yyvsp[0].arbre_type).a);}
+#line 1948 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1883 "y.tab.c" /* yacc.c:1646  */
+#line 1952 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2107,7 +2176,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 387 "yacc.y" /* yacc.c:1906  */
+#line 250 "yacc.y" /* yacc.c:1906  */
 
 
 int yyerror(){

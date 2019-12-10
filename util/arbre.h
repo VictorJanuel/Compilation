@@ -29,14 +29,18 @@
 #define A_AFFECT 17
 
 #define A_APPEL 18
-
 #define A_WHILE 20
+
 #define A_IF 21
 #define A_LISTE_IF 22 
 #define A_LISTE_ELSE 23
 
 #define A_TRUE 24
 #define A_FALSE 25
+
+#define A_ET 26
+#define A_OU 27
+
 
 typedef struct noeud{
     int appel;
@@ -48,16 +52,6 @@ typedef struct noeud{
 
 typedef struct_noeud *arbre;
 
-arbre a;
-
-typedef struct cellule_arbre{
-    arbre e;
-    struct cellule_arbre *suivant;
-}struct_cellule_arbre;
-
-typedef struct_cellule_arbre *pile_arbre;
-
-pile_arbre p_arbre;
 
 int est_vide(arbre a);
 
@@ -71,22 +65,8 @@ arbre inserer_fils_gauche(arbre a,arbre filsgauche);
     
 arbre inserer_frere_droit(arbre a,arbre freredroit);
 
-/* Fonction d'initialisation */
-pile_arbre a_pile_vide();
+arbre concat_frere(arbre a, arbre frere);
 
-/* Test pile vide */
-int a_est_pile_vide(pile_arbre p);
-
-/* empiler element */
-pile_arbre a_empiler(pile_arbre p, arbre e);
-
-/* Renvoi du sommet de la pile */
-arbre a_sommet(pile_arbre p);
-
-/* Dépiler element */
-pile_arbre a_depiler(pile_arbre p);
-
-/* récupérer nb éléments dans la pile */
-int a_taille_pile(pile_arbre p);
+arbre concat_fils(arbre a,arbre fils);
 
 #endif

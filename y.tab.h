@@ -165,7 +165,25 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 34 "yacc.y" /* yacc.c:1909  */
+
+    struct{
+        union{
+            int i;
+            float f;
+            char c;
+        };
+        int type;
+        arbre a;
+    }arbre_type;
+
+#line 184 "y.tab.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
