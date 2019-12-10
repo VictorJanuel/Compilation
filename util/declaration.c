@@ -248,7 +248,7 @@ int assoc_nom(int num_lex){
     printf("asssoc: entree\n");
     while(!est_pile_vide(p)){
         while(i!=NO_NEXT){
-                 /* ne s'est pas tromper de variable, proposer un solution*/
+                 // ne s'est pas tromper de variable, proposer un solution
             if(tab_decla[i].region==sommet(p)){
                 while(!est_pile_vide(p2)){
                     p=empiler(p, sommet(p2));
@@ -290,6 +290,7 @@ int assoc_nom(int num_lex){
     pile p2=pile_vide(), p3=pile_vide();
     int on_continue=1, i=num_lex;
 
+    printf("assoc_nom\n");
     while(!est_pile_vide(p)){
         p2=empiler(p2,sommet(p));
         p=depiler(p);
@@ -304,6 +305,7 @@ int assoc_nom(int num_lex){
     while(!est_pile_vide(p3)){
         while(on_continue){
             if(tab_decla[i].nature==N_VAR && tab_decla[i].region==sommet(p3)){
+                printf("sorti assoc_nom\n");
                 return i;
             }
 

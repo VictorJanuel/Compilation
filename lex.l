@@ -100,6 +100,6 @@ afficheTabDeclaration();
 afficheTabRepresentation();
 afficheTabRegion();
 fprintf(stdout, "\nArbre :\n");
-affiche_arbre(a);
+//affiche_arbre(a);
 fprintf(stdout, "\n\n");
 }

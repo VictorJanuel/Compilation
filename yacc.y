@@ -10,11 +10,7 @@
     extern int assoc_nom(int n);
     //extern int yylval;
     extern file f;
-<<<<<<< HEAD
-    extern int reg;
-=======
 
->>>>>>> fb246567570a6b5b30185d4da7ebd3f816f2052d
     int nb_dimensions=0;
     int numchamps=0;
     int nb_params =0;
@@ -91,13 +87,8 @@ declaration_pf              : declaration_procedure
                             ;
 
 declaration_type            : TYPE IDF DEUX_POINTS suite_declaration_type  {
-<<<<<<< HEAD
-    if($4==0){insererDeclaration($2,N_STRUCT, numchamps, -1);numchamps=0;}
-    else{insererDeclaration($2,N_TAB, nb_dimensions, -1);nb_dimensions=0; }
-=======
-                              if($4.type==0){insererDeclaration($2.type,N_STRUCT, numchamps);numchamps=0;}
-                              else{insererDeclaration($2.type,N_TAB, nb_dimensions);nb_dimensions=0; }
->>>>>>> fb246567570a6b5b30185d4da7ebd3f816f2052d
+         if($4.type==0){insererDeclaration($2.type,N_STRUCT, numchamps, -1);numchamps=0;}
+         else{insererDeclaration($2.type,N_TAB, nb_dimensions, -1);nb_dimensions=0; }
                             }
                             ;
 
@@ -133,23 +124,13 @@ type_simple                 : ENTIER                      {$$.type=$1.type;}
                             | CHAINE CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT {;}
                             ;
 
-<<<<<<< HEAD
-declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($2,N_VAR, numchamps, $4);}
+declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($2.type,N_VAR, numchamps, $4.type);}
                             ;
 
-declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2,N_PROC, $3,  -1);}
+declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2.type,N_PROC, $3.type, -1);}
                             ;
 
-declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5); insererDeclaration($2,N_FONC,$3, -1);}
-=======
-declaration_variable        : VARIABLE IDF DEUX_POINTS nom_type {insererDeclaration($2.type,N_VAR, numchamps);}
-                            ;
-
-declaration_procedure       : PROCEDURE IDF liste_parametres corps {insererDeclaration($2.type,N_PROC, $3.type);}
-                            ;
-
-declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5.type); insererDeclaration($2.type,N_FONC,$3.type);}
->>>>>>> fb246567570a6b5b30185d4da7ebd3f816f2052d
+declaration_fonction        : FONCTION IDF liste_parametres RETOURNE type_simple corps {f=enfiler(f,$5.type); insererDeclaration($2.type,N_FONC,$3.type, -1);}
                             ;
 
 liste_parametres            : {;}
@@ -160,11 +141,7 @@ liste_param                 : un_param
                             | liste_param POINT_VIRGULE un_param
                             ;
 
-<<<<<<< HEAD
-un_param                    : IDF DEUX_POINTS type_simple {insererDeclaration($1, N_PARAM, numchamps, $3); nb_params++; f=enfiler(f, $3); f=enfiler(f,$1);}
-=======
-un_param                    : IDF DEUX_POINTS type_simple {nb_params++; f=enfiler(f, $3.type); f=enfiler(f,$1.type);}
->>>>>>> fb246567570a6b5b30185d4da7ebd3f816f2052d
+un_param                    : IDF DEUX_POINTS type_simple {insererDeclaration($1.type, N_PARAM, numchamps, $3.type); nb_params++; f=enfiler(f, $3.type); f=enfiler(f,$1.type);}
                             ;
 
 instruction                 : affectation {printf("toto1\n");$$ = $1;}
@@ -207,7 +184,7 @@ affectation                 : variable OPAFF expression {printf("TEST AFFEC\n");
                                 }
                             ;
 
-variable                    : IDF {printf("avant bug\n");creer_noeud(A_IDF,$1.type,assoc_nom($1.type));$$.type=$1.type;printf("apres bug\n");}
+variable                    : IDF {printf("avant bug\n"); $$.a=creer_noeud(A_IDF,$1.type,assoc_nom($1.type)); printf("avant $$=type\n"); $$.type=$1.type;printf("apres bug\n");}
                             | IDF vtab {printf("avant bugaezeza\n");creer_noeud(A_IDF,$1.type,assoc_nom($1.type)); $$.type=$1.type;}
                             | IDF POINT variable {printf("avant bezazeug\n");creer_noeud(A_IDF,$1.type,assoc_nom($1.type));}
                             | IDF vtab POINT variable {printf("avanzeezat bug\n");creer_noeud(A_IDF,$1.type,assoc_nom($1.type));}
@@ -222,60 +199,6 @@ expression                  : ea1   {$$=$1;}
                             | eb1 {$$=$1;}
                             ;
 
-<<<<<<< HEAD
-ea1                         : ea1 PLUS ea2 {$$=$1 + $2;
-                                arbre ag=creer_arbre_vide();
-                                arbre ad=creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=creer_noeud(A_AFFECT, A_EMPTY_LEX, A_EMPTY_DEC);
-                                }
-                                ab = creer_arbre(A_PLUS, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-                            | ea1 MOINS ea2 {$$=$1 - $2;
-                                arbre ag=creer_arbre_vide();
-                                arbre ad=creer_arbre_vide();
-                                if(!a_est_pile_vide(p_arbre)){                           
-                                    ag=a_sommet(p_arbre); 
-                                    p_arbre=a_depiler(p_arbre);
-                                }else{
-                                    ag=a_sommet(p_arbre);
-                                }
-                                if(!a_est_pile_vide(p_arbre)){
-                                    ad=a_sommet(p_arbre); 
-                                    p_arbre = a_depiler(p_arbre);
-                                }else{
-                                    ad=a_sommet(p_arbre);                                   
-                                }
-                                ab = creer_arbre(A_MOINS, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-                            | ea2 {$$=$1;}
-                            ;
-
-ea2                         : ea2 MULT ea3 {$$=$1 * $2;
-                                arbre ag=a_sommet(p_arbre); 
-                                p_arbre=a_depiler(p_arbre);
-                                arbre ad=a_sommet(p_arbre); 
-                                p_arbre = a_depiler(p_arbre);
-                                ab = creer_arbre(A_MULT, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-                            | ea2 DIV ea3  {$$=$1/$2;
-                                arbre ag=a_sommet(p_arbre); 
-                                p_arbre=a_depiler(p_arbre);
-                                arbre ad=a_sommet(p_arbre); 
-                                p_arbre = a_depiler(p_arbre);
-                                ab = creer_arbre(A_DIV, A_EMPTY_LEX, A_EMPTY_DEC, ag, ad); 
-                                p_arbre=a_empiler(p_arbre, ab);}
-                            | ea3 {$$=$1;}
-=======
 ea1                         : ea1 PLUS ea2 {$$.a=creer_arbre(A_PLUS,A_EMPTY_LEX,A_EMPTY_DEC,$1.a,$3.a);}
                          
                             | ea1 MOINS ea2 {$$.a=creer_arbre(A_MOINS,A_EMPTY_LEX,A_EMPTY_DEC,$1.a,$3.a);}
@@ -286,7 +209,6 @@ ea1                         : ea1 PLUS ea2 {$$.a=creer_arbre(A_PLUS,A_EMPTY_LEX,
 ea2                         : ea2 MULT ea3 {$$.a=creer_arbre(A_MULT,A_EMPTY_LEX,A_EMPTY_DEC,$1.a,$3.a);}
                             | ea2 DIV ea3  {$$.a=creer_arbre(A_DIV,A_EMPTY_LEX,A_EMPTY_DEC,$1.a,$3.a);}
                             | ea3 {$$.a=$1.a;}
->>>>>>> fb246567570a6b5b30185d4da7ebd3f816f2052d
                             ;
           
 ea3                         : MOINS ea4 {$$.a=$2.a;}
