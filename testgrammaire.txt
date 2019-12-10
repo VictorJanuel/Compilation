@@ -1,4 +1,5 @@
 main Test123
+<<<<<<< HEAD
 type a : array [20..30,40..50] of int;
 var maVar : a;
 var a : int;
@@ -67,4 +68,38 @@ begin
                        void;
                 end;   
         end;
+=======
+  type a : array [20..30,40..50] of non;
+  var maVar : int;
+  var a : int;
+  var x: int;
+  var t: int;
+  function a ( param1 : int ; param2 : char) return int	
+    var y: int;
+    procedure b (p1 : int ; p2 : bool)
+      var x : int;
+      var t : int;
+      var y : int;
+    begin
+      x =4+45;
+      t=45 -x * 45;
+      y=20;
+    end;
+  begin
+    y=2;
+  end;
+  procedure x ( p4 : int ; p5 : int)
+    type maStruct3578bc3 :
+      struct
+	champ_2_ble : int;
+	champ_2_mais : double;
+	champ2canne : char 
+      end struct;
+    var x: int;
+  begin
+    vide;
+  end;
+begin
+  x=0;
+>>>>>>> fb246567570a6b5b30185d4da7ebd3f816f2052d
 end

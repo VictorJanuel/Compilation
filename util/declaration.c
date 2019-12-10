@@ -242,11 +242,13 @@ int assoc_nom(int num_lex){
     int i=num_lex;
     printf("sommet pile : %d,  tab decla region : %d\n", sommet(p), tab_decla[i].region);
     if(tab_decla[i].region==sommet(p)){
+        printf("o???\n");
         return i;
     }
     printf("asssoc: entree\n");
     while(!est_pile_vide(p)){
         while(i!=NO_NEXT){
+                 /* ne s'est pas tromper de variable, proposer un solution*/
             if(tab_decla[i].region==sommet(p)){
                 while(!est_pile_vide(p2)){
                     p=empiler(p, sommet(p2));

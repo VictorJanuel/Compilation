@@ -72,9 +72,9 @@ arbre concat_frere(arbre a,arbre frere){
 }
 
 
-arbre concat_fils(arbre a,arbre fils){
-    a->fils_gauche=fils;
-    return a;
+<<<<<<< HEAD
+    //Return taille
+    return n;
 }
 
 arbre affiche_arbre(arbre a){
@@ -89,5 +89,9 @@ arbre affiche_arbre(arbre a){
     fprintf(stdout, "\t");
         affiche_arbre(a->frere_droit);
     }
+=======
+arbre concat_fils(arbre a,arbre fils){
+    a->fils_gauche=fils;
+>>>>>>> fb246567570a6b5b30185d4da7ebd3f816f2052d
     return a;
 }
