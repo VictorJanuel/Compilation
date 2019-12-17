@@ -12,6 +12,8 @@ int numligne=1;
 int yylex();
 int toto=0;
 int tata=0;
+
+extern arbre ab;
 %}
 
 %%
@@ -100,6 +102,6 @@ afficheTabDeclaration();
 afficheTabRepresentation();
 afficheTabRegion();
 fprintf(stdout, "\nArbre :\n");
-//affiche_arbre(a);
+affiche_arbre(ab);
 fprintf(stdout, "\n\n");
 }

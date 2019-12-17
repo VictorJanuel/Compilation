@@ -83,7 +83,7 @@ arbre concat_fils(arbre a,arbre fils){
     a->fils_gauche=fils;
     return a;
 }
-
+/*
 arbre affiche_arbre(arbre a){
     fprintf(stdout, "%d ", a->num_lex);
     
@@ -97,4 +97,103 @@ arbre affiche_arbre(arbre a){
         affiche_arbre(a->frere_droit);
     }
     return a;
+    }*/
+
+void switch_sa_mere(int num){
+    switch(num){
+    case A_IDF:
+        printf("A_IDF\n");
+        break;
+    case A_CSTE_E:
+        printf("A_CSTE_E\n");
+        break;
+    case A_CSTE_R:
+        printf("A_CSTE_R\n");
+        break;
+    case A_CSTE_C:
+        printf("A_CSTE_S\n");
+        break;
+    case A_PLUS:
+        printf("A_PLUS\n");
+        break;
+    case A_MOINS:
+        printf("A_MOINS\n");
+        break;
+    case A_DIV:
+        printf("A_DIV\n");
+        break;
+    case A_SUP:
+        printf("A_SUP\n");
+        break;
+    case A_SUP_EG:
+        printf("A_SUP_EG\n");
+        break;
+    case A_INF:
+        printf("A_INF\n");
+        break;
+    case A_INF_EG:
+        printf("A_INF_EG\n");
+        break;
+    case A_EG:
+        printf("A_EG\n");
+        break;
+    case A_DIFF:
+        printf("A_DIFF\n");
+        break;
+    case A_LISTE:
+        printf("A_LISTE\n");
+        break;
+    case A_AFFECT:
+        printf("A_AFFECT\n");
+        break;
+    case A_APPEL:
+        printf("A_APPEL\n");
+        break;
+    case A_WHILE:
+        printf("A_WHILE\n");
+        break;
+    case A_IF:
+        printf("A_IF\n");
+        break;
+    case A_LISTE_IF:
+        printf("A_LISTE_IF\n");
+        break;
+    case A_LISTE_ELSE:
+        printf("A_LISTE_ELSE\n");
+        break;
+    case A_TRUE:
+        printf("A_TRUE\n");
+        break;
+    case A_FALSE:
+        printf("A_FALSE\n");
+        break;
+    case A_ET:
+        printf("A_ET\n");
+        break;
+    case A_OU:
+        printf("A_OU\n");
+        break;
+    default:
+        printf("OK\n");
+        break;
+    }
 }
+
+void afficher_arbre_bis(arbre a, int profondeur){
+
+    int i=0;
+    if(!est_vide(a)){
+        afficher_arbre_bis(a->fils_gauche, profondeur+1);
+        for(i=0; i<profondeur; i++) printf("\t");
+        printf("%d", a->num_lex);
+        switch_sa_mere(a->appel);
+   
+        afficher_arbre_bis(a->frere_droit, profondeur+1);
+    }
+}
+
+void affiche_arbre(arbre a){
+    afficher_arbre_bis(a, 0);
+}
+
+

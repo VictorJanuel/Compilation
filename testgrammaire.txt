@@ -13,7 +13,7 @@ var y: char;
 	var t : int;
 	var y : int;
 	begin
-		x =4;
+		x=4;
 		t=45;
 		y=20;
 	end;
@@ -60,12 +60,15 @@ begin
                         a[1] = "ça marche même \l'apostrophe";
                         a[2] = toto;
                         a[3] = 	c;
-                        b = 56;
-                end
+			d=4;
+			c=4;
+               	end
                 else
                 begin
                        void;
-                end;   
-        end;
+                end;
+          end;
+
+
 
 end

@@ -70,6 +70,8 @@ arbre concat_frere(arbre a, arbre frere);
 arbre concat_fils(arbre a,arbre fils);
 
 /* affiche un arbre */
-arbre affiche_arbre(arbre a);
+void affiche_arbre(arbre a);
+
+void switch_sa_mere(int num);
 
 #endif

@@ -117,10 +117,10 @@ nom_type                    : type_simple                 {$$.type=$1.type;}
                             | IDF                         {printf("???\n");$$.type=$1.type;}
                             ;
 
-type_simple                 : ENTIER                      {$$.type=$1.type;}
-                            | REEL                        {$$.type=$1.type;}
-                            | BOOLEEN                     {$$.type=$1.type;}
-                            | CARACTERE                   {$$.type=$1.type;}
+type_simple                 : ENTIER                      {$$.type=N_INT;}
+                            | REEL                        {$$.type=N_DOUBLE;;}
+                            | BOOLEEN                     {$$.type=N_BOOL;}
+                            | CARACTERE                   {$$.type=N_CHAR;}
                             | CHAINE CROCHET_OUVRANT CSTE_ENTIERE CROCHET_FERMANT {;}
                             ;
 
@@ -185,9 +185,9 @@ affectation                 : variable OPAFF expression {printf("TEST AFFEC\n");
                             ;
 
 variable                    : IDF {printf("avant bug\n"); $$.a=creer_noeud(A_IDF,$1.type,assoc_nom($1.type)); printf("avant $$=type\n"); $$.type=$1.type;printf("apres bug\n");}
-                            | IDF vtab {printf("avant bugaezeza\n");creer_noeud(A_IDF,$1.type,assoc_nom($1.type)); $$.type=$1.type;}
-                            | IDF POINT variable {printf("avant bezazeug\n");creer_noeud(A_IDF,$1.type,assoc_nom($1.type));}
-                            | IDF vtab POINT variable {printf("avanzeezat bug\n");creer_noeud(A_IDF,$1.type,assoc_nom($1.type));}
+                            | IDF vtab {printf("avant bugaezeza\n");$$.a=creer_noeud(A_IDF,$1.type,assoc_nom($1.type)); $$.type=$1.type;printf("après bugaezeza\n");}
+                            | IDF POINT variable {printf("avant bezazeug\n");$$.a=creer_noeud(A_IDF,$1.type,assoc_nom($1.type));}
+                            | IDF vtab POINT variable {printf("avanzeezat bug\n");$$.a=creer_noeud(A_IDF,$1.type,assoc_nom($1.type));}
                             ;
 
 vtab                        : vtab CROCHET_OUVRANT ea1 CROCHET_FERMANT
