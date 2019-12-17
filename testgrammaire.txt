@@ -25,9 +25,9 @@ type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
 		champ_2_mais : double;
-		champ2canne : char 
+		champ2canne : int 
 	end struct;
-var x: int;
+	var x: int;
 
 	procedure y ( p78 : int ; p55 : int)
 	var jl : int;
@@ -45,27 +45,6 @@ begin
 end;
 
         
-begin
-       	maVar = toto;
-
-        while a > c || b < d do
-        begin
-                i1;
-                i2;
-                i3;
-                i4;
-                if(a-b >= a-c) then
-                begin
-                        a[0] = '*';
-                        a[1] = "ça marche même \l'apostrophe";
-                        a[2] = toto;
-                        a[3] = 	c;
-                        b = 56;
-                end
-                else
-                begin
-                       void;
-                end;   
-        end;
-
+begin 
+	vide;
 end

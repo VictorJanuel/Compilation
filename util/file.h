@@ -52,6 +52,7 @@ int taille_file(file f);
 typedef struct_cellule *pile;
 
 pile p;
+pile p_dec;
 
 /* Fonction d'initialisation */
 pile pile_vide();

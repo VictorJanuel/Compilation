@@ -10,13 +10,12 @@ int incr_reg=0;
 int reg=0;
 int numligne=1;
 int yylex();
-int toto=0;
-int tata=0;
+int numRegion=0;
 %}
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     { initTabRegion();initTabLexico();initTabDecla();initTabHash();initTabRepresentation();insererRegion(incr_reg);p=empiler(p,incr_reg++);return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     {yylval.arbre_type.type = numRegion; initTabRegion();initTabLexico();initTabDecla();initTabHash();initTabRepresentation();insererRegion(incr_reg);p=empiler(p,incr_reg++);return(PROG);}
 
 begin           {printf("begin\n"); return (DEBUT);}
 end             {return (FIN);}
@@ -29,8 +28,8 @@ array           {return (TABLEAU);}
 of              {return (DE);}
 
 var             {printf("var");return (VARIABLE);}
-procedure       {insererRegion(incr_reg);printf("\t\t\t\t\t\t\t%d, %d\n", toto, tata); toto++;p=empiler(p,incr_reg++); return (PROCEDURE);}
-function        {insererRegion(incr_reg);printf("\t\t\t\t\t\t\t%d, %d\n", toto, tata); toto++;p=empiler(p,incr_reg++);return (FONCTION);}
+procedure       {numRegion++; yylval.arbre_type.type = numRegion; insererRegion(incr_reg);p=empiler(p,incr_reg++); return (PROCEDURE);}
+function        {numRegion++; yylval.arbre_type.type = numRegion; insererRegion(incr_reg); p=empiler(p,incr_reg++);return (FONCTION);}
 return          {return (RETOURNE);}
 
 int             {/*yylval.arbre_type.i=N_INT;*/return (ENTIER);}

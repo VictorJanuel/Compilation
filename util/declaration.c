@@ -25,46 +25,45 @@ void initTabDecla(){
     }
 }
 
-int insererDeclaration(int num_lex, int nature, int numchamps, int type){
+int insererDeclaration(int num_lex, int nature, int numchamps, int type, int reg){
     int description=-1;
     /**
      * Si le lexeme existe déja :
      */
     if(tab_decla[num_lex].nature!=-1){
-        insererDeclarationExistante(num_lex,nature,numchamps, type);
+        insererDeclarationExistante(num_lex,nature,numchamps, type, reg);
         
     }else{
         tab_decla[num_lex].nature=nature;
         //insererRegion
         tab_decla[num_lex].region=sommet(p);
       
+        fprintf(stdout, "numchamps : %d\n", numchamps);
         if(numchamps!=0){
-            description=insererRepresentation(nature, numchamps);
+            description = insererRepresentation(nature, numchamps);
         }else if(type!=-1){
+            printf("type : %d\n", type);
             description=type;
         }
-
         tab_decla[num_lex].description=description;
-        remplirColonneExec(nature, num_lex);
+        remplirColonneExec(nature, num_lex, reg);
         
     }
     
     return 0;
 }
 
-void remplirColonneExec(int nature, int num_lex){
+void remplirColonneExec(int nature, int num_lex, int reg){
 
     int num_champs=0, i, nb_champs=0, taille=0, taille_type=0;
     
     switch(nature){
         
     case N_PROC:
-        compteur++;
-        //tab_decla[num_lex].exec=toto;
+        tab_decla[num_lex].exec=reg;
         break;
     case N_FONC:
-        compteur++;
-        //tab_decla[num_lex].exec=toto;            
+        tab_decla[num_lex].exec=reg;            
         break;
     case N_STRUCT:
         num_champs=tab_decla[num_lex].description;
@@ -72,13 +71,15 @@ void remplirColonneExec(int nature, int num_lex){
         printf("\t\t\t\t\t\t\t\t\t\t\tnum :%d nb : %d\n", num_champs, nb_champs);
         num_champs++;
 
+        printf("nb champ\n");
         for(i=0; i<nb_champs; i++){
             printf("\t\t\t\t\t\t\t\t\t\t\t taille :%d \n", taille);
             taille+=tab_decla[tab_representation[num_champs]].exec;
-            num_champs=num_champs+4;
+            num_champs=num_champs+2;
         }
-
+        printf("out\n");
         tab_decla[num_lex].exec=taille;
+        printf("toto\n");
         break;
     case N_TAB:
         taille++;        
@@ -194,7 +195,7 @@ void afficheTabDeclaration(){
 
 
 
-int insererDeclarationExistante(int num_lex,int nat,int numchamps, int type){
+int insererDeclarationExistante(int num_lex,int nat,int numchamps, int type, int reg){
     int description=-1;
     int suiv=num_lex;
     int prec=num_lex;
@@ -225,13 +226,13 @@ int insererDeclarationExistante(int num_lex,int nat,int numchamps, int type){
     if(numchamps!=0){
         description=insererRepresentation(nat, numchamps);
     }else if(type!=-1){
-            description=type;
+        description=type;
     }
 
     //tab_decla[num_lex].description=description;
     
     tab_decla[suiv].description=description;
-    remplirColonneExec(nat, suiv);
+    remplirColonneExec(nat, suiv, reg);
 
     return 0;
 }

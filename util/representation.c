@@ -38,9 +38,9 @@ int insererRepresentation(int nature, int numchamps){
     case N_STRUCT:
         i=k;
         tab_representation[i]=numchamps;
-        /*printf("compteur : %d\n", compteur_champs);
+        printf("compteur : %d\n", compteur_champs);
         printf("num : %d\n", numchamps);        
-        */
+        
         while(!est_file_vide(f) && compteur_champs<numchamps*3){
             i++;
             tab_representation[i] = fin_file(f);
@@ -54,6 +54,9 @@ int insererRepresentation(int nature, int numchamps){
          * i++ car on saut le champs k+1 pour laisser la place au type à la fin
          */
         i++;
+        printf("compteur : %d\n", compteur_champs);
+        printf("num : %d\n", numchamps);    
+        printf("k : %d\n", k);
         tab_representation[i] = numchamps;
         while((!est_file_vide(f)) && compteur_champs<numchamps*2){
             i++;
@@ -65,29 +68,28 @@ int insererRepresentation(int nature, int numchamps){
         f=defiler(f);
         break;
     case N_PROC:
-         i=k;
+        i=k;
         tab_representation[k]=numchamps;
-        while(!est_file_vide(f) && compteur_champs<numchamps*2){
+        while(!est_pile_vide(p_dec) && compteur_champs<numchamps*2){
             i++;
-            tab_representation[i] = fin_file(f);
-            f=defiler(f);
+            tab_representation[i] = sommet(p_dec);
+            p_dec=depiler(p_dec);
             compteur_champs++;
         } 
         break;
     case N_FONC:
-        i=k;
-        tab_representation[k+1]=numchamps;
+        i=k+1;
+        tab_representation[i]=numchamps;
      
         /**
          * i++ car on saute le champs k+1 pour laisser la place au type à la fin
          */
-        i++;
-        while(!est_file_vide(f) && compteur_champs<numchamps*2){
+        while(!est_pile_vide(p_dec) && compteur_champs<numchamps*2){
             i++;
             printf("Valeur de i : %d \n",i);
-            printf(" boucle fin_file :  %d \n",fin_file(f));
-            tab_representation[i] = fin_file(f);
-            f=defiler(f);
+            printf(" boucle fin_file :  %d \n",sommet(p_dec));
+            tab_representation[i] = sommet(p_dec);
+            p_dec=depiler(p_dec);
             compteur_champs++;
         } 
         /**

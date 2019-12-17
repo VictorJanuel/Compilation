@@ -18,6 +18,9 @@ void insererRegion(int incr){
      * Taille et exec 
      */
     tab_region[incr].NIS=taille_pile(p);
+    /*if(!est_pile_vide(p)){
+        p = depiler(p);
+    }*/
     deplac=tab_region[incr].NIS+1;
     
 }
