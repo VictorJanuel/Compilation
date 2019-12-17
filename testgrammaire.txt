@@ -1,5 +1,5 @@
 main Test123
-type a : array [20..30,40..50] of int;
+type a : array [10..30,20..50] of int;
 var maVar : a;
 var a : int;
 var toto : int;
@@ -12,10 +12,15 @@ var y: char;
 	var x : int;
 	var t : int;
 	var y : int;
+	var u : bool;
 	begin
 		x=4;
+		u=7;
 		t=45;
 		y=20;
+		x=a+t;
+                y=y+u;
+                oidfgiu=u;
 	end;
 begin
 	y=2;
@@ -25,9 +30,9 @@ type maStruct3578bc3 :
 	struct
 		champ_2_ble : int;
 		champ_2_mais : double;
-		champ2canne : char 
+		champ2canne : int 
 	end struct;
-var x: int;
+	var x: int;
 
 	procedure y ( p78 : int ; p55 : int)
 	var jl : int;
@@ -44,17 +49,12 @@ begin
 	vide;
 end;
 
-        
 begin
-       	maVar = toto;
+       	maVar[2][2] = toto;
 
         while a > c || b < d do
         begin
-                i1;
-                i2;
-                i3;
-                i4;
-                if(a-b >= a-c) then
+             if(a-b >= a-c) then
                 begin
                         a[0] = '*';
                         a[1] = "ça marche même \l'apostrophe";
@@ -68,7 +68,5 @@ begin
                        void;
                 end;
           end;
-
-
 
 end

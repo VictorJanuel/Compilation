@@ -6,7 +6,7 @@
 typedef struct region{
     int taille;
     int NIS;
-    int arbre;  //a changer en arbre 
+    arbre a;  
 }region;
 
 region tab_region[NMAX];

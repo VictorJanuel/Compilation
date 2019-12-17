@@ -1,7 +1,7 @@
 #ifndef ARBRE_H
 #define ARBRE_H
 
-#include "tables.h"
+#include "allocation.h"
 
 #define A_EMPTY_LEX -1
 #define A_EMPTY_DEC -1
@@ -51,7 +51,6 @@ typedef struct noeud{
 }struct_noeud;
 
 typedef struct_noeud *arbre;
-
 
 int est_vide(arbre a);
 

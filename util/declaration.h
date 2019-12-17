@@ -16,9 +16,9 @@ typedef struct declarations{
 declarations tab_decla[NMAX*2];
 
 void initTabDecla();
-int insererDeclaration(int num_lex, int nature, int numchamps, int type);
-int insererDeclarationExistante(int num_lex,int nat,int numchamps, int type);
+int insererDeclaration(int num_lex, int nature, int numchamps, int type, int reg);
+int insererDeclarationExistante(int num_lex,int nat,int numchamps, int type, int reg);
 void afficheTabDeclaration();
-void remplirColonneExec(int nature, int num_lex);
+void remplirColonneExec(int nature, int num_lex, int reg);
 int assoc_nom(int num_lex);
 #endif

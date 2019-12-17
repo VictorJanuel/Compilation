@@ -5,13 +5,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "lexico.h"
 #include "arbre.h"
+#include "lexico.h"
 #include "declaration.h"
 #include "region.h"
 #include "file.h"
 #include "representation.h"
 
+#define A_EMPTY NULL
 
 #define EMPTY -1
 #define EMPTY_HASH -1
@@ -29,7 +30,6 @@
 #define N_DOUBLE 1
 #define N_CHAR 2
 #define N_BOOL 3
-
 
 #endif
 

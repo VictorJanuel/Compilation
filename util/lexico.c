@@ -34,8 +34,6 @@ int insererLexeme(char* lexeme){
     int k = -1;
     int hashcode = hashage(lexeme);
 
-    printf("hashcode %s : %d\n", lexeme, hashcode);
-
     /**
      * Pas de hashcode existant
      */
@@ -45,7 +43,6 @@ int insererLexeme(char* lexeme){
     }else{
         k = tab_hash[hashcode];
         
-        printf("tab_hash[%d] = %d\n", hashcode, tab_hash[hashcode]);
         while(tab_lexico[k].suivant != -1 && strcmp(tab_lexico[k].lexeme,lexeme)!=0){
             k=tab_lexico[k].suivant;
         }

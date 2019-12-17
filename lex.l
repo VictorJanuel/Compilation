@@ -14,13 +14,14 @@ int toto=0;
 int tata=0;
 
 extern arbre ab;
+int numRegion=0;
 %}
 
 %%
 
-^main[ ][a-zA-Z][a-zA-Z0-9]*     { initTabRegion();initTabLexico();initTabDecla();initTabHash();initTabRepresentation();insererRegion(incr_reg);p=empiler(p,incr_reg++);return(PROG);}
+^main[ ][a-zA-Z][a-zA-Z0-9]*     {yylval.arbre_type.type = numRegion; initTabRegion();initTabLexico();initTabDecla();initTabHash();initTabRepresentation();insererRegion(incr_reg);p=empiler(p,incr_reg++);return(PROG);}
 
-begin           {printf("begin\n"); return (DEBUT);}
+begin           {return (DEBUT);}
 end             {return (FIN);}
 
 type            {return (TYPE);}
@@ -30,9 +31,9 @@ end[ ]struct    {return (FSTRUCT);}
 array           {return (TABLEAU);}
 of              {return (DE);}
 
-var             {printf("var");return (VARIABLE);}
-procedure       {insererRegion(incr_reg);printf("\t\t\t\t\t\t\t%d, %d\n", toto, tata); toto++;p=empiler(p,incr_reg++); return (PROCEDURE);}
-function        {insererRegion(incr_reg);printf("\t\t\t\t\t\t\t%d, %d\n", toto, tata); toto++;p=empiler(p,incr_reg++);return (FONCTION);}
+var             {return (VARIABLE);}
+procedure       {numRegion++; yylval.arbre_type.type = numRegion; insererRegion(incr_reg);p=empiler(p,incr_reg++); return (PROCEDURE);}
+function        {numRegion++; yylval.arbre_type.type = numRegion; insererRegion(incr_reg); p=empiler(p,incr_reg++);return (FONCTION);}
 return          {return (RETOURNE);}
 
 int             {/*yylval.arbre_type.i=N_INT;*/return (ENTIER);}
@@ -81,7 +82,7 @@ else            {return (SINON);}
 true            {return (TRUE);}
 false           {return (FALSE);} 
 
-[a-zA-Z][a-zA-Z0-9_]*    {printf("je suis passé[IDF] \n"); printf("\n\n----\n%s\n----\n\n", yytext); yylval.arbre_type.type=insererLexeme(yytext); return (IDF);}
+[a-zA-Z][a-zA-Z0-9_]*    {yylval.arbre_type.type=insererLexeme(yytext); return (IDF);}
 0|[1-9][0-9]*            {yylval.arbre_type.i=atoi(yytext);
                           return (CSTE_ENTIERE);}
 0|[1-9][0-9]*\.[0-9]+           {yylval.arbre_type.f=atof(yytext);return (CSTE_REELLE);}
@@ -95,13 +96,3 @@ false           {return (FALSE);}
 
 .               {return (ERROR_LEXICO);}
 %%
-
-int yywrap(){
-afficheTabLexico();
-afficheTabDeclaration();
-afficheTabRepresentation();
-afficheTabRegion();
-fprintf(stdout, "\nArbre :\n");
-affiche_arbre(ab);
-fprintf(stdout, "\n\n");
-}

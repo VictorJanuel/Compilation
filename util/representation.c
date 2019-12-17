@@ -1,5 +1,7 @@
 #include "representation.h"
 
+extern int numligne;
+
 void initTabRepresentation(){
     int i;
     
@@ -38,9 +40,7 @@ int insererRepresentation(int nature, int numchamps){
     case N_STRUCT:
         i=k;
         tab_representation[i]=numchamps;
-        /*printf("compteur : %d\n", compteur_champs);
-        printf("num : %d\n", numchamps);        
-        */
+        
         while(!est_file_vide(f) && compteur_champs<numchamps*3){
             i++;
             tab_representation[i] = fin_file(f);
@@ -65,41 +65,36 @@ int insererRepresentation(int nature, int numchamps){
         f=defiler(f);
         break;
     case N_PROC:
-         i=k;
+        i=k;
         tab_representation[k]=numchamps;
-        while(!est_file_vide(f) && compteur_champs<numchamps*2){
+        while(!est_pile_vide(p_dec) && compteur_champs<numchamps*2){
             i++;
-            tab_representation[i] = fin_file(f);
-            f=defiler(f);
+            tab_representation[i] = sommet(p_dec);
+            p_dec=depiler(p_dec);
             compteur_champs++;
         } 
         break;
     case N_FONC:
-        i=k;
-        tab_representation[k+1]=numchamps;
+        i=k+1;
+        tab_representation[i]=numchamps;
      
         /**
          * i++ car on saute le champs k+1 pour laisser la place au type à la fin
          */
-        i++;
-        while(!est_file_vide(f) && compteur_champs<numchamps*2){
+        while(!est_pile_vide(p_dec) && compteur_champs<numchamps*2){
             i++;
-            printf("Valeur de i : %d \n",i);
-            printf(" boucle fin_file :  %d \n",fin_file(f));
-            tab_representation[i] = fin_file(f);
-            f=defiler(f);
+            tab_representation[i] = sommet(p_dec);
+            p_dec=depiler(p_dec);
             compteur_champs++;
         } 
         /**
          * Cas de fonction dans fonction géré? 
          */
-        printf("fin_file :  %d \n",fin_file(f));
         tab_representation[k]= fin_file(f);
-        printf("Valeur de nul champs : %d \n",tab_representation[k]);
         f=defiler(f);
         break;
     default:
-        fprintf(stderr, "Invalid declaration (this is nor function, nor procedure, nor struct, nor array!)\n");
+        fprintf(stderr, "Erreur ligne %d : Déclaration invalide (ce n'est ni une fonction, ni une procédure, ni une structure, ni un tableau) !\n", numligne);
         return 0;
     }
  

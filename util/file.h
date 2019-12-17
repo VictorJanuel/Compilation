@@ -10,6 +10,7 @@
 #define _FILE_H_
 
 #include "tables.h"
+#include "allocation.h"
 
 /**
  * Création du type file
@@ -52,6 +53,7 @@ int taille_file(file f);
 typedef struct_cellule *pile;
 
 pile p;
+pile p_dec;
 
 /* Fonction d'initialisation */
 pile pile_vide();

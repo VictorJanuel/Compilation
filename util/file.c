@@ -7,9 +7,6 @@
  */
 #include "file.h"
 
-void * allocation_mem(size_t nobjets,size_t taille);
-void libere_mem(void *pt);
-
 
 /* Fonction d'initialisation */
 file file_vide(){
@@ -33,7 +30,6 @@ file enfiler(file f, element e){
     cell->elem = e;
     cell->suivant= file_vide();
     if(est_file_vide(f)){
-         fprintf(stderr, "File crée \n");
         return cell;
     }
     while(fc->suivant!=file_vide()){
@@ -51,7 +47,7 @@ element fin_file(file f){
     
     if(est_file_vide(f)){
         //Affichage erreur
-        fprintf(stderr, "Erreur: La file est vide\n");
+        fprintf(stderr, "Erreur interne : La file est vide\n");
         exit(EXIT_FAILURE);
     }
 
@@ -123,7 +119,7 @@ pile empiler(pile p, element e){
 element sommet(pile p){
     if(est_pile_vide(p)){
         //Affichage erreur
-        fprintf(stderr, "Erreur: La pile est vide");
+        fprintf(stderr, "Erreur interne : La pile est vide");
         exit(EXIT_FAILURE);
     }
 
@@ -158,43 +154,3 @@ int taille_pile(pile p){
     return n;
 }
 
-
-/*--------------------------------------------------------------------
- *
- * ©Amaury Habrard
- * 
- *fonction d'allocation de memoire du type defini par taille 
- *pour un nombre nobjets
- *alloue un espace de memoire de taille  nobjets*taille octets
- */
-void * allocation_mem(size_t nobjets,size_t taille)
-{
-    void * pt;
-    
-    pt = malloc (nobjets * taille);/*allocation*/
-
-    /* on verifie si l'allocation a marche*/
-    if (pt==NULL) 
-        fprintf(stderr,"Impossible d'allouer la memoire\n"); 
-
-    return(pt);
-}
-
-/*--------------------------------------------------------------------
- *
- * © Amaury Habrard
- * 
- *fonction qui libere de la memoire allouee en *pt
- *et place le pointeur à NULL
- *ICI on suppose que pt est l'adresse de la variable pointeur allouée
- *nécessaire pour pouvoir libérer.
- *attention pt doit en fait être un void **
- */
-void libere_mem(void *pt)
-{
-  void ** adr_pt=(void **) pt; // on suppose que pt est l'adresse de pointeur à libérer
-  if((*adr_pt)!=NULL){
-    free(*adr_pt); /*liberation de *pt */
-  }
-    *adr_pt=NULL; /* *pt pointe maintenant sur NULL*/
-}
