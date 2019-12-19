@@ -1,0 +1,77 @@
+main gcpyrr
+
+type t1 : array [10..30,20..50] of int;
+var maVar : t1;
+var a : int;
+var b : char;
+var c : bool;
+var d : double;
+
+	function f1 ( param1 : int ; param2 : char) return int	
+        var b: char;
+
+		procedure p1 (param3 : int ; param4 : bool)
+           	type t2 : array [0..30] of int;
+            	var c : t2;
+	    	begin
+			c[5]=2;
+		end;
+
+	begin
+		b='o';
+	end;
+
+	procedure p2 ( param5 : int ; param6 : int)
+        type maStruct :
+		struct
+			champ1 : int;
+			champ2 : double;
+			champ3 : int 
+		end struct;
+	var d : int;
+	var b : bool;
+
+		function f2 ( param7 : int ; param8 : int) return int
+                var e : maStruct;
+		var f : int;
+		begin
+			f=param7;
+		end;
+
+		procedure p3 ( param9 : int ; param10 : int)
+		var g : double;
+		begin
+			vide;
+		end;
+	begin
+   	     f2(2,5);
+	end;
+
+begin
+
+        a=3;
+        a=b;
+        a=3+c;
+        a=b*c;
+        a=d-3;
+        c=true;
+        c=5;
+        d='e';
+        d=3.14;
+        
+       	maVar[2][2] = a;
+        f1(a, 'a');
+        
+        while (a > 0 || a < 10) do
+        begin
+                if(a-2 >= 3) then
+                begin
+                        maVar[1][0]=3;
+                end
+                else
+                begin
+                        a=a+1;
+                end;
+          end;
+
+end

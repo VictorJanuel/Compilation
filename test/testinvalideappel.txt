@@ -1,0 +1,49 @@
+main gcpyrr
+
+type t1 : array [10..30,20..50] of int;
+var maVar : t1;
+var a : int;
+
+	function f1 return int	
+        var b: char;
+	begin
+		b='o';
+	end;
+
+	procedure p2 ( param5 : int ; param6 : int)
+        type maStruct :
+		struct
+			champ1 : int;
+			champ2 : double;
+			champ3 : int 
+		end struct;
+	var d : int;
+	var b : bool;
+
+		function f2 ( param7 : int ; param8 : int) return int
+                var e : maStruct;
+		var f : int;
+		begin
+			f=param7;
+		end;
+
+		procedure p3 ( param9 : int ; param10 : int)
+		var g : double;
+		begin
+			vide;
+		end;
+	begin
+   	     f2(2,5);
+             f2();
+             f2('e', 3.14);
+             f2('e', 3);
+             f2(1, 2, 3);
+	end;
+
+begin
+        f1();
+        p2();
+        p2(5, 3);
+        p2(toto, titi);
+
+end

@@ -15,6 +15,8 @@ void initTabRegion();
 
 void insererRegion(int incr);
 
+void taille_region();
+
 void afficheTabRegion();
 
 #endif

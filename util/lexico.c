@@ -8,7 +8,7 @@ int n_lexico=4;
 void initTabLexico(){
     int i;
     strcpy(tab_lexico[0].lexeme, "integer");
-    strcpy(tab_lexico[1].lexeme, "float");
+    strcpy(tab_lexico[1].lexeme, "double");
     strcpy(tab_lexico[2].lexeme, "char");
     strcpy(tab_lexico[3].lexeme, "bool");
     for(i=4; i<NMAX; i++){
@@ -16,10 +16,14 @@ void initTabLexico(){
     }
 
     for(i=0; i<NMAX; i++){
+        tab_lexico[i].longueur=0;
         tab_lexico[i].suivant=EMPTY;
     }   
 }
 
+/**
+ * Initialisation table de hashage.
+ */
 void initTabHash(){
     int i;
     for(i=0; i<32; i++){
@@ -68,12 +72,14 @@ int insererNouveauLexeme(char *s){
 /**
  * Affichage de la table lexicographique
  */
-
 void afficheTabLexico(){
-    int i=0;
-    fprintf(stdout, "\n ______________________________\nTable Lexicographique\n ______________________________\n");
-    while(i<50 && tab_lexico[i].lexeme!=NULL){
-        fprintf(stdout, "%d\t%s\t%d\n", i, tab_lexico[i].lexeme, tab_lexico[i].suivant);
+    int i;
+    fprintf(stdout, "\n_______________________________________\nTable Lexicographique\n_______________________________________\nindice\ttaille\tlexeme\t\tsuivant\n");
+    for(i=0; i<4; i++){
+        fprintf(stdout, "%d\t%d\t%s\t\t%d\n", i,tab_lexico[i].longueur, tab_lexico[i].lexeme, tab_lexico[i].suivant);
+    }
+    while(i<50 && tab_lexico[i].longueur!=0){
+        fprintf(stdout, "%d\t%d\t%s\t\t%d\n", i,tab_lexico[i].longueur, tab_lexico[i].lexeme, tab_lexico[i].suivant);
         i++;
     }
 }
@@ -81,7 +87,6 @@ void afficheTabLexico(){
 /**
  * Création table de hashage
  */
-
 int hashage(char *s){
     int calcul=0, i;
     

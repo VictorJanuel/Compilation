@@ -31,6 +31,9 @@
 #define N_CHAR 2
 #define N_BOOL 3
 
+#define DIM_MAX 10
+#define PARAM_MAX 100
+
 #endif
 
 #define NMAX 1000

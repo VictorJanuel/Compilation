@@ -2,26 +2,42 @@
 #include "arbre.h"
 
 
-
+/**
+ * Renvoie si un arbre est vide
+ */
 int est_vide(arbre a){
     return a==creer_arbre_vide();
 }
 
+/**
+ * Crée un arbre vide
+ */
 arbre creer_arbre_vide(){
     return NULL;
 }
 
+/**
+ * Crée un noeud
+ */
 arbre creer_noeud(int appel, int num_lex, int num_decla){
     arbre a = (arbre)allocation_mem(1, sizeof(struct_noeud));
     a->appel=appel;
     a->num_lex=num_lex;
     a->num_dec=num_decla;
+    /**
+     * G & D = Vide
+     */
     a->fils_gauche=creer_arbre_vide();
     a->frere_droit=creer_arbre_vide();
     
     return a;
 }
 
+/**
+ * Crée un arbre:
+ *   - Crée un noeud
+ *   - Insère les fils gauche et frere droit
+ */
 arbre creer_arbre(int appel, int num_lex, int num_decla, arbre filsgauche,arbre freredroit){
     arbre a = creer_arbre_vide();
     a=creer_noeud(appel, num_lex, num_decla);
@@ -34,16 +50,28 @@ arbre creer_arbre(int appel, int num_lex, int num_decla, arbre filsgauche,arbre 
 }
 
 
+/**
+ * @deprecated
+ * Inseration à gauche
+ */
 arbre inserer_fils_gauche(arbre a,arbre filsgauche){
     a->fils_gauche=filsgauche;
     return a;
 }
 
+/**
+ * @deprecated
+ * Insertion à droite
+ */
 arbre inserer_frere_droit(arbre a,arbre freredroit){
     a->frere_droit=freredroit;
     return a;
 }
 
+/**
+ * @deprecated 
+ * Parcours d'un arbre
+ */
 arbre parcours(arbre a){
     arbre a_suiv=a;
     while(a_suiv->fils_gauche->frere_droit!=NULL){
@@ -52,17 +80,25 @@ arbre parcours(arbre a){
     return a_suiv->fils_gauche;
 }
 
+/**
+ * Concatene à droite
+ */
 arbre concat_frere(arbre a,arbre frere){
     a->frere_droit=frere;
     return a;
 }
 
-
+/**
+ * Concatene à gauche
+ */
 arbre concat_fils(arbre a,arbre fils){
     a->fils_gauche=fils;
     return a;
 }
 
+/**
+ * Fonction interne, utilisée pour l'affichage
+ */
 void switch_arbre(int num){
     switch(num){
     case A_IDF:
@@ -138,11 +174,14 @@ void switch_arbre(int num){
         printf("A_OU");
         break;
     default:
-        printf("OK");
+        printf("VOID");
         break;
     }
 }
 
+/**
+ * Affichage récursif
+ */
 void afficher_arbre_bis(arbre a, int largeur){
     printf("[%d] ", a->num_lex);
     switch_arbre(a->appel);
@@ -158,6 +197,9 @@ void afficher_arbre_bis(arbre a, int largeur){
     }
 }
 
+/**
+ * Affichage: Appel principal
+ */
 void affiche_arbre(arbre a){
     afficher_arbre_bis(a, 0);
     fprintf(stdout, "\n");
